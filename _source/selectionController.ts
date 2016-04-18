@@ -1,16 +1,16 @@
-interface IGetByIdDelegate {
+export interface IGetByIdDelegate {
     (id: string): Element;
 }
 
-interface IGetFromContainerDelegate {
+export interface IGetFromContainerDelegate {
     (container: Element, selector: string): Element;
 }
 
-interface IGetAllDelegate {
+export interface IGetAllDelegate {
     (selector: string): NodeList;
 }
 
-interface IGetAllFromContainer {
+export interface IGetAllFromContainer {
     (container: Element, selector: string): NodeList;
 }
 

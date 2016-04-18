@@ -1,14 +1,14 @@
 import {ISelectionController} from "./selectionController";
 
-interface IGetTemplateDelegate {
+export interface IGetTemplateDelegate {
     (string): string;
 }
 
-interface IGetKnownTemplatesDelegate {
+export interface IGetKnownTemplatesDelegate {
     (): Array<string>;
 }
 
-interface IResolveReferencesDelegate {
+export interface IResolveReferencesDelegate {
     (string): string;
 }
 

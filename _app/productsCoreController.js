@@ -9,11 +9,17 @@ var ProductsCoreController = (function () {
             }
             return undefined;
         };
+        this.contains = function (id) {
+            return this.getById(id) !== undefined;
+        };
         this.addProducts = function (products) {
             for (var ii = 0; ii < products.length; ii++) {
                 if (_this.getById(products[ii].id) === undefined)
                     _this.model.push(products[ii]);
             }
+        };
+        this.getAll = function () {
+            return this.model;
         };
         this.model = products;
     }

@@ -6,10 +6,14 @@
 
 "use strict";
 
+// Core Controllers
 var selectionController;
 var templateController;
 var bindController;
 var viewStringController;
+
+// Products Controllers
+var productsController;
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -18,13 +22,14 @@ document.addEventListener("DOMContentLoaded", () => {
     bindController = new BindController();
     viewStringController = new ViewStringController(templateController, bindController);
 
-    var productsController = new ProductsCoreController(products);
+    productsController = new ProductsCoreController(products);
     productsController.addProducts(owned);
     
-    var p = productsController.getById(1448355943);
-    alert(p.title);
+    var combinedProducts = productsController.getAll();
+    var combinedProductsView = [];
+    for (var ii=0; ii<combinedProducts.length; ii++) {
+        combinedProductsView.push(viewStringController.createViewString(combinedProducts[ii], "product"));
+    }
     
-    p = productsController.getById(1);
-    alert(p.title);
-
+    document.body.innerHTML = combinedProductsView.join("");
 });

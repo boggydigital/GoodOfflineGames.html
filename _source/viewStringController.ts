@@ -1,7 +1,7 @@
 import {ITemplateController} from "./templateController";
 import {IBindController} from "./bindController";
 
-interface ICreateViewStringDelegate {
+export interface ICreateViewStringDelegate {
     (model: any, getViewModelDelegate: any, templateId: string): string;
 }
 
