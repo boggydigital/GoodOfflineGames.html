@@ -18,7 +18,9 @@
 
     <div id="templates">
         <template id="product">
-            <a href='#{{id}}' class='product {{productClass}}' title='{{title}}'>{{title}}</a>
+            <div data-id='{{id}}' class='product {{productClass}}' title='{{title}}'>
+                <span class='title'>{{title}}</span>
+            </div>
         </template>
     </div>
 
@@ -52,6 +54,10 @@
     <script src="./_app/templateController.js"></script>
     <script src="./_app/bindController.js"></script>
     <script src="./_app/viewStringController.js"></script>
+    <script src="./_app/eventListener.js"></script>
+    <script src="./_app/eventListenerController.js"></script>
+    <script src="./_app/selectableController.js"></script>
+    
     <script src="./_app/productsCoreController.js"></script>
     <!-- application entry point -->
     <script src="./_app/application.js"></script>

@@ -2,7 +2,7 @@
 var ViewStringController = (function () {
     function ViewStringController(templateController, bindController) {
         var _this = this;
-        this.createViewString = function (model, templateId) {
+        this.create = function (model, templateId) {
             var view = "";
             var template = _this.templateController.getTemplate(templateId);
             if (template === "")

@@ -3,3 +3,39 @@
     font-size: 16px;
     margin: 0;
 }
+
+.selected {
+    background-color: black;
+    color: white;
+}
+
+#products {
+    background: tomato;
+    color: inherit;
+    width: 20em;
+    overflow-x: hidden;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom:0;
+}
+
+#products .product {
+    width: 100%;
+    display: block;
+    padding: 0.5em 1em;
+    text-decoration: none;
+}
+
+#products .product .title {
+    white-space: nowrap;
+}
+
+#gameDetails {
+    background: yellowgreen;
+    position: fixed;
+    left: 20em;
+    top: 0;
+    right: 0;
+    bottom: 0;
+}

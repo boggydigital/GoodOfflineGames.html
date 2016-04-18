@@ -10,6 +10,10 @@
         "templateController.ts",
         "bindController.ts",
         "viewStringController.ts",
-        "productsCoreController.ts"
+        "productsCoreController.ts",
+        "eventListener.ts",
+        "eventListenerController.ts",
+        "selectableController.ts",
+        "masterDetailController.ts"
     ]
 }

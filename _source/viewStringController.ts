@@ -1,12 +1,12 @@
 import {ITemplateController} from "./templateController";
 import {IBindController} from "./bindController";
 
-export interface ICreateViewStringDelegate {
+export interface ICreateDelegate {
     (model: any, getViewModelDelegate: any, templateId: string): string;
 }
 
 export interface IViewStringController {
-    createViewString: ICreateViewStringDelegate;
+    create: ICreateDelegate;
 }
 
 export class ViewStringController implements IViewStringController {
@@ -20,7 +20,7 @@ export class ViewStringController implements IViewStringController {
         this.bindController = bindController;
     }
 
-    public createViewString = (model: any, templateId: string): string => {
+    public create: ICreateDelegate = (model: any, templateId: string): string => {
         let view = "";
         let template = this.templateController.getTemplate(templateId);
         if (template === "") view = "(cannot find template)";
