@@ -24,22 +24,22 @@ export interface ISelectionController {
 export class SelectionController implements ISelectionController {
 
     public getById: IGetByIdDelegate =
-    function(id: string): Element {
+    function (id: string): Element {
         return document.getElementById(id);
     }
 
     public getFromContainer: IGetFromContainerDelegate =
-    function(container: Element, selector: string): Element {
+    function (container: Element, selector: string): Element {
         return container && container.querySelector(selector);
     }
 
     public getAll: IGetAllDelegate =
-    function(selector: string): NodeList { 
-        return document.querySelectorAll(selector); 
+    function (selector: string): NodeList {
+        return document.querySelectorAll(selector);
     }
 
     public getAllFromContainer: IGetAllFromContainer =
-    function(container: Element, selector: string): NodeList { 
-        return container && container.querySelectorAll(selector); 
+    function (container: Element, selector: string): NodeList {
+        return container && container.querySelectorAll(selector);
     }
 }

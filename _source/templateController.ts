@@ -1,4 +1,4 @@
-import * as selectionController from "./selectionController";
+import {ISelectionController} from "./selectionController";
 
 interface IGetTemplateDelegate {
     (string): string;
@@ -21,9 +21,9 @@ export interface ITemplateController {
 export class TemplateController implements ITemplateController {
 
     templatesContainer: Element;
-    selectionController: selectionController.ISelectionController;
+    selectionController: ISelectionController;
 
-    public constructor(selectionController: selectionController.ISelectionController) {
+    public constructor(selectionController: ISelectionController) {
         this.selectionController = selectionController;
         this.templatesContainer =
             this.selectionController &&

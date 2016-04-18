@@ -12,9 +12,9 @@
 
 <body class="dark">
 
-    <div id="productsContainer" class="container hidden"></div>
+    <div id="products" class="container hidden"></div>
 
-    <div id="gameDetailsContainer" class="container hidden"></div>
+    <div id="gameDetails" class="container hidden"></div>
 
     <div id="templates">
         <template id="product">
@@ -33,6 +33,8 @@
         var screenshots = undefined;
         var productfiles = undefined;
         var wikipedia = undefined;
+        
+        var exports = {};
     </script>
     <!-- model -->
     <script src="./products.js"></script>
@@ -46,8 +48,12 @@
     <script src="./screenshots.js"></script>
     <script src="./wikipedia.js"></script>
     <!-- controllers -->
-    <script src="./_app/require.js"></script>
-    <script src="./_app/app.js"></script>
+    <script src="./_app/selectionController.js"></script>
+    <script src="./_app/templateController.js"></script>
+    <script src="./_app/bindController.js"></script>
+    <script src="./_app/viewStringController.js"></script>
+    <!-- application entry point -->
+    <script src="./_app/application.js"></script>
 </body>
 
 </html>
