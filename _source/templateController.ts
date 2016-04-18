@@ -40,7 +40,7 @@ export class TemplateController implements ITemplateController {
         return knownTemplates;
     }
 
-    public resolveReferences = function(template: string): string {
+    public resolveReferences = (template: string): string => {
         let knownTemplates = this.getKnownTemplates();
         knownTemplates.forEach(knownTemplate => {
             let replacedTemplate = "[[" + knownTemplate + "]]";
@@ -50,7 +50,7 @@ export class TemplateController implements ITemplateController {
         return template;
     }
 
-    public getTemplate = function(id: string): string {
+    public getTemplate = (id: string): string => {
         var template = this.selectionController.getFromContainer(
             this.templatesContainer,
             "#" + id);

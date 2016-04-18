@@ -1,12 +1,13 @@
 "use strict";
 var BindController = (function () {
     function BindController() {
+        var _this = this;
         this.bindDecorationOpen = "{{";
         this.bindDecorationClose = "}}";
         this.bindTemplateToModel = function (template, model) {
             var result = template;
             for (var property in model) {
-                var replacedProperty = this.bindDecorationOpen + property + this.bindDecorationClose;
+                var replacedProperty = _this.bindDecorationOpen + property + _this.bindDecorationClose;
                 while (result.indexOf(replacedProperty) > -1)
                     result = result.replace(replacedProperty, model[property]);
             }

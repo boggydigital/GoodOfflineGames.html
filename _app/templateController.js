@@ -1,6 +1,7 @@
 "use strict";
 var TemplateController = (function () {
     function TemplateController(selectionController) {
+        var _this = this;
         this.getKnownTemplates = function () {
             var knownTemplates = new Array();
             var templates = this.selectionController.getAll("template");
@@ -12,7 +13,7 @@ var TemplateController = (function () {
             return knownTemplates;
         };
         this.resolveReferences = function (template) {
-            var knownTemplates = this.getKnownTemplates();
+            var knownTemplates = _this.getKnownTemplates();
             knownTemplates.forEach(function (knownTemplate) {
                 var replacedTemplate = "[[" + knownTemplate + "]]";
                 while (template.indexOf(replacedTemplate) > -1)
@@ -21,9 +22,9 @@ var TemplateController = (function () {
             return template;
         };
         this.getTemplate = function (id) {
-            var template = this.selectionController.getFromContainer(this.templatesContainer, "#" + id);
+            var template = _this.selectionController.getFromContainer(_this.templatesContainer, "#" + id);
             var templateContent = template ? template.innerHTML : "";
-            return this.resolveReferences(templateContent);
+            return _this.resolveReferences(templateContent);
         };
         this.selectionController = selectionController;
         this.templatesContainer =

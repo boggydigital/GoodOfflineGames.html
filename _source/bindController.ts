@@ -11,7 +11,7 @@ export class BindController implements IBindController {
     bindDecorationOpen: string = "{{";
     bindDecorationClose: string = "}}";
 
-    public bindTemplateToModel: IBindTemplateToModelDelegate = function (template: string, model: any): string {
+    public bindTemplateToModel: IBindTemplateToModelDelegate = (template: string, model: any): string => {
         let result = template;
         for (var property in model) {
             var replacedProperty = this.bindDecorationOpen + property + this.bindDecorationClose;

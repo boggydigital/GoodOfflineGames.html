@@ -20,7 +20,7 @@ export class ViewStringController implements IViewStringController {
         this.bindController = bindController;
     }
 
-    public createViewString = function (model: any, templateId: string): string {
+    public createViewString = (model: any, templateId: string): string => {
         let view = "";
         let template = this.templateController.getTemplate(templateId);
         if (template === "") view = "(cannot find template)";

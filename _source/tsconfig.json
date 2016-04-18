@@ -5,9 +5,11 @@
         "outDir": "../_app"
     },
     "files": [
+        "model/productCore.ts",
         "selectionController.ts",
         "templateController.ts",
         "bindController.ts",
-        "viewStringController.ts"
+        "viewStringController.ts",
+        "productsCoreController.ts"
     ]
 }

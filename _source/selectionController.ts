@@ -29,17 +29,17 @@ export class SelectionController implements ISelectionController {
     }
 
     public getFromContainer: IGetFromContainerDelegate =
-    function (container: Element, selector: string): Element {
+    (container: Element, selector: string): Element => {
         return container && container.querySelector(selector);
     }
 
     public getAll: IGetAllDelegate =
-    function (selector: string): NodeList {
+    (selector: string): NodeList => {
         return document.querySelectorAll(selector);
     }
 
     public getAllFromContainer: IGetAllFromContainer =
-    function (container: Element, selector: string): NodeList {
+    (container: Element, selector: string): NodeList => {
         return container && container.querySelectorAll(selector);
     }
 }
