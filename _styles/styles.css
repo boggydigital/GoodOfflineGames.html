@@ -4,37 +4,82 @@
     margin: 0;
 }
 body.dark {
-    background: #212121;
-    color: #fafafa;
-}
-
-
-.selected {
-    background-color: #0d47a1;
+    background: black;
     color: white;
 }
 
-#products {
-    background: inherit;
-    color: inherit;
-    width: 400px;
-    overflow-x: hidden;
+#search {
     position: fixed;
     left: 0;
     top: 0;
+    height: calc(32px+12px+12px);
+    width: 400px;
+    background-color: rgb(23,23,23);
+}
+
+#search input[type=search] {
+    margin: 12px;
+    padding: 3px 6px 5px 10px ;
+    width: calc(400px - 2*12px);
+    height: 32px;
+    font-size: 14px;
+    border: 2px solid rgb(133,133,133);
+    background: black;
+}
+
+#search input[type=search]:hover {
+    border-color: white;
+}
+
+#search input[type=search]:focus {
+    border-color: rgb(0,120,215);
+    background: white;
+}
+
+#search input[type=search]::-webkit-input-placeholder {
+    color: rgb(133,133,133);
+}
+
+#products .product.selected {
+    background: rgb(9,81,138);
+    color: white;
+}
+
+#products .product.selected:hover {
+    background: rgb(5,101,177);
+}
+
+#products {
+    background: rgb(23,23,23);
+    color: inherit;
+    width: 400px;
+    position: fixed;
+    left: 0;
+    top: calc(32px + 12px + 12px);
     bottom:0;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+    overflow-x: hidden;
 }
 
 #products .product {
-    width: 100%;
+    background: inherit;
+    width: calc(400px-2*12px);
     display: block;
-    padding: 1em;
+    padding: 12px;
     text-decoration: none;
     cursor: default;
 }
 
+#products .product:hover {
+    background: rgb(46,46,46);
+}
+
 #products .product .title {
     white-space: nowrap;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
 }
 
 #gameDetails {
@@ -45,5 +90,5 @@ body.dark {
     right: 0;
     bottom: 0;
     padding: 1em;
-    font-size: 40px;
+    font-size: 50px;
 }
