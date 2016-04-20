@@ -18,14 +18,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let productsController = new ProductsCoreController(products);
     productsController.addProducts(owned);
-    var combinedProducts = productsController.getAll();
+    let combinedProducts = productsController.getAll();
 
-    var combinedProductsView = [];
-    for (var ii = 0; ii < combinedProducts.length; ii++) {
+    let combinedProductsView = [];
+    for (let ii = 0; ii < combinedProducts.length; ii++) {
         combinedProductsView.push(viewController.create(combinedProducts[ii], "product"));
     }
 
-    var productsContainer = document.getElementById("products");
+    let productsContainer = document.getElementById("products");
 
     productsContainer.innerHTML = combinedProductsView.join("");
 
@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
         alert(e.getAttribute("data-id"));
     });
 
-    var firstProduct = productsContainer.querySelector(".product");
+    let firstProduct = productsContainer.querySelector(".product");
     listController.select(firstProduct);
 });
 
