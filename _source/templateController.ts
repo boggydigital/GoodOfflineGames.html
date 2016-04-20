@@ -1,5 +1,3 @@
-import {ISelectionController} from "./selectionController";
-
 export interface IGetTemplateDelegate {
     (string): string;
 }
@@ -21,18 +19,14 @@ export interface ITemplateController {
 export class TemplateController implements ITemplateController {
 
     templatesContainer: Element;
-    selectionController: ISelectionController;
 
-    public constructor(selectionController: ISelectionController) {
-        this.selectionController = selectionController;
-        this.templatesContainer =
-            this.selectionController &&
-            this.selectionController.getById("templates");
+    public constructor() {
+        this.templatesContainer = document.getElementById("templates");
     }
 
     public getKnownTemplates = function(): Array<string> {
         var knownTemplates = new Array<string>();
-        var templates = this.selectionController.getAll("template");
+        var templates = document.querySelectorAll("template");
         for (var ii = 0; ii < templates.length; ii++) {
             var t = templates[ii];
             if (t && t.id) knownTemplates.push(t.id);
@@ -51,9 +45,7 @@ export class TemplateController implements ITemplateController {
     }
 
     public getTemplate = (id: string): string => {
-        var template = this.selectionController.getFromContainer(
-            this.templatesContainer,
-            "#" + id);
+        var template = this.templatesContainer.querySelector("#" + id);
         var templateContent = template ? template.innerHTML : "";
         return this.resolveReferences(templateContent);
     }

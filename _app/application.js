@@ -1,52 +1,41 @@
-/// <reference path="./selectionController.js" />
-/// <reference path="./templateController.js" />
-/// <reference path="./bindController.js" />
-/// <reference path="./viewStringController.js" />
-/// <reference path="./selectableController.js" />
-/// <reference path="./productsCoreController.js" />
+/// <reference path="./templateController.d.ts" />
+/// <reference path="./bindController.d.ts" />
+/// <reference path="./viewController.d.ts" />
+/// <reference path="./productsCoreController.d.ts" />
+/// <reference path="./listController.d.ts" />
+/// <reference path="./eventCallback.d.ts" />
+/// <reference path="./eventCallbackController.d.ts" />
+
 "use strict";
-
-// Core Controllers
-var selectionController;
-var templateController;
-var bindController;
-var viewStringController;
-var selectableController;
-var eventListener;
-var eventListenerController;
-
-// Products Controllers
-var productsController;
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    selectionController = new SelectionController();
-    templateController = new TemplateController(selectionController);
-    bindController = new BindController();
-    viewStringController = new ViewStringController(templateController, bindController);
+    let templateController = new TemplateController();
+    let bindController = new BindController();
+    let viewController = new ViewController(templateController, bindController);
 
-    eventListener = new EventListener();
-    eventListenerController = new EventListenerController(eventListener);
+    let eventCallback = new EventCallback();
+    let eventCallbackController = new EventCallbackController(eventCallback.create);
 
-    productsController = new ProductsCoreController(products);
+    let productsController = new ProductsCoreController(products);
     productsController.addProducts(owned);
-
     var combinedProducts = productsController.getAll();
+
     var combinedProductsView = [];
     for (var ii = 0; ii < combinedProducts.length; ii++) {
-        combinedProductsView.push(viewStringController.create(combinedProducts[ii], "product"));
+        combinedProductsView.push(viewController.create(combinedProducts[ii], "product"));
     }
 
-    var productsContainer = selectionController.getById("products");
+    var productsContainer = document.getElementById("products");
 
     productsContainer.innerHTML = combinedProductsView.join("");
 
-    selectableController = new SelectableController(selectionController, eventListenerController, productsContainer, ".product");
-    selectableController.addEventListener("selectedchanged", function(e) {
-       alert(e.getAttribute("data-id")); 
+    let listController = new ListController(eventCallbackController, productsContainer, ".product");
+    listController.addEventCallback("selectedchanged", function (e) {
+        alert(e.getAttribute("data-id"));
     });
 
-    var firstProduct = selectionController.getFromContainer(productsContainer, ".product");
-    selectableController.select(firstProduct);
+    var firstProduct = productsContainer.querySelector(".product");
+    listController.select(firstProduct);
 });
 

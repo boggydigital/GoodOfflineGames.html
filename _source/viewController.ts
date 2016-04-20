@@ -1,15 +1,15 @@
 import {ITemplateController} from "./templateController";
-import {IBindController} from "./bindController";
+import {IBindController} from "./bindController"; 
 
 export interface ICreateDelegate {
     (model: any, getViewModelDelegate: any, templateId: string): string;
 }
 
-export interface IViewStringController {
+export interface IViewController {
     create: ICreateDelegate;
 }
 
-export class ViewStringController implements IViewStringController {
+export class ViewController implements IViewController {
 
     templateController: ITemplateController;
     bindController: IBindController;

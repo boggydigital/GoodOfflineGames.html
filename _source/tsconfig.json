@@ -1,19 +1,16 @@
 {
     "compilerOptions": {
-        "target": "es5",
-        "sourceMap": true,
-        "outDir": "../_app"
+        "outDir": "../_app",
+        "declaration": true
     },
     "files": [
         "model/productCore.ts",
-        "selectionController.ts",
         "templateController.ts",
         "bindController.ts",
-        "viewStringController.ts",
+        "viewController.ts",
         "productsCoreController.ts",
-        "eventListener.ts",
-        "eventListenerController.ts",
-        "selectableController.ts",
-        "masterDetailController.ts"
+        "eventCallback.ts",
+        "eventCallbackController.ts",
+        "listController.ts"
     ]
 }
