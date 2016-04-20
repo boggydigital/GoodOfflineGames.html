@@ -1,7 +1,11 @@
 {
     "compilerOptions": {
+        "target": "es5",
         "outDir": "../_app",
-        "declaration": true
+        "declaration": true,
+        "inlineSourceMap": true,
+        "listFiles": true,
+        "noImplicitReturns": true
     },
     "files": [
         "model/productCore.ts",
