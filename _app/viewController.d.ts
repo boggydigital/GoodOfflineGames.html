@@ -1,7 +1,7 @@
 import { ITemplateController } from "./templateController";
 import { IBindController } from "./bindController";
 export interface ICreateDelegate {
-    (model: any, getViewModelDelegate: any, templateId: string): string;
+    (model: any, templateId: string): string;
 }
 export interface IViewController {
     create: ICreateDelegate;
