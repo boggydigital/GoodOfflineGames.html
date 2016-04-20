@@ -14,8 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let bindController = new BindController();
     let viewController = new ViewController(templateController, bindController);
 
-    let eventCallback = new EventCallback();
-    let eventCallbackController = new EventCallbackController(eventCallback.create);
+    let eventCallbackController = new EventCallbackController();
 
     let productsController = new ProductsCoreController(products);
     productsController.addProducts(owned);

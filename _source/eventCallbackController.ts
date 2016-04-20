@@ -1,4 +1,13 @@
-import {ICreateEventCallbackDelegate, EventCallback} from "./eventCallback";
+export class EventCallback {
+    
+    private event: string;
+    private callback: Function;
+
+    public constructor(event: string, callback: Function) {
+        this.event = event;
+        this.callback = callback;
+    }
+}
 
 export interface IFireDelegate {
     (event: string, argArray: any[]): void;
@@ -15,11 +24,9 @@ export interface IEventCallbackController {
 
 export class EventCallbackController implements IEventCallbackController {
     
-    eventCallbacks: Array<EventCallback>
-    createEventCallbackDelegate: ICreateEventCallbackDelegate;
+    private eventCallbacks: Array<EventCallback>
 
-    public constructor(createEventCallbackDelegate: ICreateEventCallbackDelegate) {
-        this.createEventCallbackDelegate = createEventCallbackDelegate;
+    public constructor() {
         this.eventCallbacks = new Array<EventCallback>();
     }
 
@@ -30,7 +37,6 @@ export class EventCallbackController implements IEventCallbackController {
     }
 
     public addEventCallback: IAddEventCallbackDelegate = function (event: string, callback: Function) {
-        var eventCallback = this.createEventCallbackDelegate(event, callback);
-        this.eventCallbacks.push(eventCallback);
+        this.eventCallbacks.push(new EventCallback(event, callback));
     }
 }

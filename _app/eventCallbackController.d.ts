@@ -1,4 +1,8 @@
-import { ICreateEventCallbackDelegate, EventCallback } from "./eventCallback";
+export declare class EventCallback {
+    private event;
+    private callback;
+    constructor(event: string, callback: Function);
+}
 export interface IFireDelegate {
     (event: string, argArray: any[]): void;
 }
@@ -10,9 +14,8 @@ export interface IEventCallbackController {
     addEventCallback: IAddEventCallbackDelegate;
 }
 export declare class EventCallbackController implements IEventCallbackController {
-    eventCallbacks: Array<EventCallback>;
-    createEventCallbackDelegate: ICreateEventCallbackDelegate;
-    constructor(createEventCallbackDelegate: ICreateEventCallbackDelegate);
+    private eventCallbacks;
+    constructor();
     fire: IFireDelegate;
     addEventCallback: IAddEventCallbackDelegate;
 }

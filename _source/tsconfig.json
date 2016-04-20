@@ -13,7 +13,6 @@
         "bindController.ts",
         "viewController.ts",
         "productsCoreController.ts",
-        "eventCallback.ts",
         "eventCallbackController.ts",
         "listController.ts"
     ]
