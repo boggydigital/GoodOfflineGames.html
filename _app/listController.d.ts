@@ -20,7 +20,7 @@ export declare class ListController implements IListController {
     selectedChangedEvent: string;
     selectedClearedEvent: string;
     container: Element;
-    constructor(eventListenerController: IEventCallbackController, container: Element, selectableSelector: string);
+    constructor(eventListenerController: IEventCallbackController, container: Element, selectableClass: string);
     clear: IClearDelegate;
     select: ISelectDelegate;
     addEventCallback: IAddEventCallbackDelegate;

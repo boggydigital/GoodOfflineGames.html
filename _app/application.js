@@ -18,23 +18,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let productsController = new ProductsCoreController(products);
     productsController.addProducts(owned);
-    var combinedProducts = productsController.getAll();
+    let combinedProducts = productsController.getAll();
 
-    var combinedProductsView = [];
-    for (var ii = 0; ii < combinedProducts.length; ii++) {
+    let combinedProductsView = [];
+    for (let ii = 0; ii < combinedProducts.length; ii++) {
         combinedProductsView.push(viewController.create(combinedProducts[ii], "product"));
     }
 
-    var productsContainer = document.getElementById("products");
-
+    let productsContainer = document.getElementById("products");
     productsContainer.innerHTML = combinedProductsView.join("");
 
-    let listController = new ListController(eventCallbackController, productsContainer, ".product");
+    let listController = new ListController(eventCallbackController, productsContainer, "product");
     listController.addEventCallback("selectedchanged", function (e) {
-        alert(e.getAttribute("data-id"));
+        let id = parseInt(e.getAttribute("data-id")); 
+        let product = productsController.getById(id)
+        document.getElementById("gameDetails").innerHTML = product.id + "<br/>" + product.title;
     });
 
-    var firstProduct = productsContainer.querySelector(".product");
+    let firstProduct = productsContainer.querySelector(".product");
     listController.select(firstProduct);
 });
 

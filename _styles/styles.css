@@ -3,16 +3,21 @@
     font-size: 16px;
     margin: 0;
 }
+body.dark {
+    background: #212121;
+    color: #fafafa;
+}
+
 
 .selected {
-    background-color: black;
+    background-color: #0d47a1;
     color: white;
 }
 
 #products {
-    background: gray;
+    background: inherit;
     color: inherit;
-    width: 25em;
+    width: 400px;
     overflow-x: hidden;
     position: fixed;
     left: 0;
@@ -23,7 +28,7 @@
 #products .product {
     width: 100%;
     display: block;
-    padding: 0.5em 1em;
+    padding: 1em;
     text-decoration: none;
     cursor: default;
 }
@@ -33,10 +38,12 @@
 }
 
 #gameDetails {
-    background: yellowgreen;
+    background: inherit;
     position: fixed;
-    left: 25em;
+    left: 400px;
     top: 0;
     right: 0;
     bottom: 0;
+    padding: 1em;
+    font-size: 40px;
 }
