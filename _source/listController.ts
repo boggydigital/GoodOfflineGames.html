@@ -32,17 +32,26 @@ export class ListController implements IListController {
     public constructor(
         eventListenerController: IEventCallbackController,
         container: Element,
-        selectableSelector: string) {
+        selectableClass: string) {
         this.container = container;
-        this.selectableElements = this.container.querySelectorAll(selectableSelector);
+        let that = this;
+        this.container.addEventListener("click", (e) => {
+            let targetElement = e.target as Element;
+            while (targetElement && !targetElement.classList.contains(selectableClass)) {
+                targetElement = targetElement.parentElement ? targetElement.parentElement : undefined;
+            }
+            if (targetElement !== undefined) that.select(targetElement);
+        });
+        
+        this.selectableElements = this.container.getElementsByClassName(selectableClass);
         this.eventListenerController = eventListenerController;
     }
 
     public clear: IClearDelegate = function (): void {
-        var selected = this.container.querySelectorAll(this.selectedClass);
-        if (selected === undefined) return;
-        for (var ii = 0; ii < selected.length; ii++) {
-            selected[ii].classList.remove(this.selectedClass);
+        var selectedElements = this.container.getElementsByClassName(this.selectedClass);
+        if (selectedElements === undefined) return;
+        for (var ii = 0; ii < selectedElements.length; ii++) {
+            selectedElements[ii].classList.remove(this.selectedClass);
         }
     }
 
