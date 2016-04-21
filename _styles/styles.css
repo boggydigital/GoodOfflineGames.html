@@ -25,6 +25,9 @@ body.dark {
     font-size: 14px;
     border: 2px solid rgb(133,133,133);
     background: black;
+    /* WebKit fix */
+    -webkit-appearance: none;
+    outline: none;
 }
 
 #search input[type=search]:hover {
