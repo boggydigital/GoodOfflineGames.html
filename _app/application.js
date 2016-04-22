@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
     listController.addEventCallback("selectedchanged", function (e) {
         let id = parseInt(e.getAttribute("data-id")); 
         let product = productsController.getById(id)
-        document.getElementById("gameDetails").innerHTML = product.id + "<br/>" + product.title;
+        document.getElementById("gameDetails").innerHTML = "<img src='https:"+product.image+".png' /><h1>"+product.title +"</h1>";
     });
     
     let searchController = new SearchController(document.querySelector("#search input[type=search]"));

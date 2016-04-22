@@ -104,3 +104,14 @@ body.dark {
     padding: 24px;
     font-size: 24px;
 }
+
+#gameDetails h1 {
+    font-size: 24px;
+    font-weight: normal;
+    margin: 24px 0 24px;
+}
+
+#gameDetails img {
+    width: 100%;
+    max-height: 740px;
+}
