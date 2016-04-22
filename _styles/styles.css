@@ -3,24 +3,27 @@
     font-size: 16px;
     margin: 0;
 }
+
 body.dark {
     background: black;
     color: white;
 }
+
+/* Search */
 
 #search {
     position: fixed;
     left: 0;
     top: 0;
     height: calc(32px+12px+12px);
-    width: 400px;
+    width: 320px;
     background-color: rgb(23,23,23);
 }
 
 #search input[type=search] {
     margin: 12px;
     padding: 3px 6px 5px 10px ;
-    width: calc(400px - 2*12px);
+    width: calc(320px - 2*12px);
     height: 32px;
     font-size: 14px;
     border: 2px solid rgb(133,133,133);
@@ -28,6 +31,7 @@ body.dark {
     /* WebKit fix */
     -webkit-appearance: none;
     outline: none;
+    color: white;
 }
 
 #search input[type=search]:hover {
@@ -37,11 +41,14 @@ body.dark {
 #search input[type=search]:focus {
     border-color: rgb(0,120,215);
     background: white;
+    color: black;
 }
 
 #search input[type=search]::-webkit-input-placeholder {
     color: rgb(133,133,133);
 }
+
+/* Products */
 
 #products .product.selected {
     background: rgb(9,81,138);
@@ -55,7 +62,7 @@ body.dark {
 #products {
     background: rgb(23,23,23);
     color: inherit;
-    width: 400px;
+    width: 320px;
     position: fixed;
     left: 0;
     top: calc(32px + 12px + 12px);
@@ -66,7 +73,7 @@ body.dark {
 
 #products .product {
     background: inherit;
-    width: calc(400px-2*12px);
+    width: calc(320px-2*12px);
     display: block;
     padding: 12px;
     text-decoration: none;
@@ -85,10 +92,12 @@ body.dark {
     display: inline-block;
 }
 
+/* Game Details */
+
 #gameDetails {
     background: inherit;
     position: fixed;
-    left: 400px;
+    left: 320px;
     top: 0;
     right: 0;
     bottom: 0;

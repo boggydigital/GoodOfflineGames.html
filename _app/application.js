@@ -1,10 +1,12 @@
 /// <reference path="./templateController.d.ts" />
 /// <reference path="./bindController.d.ts" />
 /// <reference path="./viewController.d.ts" />
-/// <reference path="./productsCoreController.d.ts" />
-/// <reference path="./listController.d.ts" />
 /// <reference path="./eventCallback.d.ts" />
 /// <reference path="./eventCallbackController.d.ts" />
+/// <reference path="./listController.d.ts" />
+/// <reference path="./searchController.d.ts" />
+/// <reference path="./productsCoreController.d.ts" />
+
 
 "use strict";
 
@@ -34,6 +36,8 @@ document.addEventListener("DOMContentLoaded", () => {
         let product = productsController.getById(id)
         document.getElementById("gameDetails").innerHTML = product.id + "<br/>" + product.title;
     });
+    
+    let searchController = new SearchController(document.querySelector("#search input[type=search]"));
 
     let firstProduct = productsContainer.querySelector(".product");
     listController.select(firstProduct);

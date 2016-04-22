@@ -14,6 +14,7 @@
         "viewController.ts",
         "productsCoreController.ts",
         "eventCallbackController.ts",
-        "listController.ts"
+        "listController.ts",
+        "searchController.ts"
     ]
 }
