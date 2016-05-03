@@ -4,7 +4,7 @@ export declare class EventCallback {
     constructor(event: string, callback: Function);
 }
 export interface IFireDelegate {
-    (event: string, argArray: any[]): void;
+    (event: string, argArray: any): void;
 }
 export interface IAddEventCallbackDelegate {
     (event: string, callback: Function): void;

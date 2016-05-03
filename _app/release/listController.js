@@ -1,9 +1,9 @@
 "use strict";
 var ListController = (function () {
-    function ListController(eventListenerController, container, selectableClass) {
+    function ListController(eventCallbackController, container, selectableClass) {
         this.selectedClass = "selected";
-        this.selectedChangedEvent = "selectedchanged";
-        this.selectedClearedEvent = "selectedcleared";
+        this.selectedChangedEvent = "selectedChanged";
+        this.selectedClearedEvent = "selectedCleared";
         this.clear = function () {
             var selectedElements = this.container.getElementsByClassName(this.selectedClass);
             if (selectedElements === undefined)
@@ -17,10 +17,10 @@ var ListController = (function () {
             if (element === undefined || element === null)
                 return;
             element.classList.add(this.selectedClass);
-            this.eventListenerController.fire(this.selectedChangedEvent, element);
+            this.eventCallbackController.fire(this.selectedChangedEvent, element);
         };
         this.addEventCallback = function (event, callback) {
-            this.eventListenerController.addEventCallback(event, callback);
+            this.eventCallbackController.addEventCallback(event, callback);
         };
         this.container = container;
         var that = this;
@@ -33,7 +33,7 @@ var ListController = (function () {
                 that.select(targetElement);
         });
         this.selectableElements = this.container.getElementsByClassName(selectableClass);
-        this.eventListenerController = eventListenerController;
+        this.eventCallbackController = eventCallbackController;
     }
     return ListController;
 }());

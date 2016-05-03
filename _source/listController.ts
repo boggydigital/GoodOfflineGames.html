@@ -22,15 +22,15 @@ export class ListController implements IListController {
 
     selectableElements: NodeList;
     selectedClass: string = "selected";
-    eventListenerController: IEventCallbackController;
+    eventCallbackController: IEventCallbackController;
 
-    selectedChangedEvent = "selectedchanged";
-    selectedClearedEvent = "selectedcleared";
+    selectedChangedEvent = "selectedChanged";
+    selectedClearedEvent = "selectedCleared";
 
     container: Element;
 
     public constructor(
-        eventListenerController: IEventCallbackController,
+        eventCallbackController: IEventCallbackController,
         container: Element,
         selectableClass: string) {
         this.container = container;
@@ -44,7 +44,7 @@ export class ListController implements IListController {
         });
         
         this.selectableElements = this.container.getElementsByClassName(selectableClass);
-        this.eventListenerController = eventListenerController;
+        this.eventCallbackController = eventCallbackController;
     }
 
     public clear: IClearDelegate = function (): void {
@@ -60,10 +60,10 @@ export class ListController implements IListController {
         if (element === undefined || element === null) return;
         element.classList.add(this.selectedClass);
         
-        this.eventListenerController.fire(this.selectedChangedEvent, element);
+        this.eventCallbackController.fire(this.selectedChangedEvent, element);
     }
 
     public addEventCallback: IAddEventCallbackDelegate = function(event: string, callback: Function) {
-        this.eventListenerController.addEventCallback(event, callback);
+        this.eventCallbackController.addEventCallback(event, callback);
     }
 }

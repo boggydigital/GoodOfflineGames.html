@@ -16,11 +16,11 @@ export interface IListController {
 export declare class ListController implements IListController {
     selectableElements: NodeList;
     selectedClass: string;
-    eventListenerController: IEventCallbackController;
+    eventCallbackController: IEventCallbackController;
     selectedChangedEvent: string;
     selectedClearedEvent: string;
     container: Element;
-    constructor(eventListenerController: IEventCallbackController, container: Element, selectableClass: string);
+    constructor(eventCallbackController: IEventCallbackController, container: Element, selectableClass: string);
     clear: IClearDelegate;
     select: ISelectDelegate;
     addEventCallback: IAddEventCallbackDelegate;

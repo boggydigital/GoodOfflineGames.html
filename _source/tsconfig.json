@@ -9,10 +9,7 @@
     },
     "files": [
         "model/productCore.ts",
-        "viewModel/searchViewModel.ts",
-        "viewModel/viewModelProvider.ts",
         "viewModel/searchViewModelProvider.ts",
-        "viewModel/productSearchViewModelProvider.ts",
         "templateController.ts",
         "bindController.ts",
         "viewController.ts",

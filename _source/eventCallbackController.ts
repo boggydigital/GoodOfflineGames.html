@@ -10,7 +10,7 @@ export class EventCallback {
 }
 
 export interface IFireDelegate {
-    (event: string, argArray: any[]): void;
+    (event: string, argArray: any): void;
 }
 
 export interface IAddEventCallbackDelegate {

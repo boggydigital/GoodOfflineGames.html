@@ -1,12 +1,15 @@
-/// <reference path="./templateController.d.ts" />
-/// <reference path="./bindController.d.ts" />
-/// <reference path="./viewController.d.ts" />
-/// <reference path="./eventCallback.d.ts" />
-/// <reference path="./eventCallbackController.d.ts" />
-/// <reference path="./listController.d.ts" />
-/// <reference path="./searchController.d.ts" />
-/// <reference path="./productsCoreController.d.ts" />
-
+/// <reference path="./release/model/productCore.d.ts" />
+/// <reference path="./release/viewModel/productSearchViewModelProvider.d.ts" />
+/// <reference path="./release/viewModel/searchViewModel.d.ts" />
+/// <reference path="./release/viewModel/searchViewModelProvider.d.ts" />
+/// <reference path="./release/viewModel/viewModelProvider.d.ts" />
+/// <reference path="./release/templateController.d.ts" />
+/// <reference path="./release/bindController.d.ts" />
+/// <reference path="./release/viewController.d.ts" />
+/// <reference path="./release/eventCallbackController.d.ts" />
+/// <reference path="./release/listController.d.ts" />
+/// <reference path="./release/searchController.d.ts" />
+/// <reference path="./release/productsCoreController.d.ts" />
 
 "use strict";
 
@@ -17,6 +20,9 @@ document.addEventListener("DOMContentLoaded", () => {
     let viewController = new ViewController(templateController, bindController);
 
     let eventCallbackController = new EventCallbackController();
+
+    let productCoreSearchViewModelProvider = new ProductCoreSearchViewModelProvider();
+    let searchController = new SearchController(productCoreSearchViewModelProvider, eventCallbackController);
 
     let productsController = new ProductsCoreController(products);
     productsController.addProducts(owned);
@@ -31,16 +37,21 @@ document.addEventListener("DOMContentLoaded", () => {
     productsContainer.innerHTML = combinedProductsView.join("");
 
     let listController = new ListController(eventCallbackController, productsContainer, "product");
-    listController.addEventCallback("selectedchanged", function (e) {
-        let id = parseInt(e.getAttribute("data-id")); 
+    listController.addEventCallback("selectedChanged", function (e) {
+        let id = parseInt(e.getAttribute("data-id"));
         let product = productsController.getById(id)
-        document.getElementById("gameDetails").innerHTML = "<h1>"+product.title +"</h1>";
+        document.getElementById("gameDetails").innerHTML = "<h1>" + product.title + "</h1>";
     });
-    
-    let searchController = new SearchController(document.querySelector("#search input[type=search]"));
 
     let firstProduct = productsContainer.querySelector(".product");
     listController.select(firstProduct);
-    
+
+    // searchController.addEventCallback("indexingStart", () => { console.log("Indexing start"); });
+    // searchController.addEventCallback("indexingEnd", () => { console.log("Indexing end") })
+    searchController.addEventCallback("found", (id) => { console.log(id);});
+
+    searchController.index(combinedProducts);
+    searchController.match("doom");
+
 });
 
