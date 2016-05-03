@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // searchController.addEventCallback("indexingStart", () => { console.log("Indexing start"); });
     // searchController.addEventCallback("indexingEnd", () => { console.log("Indexing end") })
-    searchController.addEventCallback("found", (id) => { console.log(id);});
+    searchController.addEventCallback("matched", (id) => { console.log(id);});
 
     searchController.index(combinedProducts);
     searchController.match("doom");
