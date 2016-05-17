@@ -12,36 +12,43 @@
 
 document.addEventListener("DOMContentLoaded", () => {
 
+    let productViewModelProvider = new ProductCoreViewModelProvider();
+
     let templateController = new TemplateController();
     let bindController = new BindController();
-    let viewController = new ViewController(templateController, bindController);
+    let viewController = new ViewController(
+        productViewModelProvider,
+        templateController, 
+        bindController);
 
     let eventCallbackController = new EventCallbackController();
 
     let productCoreSearchViewModelProvider = new ProductCoreSearchViewModelProvider();
-    let searchController = new SearchController(productCoreSearchViewModelProvider, eventCallbackController);
+    let productsSearchController = new SearchController(
+        productCoreSearchViewModelProvider, 
+        eventCallbackController);
 
     let productsController = new ProductsCoreController(products);
     productsController.addProducts(owned);
     let combinedProducts = productsController.getAll();
 
-    let listController = new ListController(
+    let productsListController = new ListController(
         combinedProducts, // collection
         "product", //templateId
         document.getElementById("products"), // container
         viewController, // ...
-        searchController, // ...
+        productsSearchController, // searchController
         eventCallbackController); // ...
     
-    listController.addEventCallback("selectedChanged", function (e) {
+    productsListController.addEventCallback("selectedChanged", function (e) {
         let id = parseInt(e.getAttribute("data-id"));
         let product = productsController.getById(id)
         document.getElementById("gameDetails").innerHTML = "<h1>" + product.title + "</h1>";
     });
 
     // select the first item in the list
-    listController.selectByIndex(0);
+    productsListController.selectByIndex(0);
 
-    searchController.match("doom");
+    productsSearchController.match("doom");
 });
 

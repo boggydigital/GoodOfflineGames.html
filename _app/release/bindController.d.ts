@@ -1,11 +1,11 @@
-export interface IBindTemplateToModelDelegate {
-    (template: string, model: any): string;
+export interface IBindTemplateToModelDelegate<ViewModel> {
+    (template: string, viewModel: ViewModel): string;
 }
-export interface IBindController {
-    bindTemplateToModel: IBindTemplateToModelDelegate;
+export interface IBindController<ViewModel> {
+    bindTemplateToModel: IBindTemplateToModelDelegate<ViewModel>;
 }
-export declare class BindController implements IBindController {
+export declare class BindController<ViewModel> implements IBindController<ViewModel> {
     bindDecorationOpen: string;
     bindDecorationClose: string;
-    bindTemplateToModel: IBindTemplateToModelDelegate;
+    bindTemplateToModel: IBindTemplateToModelDelegate<ViewModel>;
 }

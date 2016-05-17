@@ -1,22 +1,23 @@
-export interface IBindTemplateToModelDelegate {
-    (template: string, model: any): string;
+export interface IBindTemplateToModelDelegate<ViewModel> {
+    (template: string, viewModel: ViewModel): string;
 }
 
-export interface IBindController {
-    bindTemplateToModel: IBindTemplateToModelDelegate;
+export interface IBindController<ViewModel> {
+    bindTemplateToModel: IBindTemplateToModelDelegate<ViewModel>;
 }
 
-export class BindController implements IBindController {
+export class BindController<ViewModel> implements IBindController<ViewModel> {
 
     bindDecorationOpen: string = "{{";
     bindDecorationClose: string = "}}";
 
-    public bindTemplateToModel: IBindTemplateToModelDelegate = (template: string, model: any): string => {
+    public bindTemplateToModel: IBindTemplateToModelDelegate<ViewModel> = 
+        (template: string, viewModel: ViewModel): string => {
         let result = template;
-        for (var property in model) {
+        for (var property in viewModel) {
             var replacedProperty = this.bindDecorationOpen + property + this.bindDecorationClose;
             while (result.indexOf(replacedProperty) > -1)
-                result = result.replace(replacedProperty, model[property]);
+                result = result.replace(replacedProperty, viewModel[property]);
         }
         return result;
     }

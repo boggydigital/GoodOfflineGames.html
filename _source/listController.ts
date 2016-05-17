@@ -56,7 +56,7 @@ export class ListController<T> implements IListController {
 
         // 2. add view to the container
         container.innerHTML = viewCollection.join("");
-        
+
         // 3. add a selection click handler
         let that = this;
         container.addEventListener("click", (e) => {
@@ -66,14 +66,17 @@ export class ListController<T> implements IListController {
             }
             if (targetElement !== undefined) that.select(targetElement);
         });
-        
-        // 4. build search index and add matching events  
-        searchController.index(collection);
-        
-        searchController.addEventCallback("matchStart", () => { console.log("match start");});
-        searchController.addEventCallback("matchEnd", () => { console.log("match end");});
-        searchController.addEventCallback("matched", (id) => { console.log(id);});
+
+        if (searchController) {
+            // 4. build search index and add matching events
+            searchController.index(collection);
+            searchController.addEventCallback("matchStart", () => { console.log("match start"); });
+            searchController.addEventCallback("matchEnd", () => { console.log("match end"); });
+            searchController.addEventCallback("matched", (id) => { console.log(id); });
+
+        }
     }
+
 
     public clearSelection: IClearSelectionDelegate = function (): void {
         var selectedElements = this.container.getElementsByClassName(this.selectedClass);
@@ -85,7 +88,7 @@ export class ListController<T> implements IListController {
 
     public selectByIndex: ISelectByIndexDelegate = function (index: number): void {
         var element = this.container.children[index];
-        this.select(element); 
+        this.select(element);
     }
 
     public select: ISelectDelegate = function (element: Element): void {
@@ -99,6 +102,6 @@ export class ListController<T> implements IListController {
     public addEventCallback: IAddEventCallbackDelegate = function (event: string, callback: Function) {
         this.eventCallbackController.addEventCallback(event, callback);
     }
-    
-    public 
+
+    public
 }
