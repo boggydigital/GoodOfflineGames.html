@@ -1,6 +1,7 @@
 import { IEventCallbackController, IAddEventCallbackDelegate } from "./eventCallbackController";
 import { IViewController } from "./viewController";
-export interface IClearDelegate {
+import { ISearchController } from "./searchController";
+export interface IClearSelectionDelegate {
     (): void;
 }
 export interface ISelectDelegate {
@@ -13,7 +14,7 @@ export interface ISelectionChangedDelegate {
     (element: Element): void;
 }
 export interface IListController {
-    clear: IClearDelegate;
+    clearSelection: IClearSelectionDelegate;
     select: ISelectDelegate;
     selectByIndex: ISelectByIndexDelegate;
     addEventCallback: IAddEventCallbackDelegate;
@@ -25,9 +26,10 @@ export declare class ListController<T> implements IListController {
     selectedChangedEvent: string;
     selectedClearedEvent: string;
     container: Element;
-    constructor(collection: Array<T>, templateId: string, container: Element, viewController: IViewController, eventCallbackController: IEventCallbackController);
-    clear: IClearDelegate;
+    constructor(collection: Array<T>, templateId: string, container: Element, viewController: IViewController, searchController: ISearchController<T>, eventCallbackController: IEventCallbackController);
+    clearSelection: IClearSelectionDelegate;
     selectByIndex: ISelectByIndexDelegate;
     select: ISelectDelegate;
     addEventCallback: IAddEventCallbackDelegate;
+    public: any;
 }

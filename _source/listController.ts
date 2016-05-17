@@ -1,7 +1,8 @@
 import {IEventCallbackController, IAddEventCallbackDelegate} from "./eventCallbackController";
 import {IViewController} from "./viewController";
+import {ISearchController} from "./searchController";
 
-export interface IClearDelegate {
+export interface IClearSelectionDelegate {
     (): void;
 }
 
@@ -18,7 +19,7 @@ export interface ISelectionChangedDelegate {
 }
 
 export interface IListController {
-    clear: IClearDelegate;
+    clearSelection: IClearSelectionDelegate;
     select: ISelectDelegate;
     selectByIndex: ISelectByIndexDelegate;
     addEventCallback: IAddEventCallbackDelegate;
@@ -40,6 +41,7 @@ export class ListController<T> implements IListController {
         templateId: string,
         container: Element,
         viewController: IViewController,
+        searchController: ISearchController<T>,
         eventCallbackController: IEventCallbackController) {
 
         this.container = container;
@@ -64,9 +66,16 @@ export class ListController<T> implements IListController {
             }
             if (targetElement !== undefined) that.select(targetElement);
         });
+        
+        // 4. build search index and add matching events  
+        searchController.index(collection);
+        
+        searchController.addEventCallback("matchStart", () => { console.log("match start");});
+        searchController.addEventCallback("matchEnd", () => { console.log("match end");});
+        searchController.addEventCallback("matched", (id) => { console.log(id);});
     }
 
-    public clear: IClearDelegate = function (): void {
+    public clearSelection: IClearSelectionDelegate = function (): void {
         var selectedElements = this.container.getElementsByClassName(this.selectedClass);
         if (selectedElements === undefined) return;
         for (var ii = 0; ii < selectedElements.length; ii++) {
@@ -80,7 +89,7 @@ export class ListController<T> implements IListController {
     }
 
     public select: ISelectDelegate = function (element: Element): void {
-        this.clear();
+        this.clearSelection();
         if (element === undefined || element === null) return;
         element.classList.add(this.selectedClass);
 
@@ -90,4 +99,6 @@ export class ListController<T> implements IListController {
     public addEventCallback: IAddEventCallbackDelegate = function (event: string, callback: Function) {
         this.eventCallbackController.addEventCallback(event, callback);
     }
+    
+    public 
 }

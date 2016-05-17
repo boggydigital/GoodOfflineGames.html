@@ -30,6 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
         "product", //templateId
         document.getElementById("products"), // container
         viewController, // ...
+        searchController, // ...
         eventCallbackController); // ...
     
     listController.addEventCallback("selectedChanged", function (e) {
@@ -41,11 +42,6 @@ document.addEventListener("DOMContentLoaded", () => {
     // select the first item in the list
     listController.selectByIndex(0);
 
-
-    searchController.addEventCallback("matched", (id) => { console.log(id);});
-
-    searchController.index(combinedProducts);
     searchController.match("doom");
-
 });
 
