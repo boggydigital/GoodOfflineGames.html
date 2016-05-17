@@ -19,7 +19,7 @@ export declare class SearchController<T> implements ISearchController<T> {
     indexingEndEvent: string;
     matchStartEvent: string;
     matchEndEvent: string;
-    foundEvent: string;
+    matchedEvent: string;
     constructor(searchViewModelProvider: ISearchViewModelProvider<T>, eventCallbackController: IEventCallbackController);
     index: (items: T[]) => void;
     addEventCallback: IAddEventCallbackDelegate;

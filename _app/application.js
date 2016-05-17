@@ -1,8 +1,5 @@
 /// <reference path="./release/model/productCore.d.ts" />
-/// <reference path="./release/viewModel/productSearchViewModelProvider.d.ts" />
-/// <reference path="./release/viewModel/searchViewModel.d.ts" />
 /// <reference path="./release/viewModel/searchViewModelProvider.d.ts" />
-/// <reference path="./release/viewModel/viewModelProvider.d.ts" />
 /// <reference path="./release/templateController.d.ts" />
 /// <reference path="./release/bindController.d.ts" />
 /// <reference path="./release/viewController.d.ts" />
@@ -28,26 +25,23 @@ document.addEventListener("DOMContentLoaded", () => {
     productsController.addProducts(owned);
     let combinedProducts = productsController.getAll();
 
-    let combinedProductsView = [];
-    for (let ii = 0; ii < combinedProducts.length; ii++) {
-        combinedProductsView.push(viewController.create(combinedProducts[ii], "product"));
-    }
-
-    let productsContainer = document.getElementById("products");
-    productsContainer.innerHTML = combinedProductsView.join("");
-
-    let listController = new ListController(eventCallbackController, productsContainer, "product");
+    let listController = new ListController(
+        combinedProducts, // collection
+        "product", //templateId
+        document.getElementById("products"), // container
+        viewController, // ...
+        eventCallbackController); // ...
+    
     listController.addEventCallback("selectedChanged", function (e) {
         let id = parseInt(e.getAttribute("data-id"));
         let product = productsController.getById(id)
         document.getElementById("gameDetails").innerHTML = "<h1>" + product.title + "</h1>";
     });
 
-    let firstProduct = productsContainer.querySelector(".product");
-    listController.select(firstProduct);
+    // select the first item in the list
+    listController.selectByIndex(0);
 
-    // searchController.addEventCallback("indexingStart", () => { console.log("Indexing start"); });
-    // searchController.addEventCallback("indexingEnd", () => { console.log("Indexing end") })
+
     searchController.addEventCallback("matched", (id) => { console.log(id);});
 
     searchController.index(combinedProducts);

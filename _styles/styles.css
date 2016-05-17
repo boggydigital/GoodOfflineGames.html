@@ -1,5 +1,5 @@
 * {
-    font-family: -apple-system, "Segoe UI";
+    font-family: -apple-system, "Segoe UI", sans-serif;
     font-size: 16px;
     margin: 0;
 }
@@ -39,7 +39,7 @@ body.dark {
 }
 
 #search input[type=search]:focus {
-    border-color: rgb(0,120,215);
+    border-color: rgb(41,111,204);
     background: white;
     color: black;
 }
@@ -51,12 +51,12 @@ body.dark {
 /* Products */
 
 #products .product.selected {
-    background: rgb(9,81,138);
+    background: rgb(34,76,131);
     color: white;
 }
 
 #products .product.selected:hover {
-    background: rgb(5,101,177);
+    background: rgb(38,94,168);
 }
 
 #products {
