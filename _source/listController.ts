@@ -35,6 +35,12 @@ export class ListController<T> implements IListController {
 
     searchResultsLimit = 25;
     searchResultsCount = 0;
+    searchResultsLimitedClass: string = "searchResultsLimited";
+
+    searchResultsLimitedMessage: string = 
+        "Search results are limited to " + 
+        this.searchResultsLimit + 
+        " items";
 
     selectedClass: string = "selected";
     selectedChangedEvent = "selectedChanged";
@@ -100,27 +106,38 @@ export class ListController<T> implements IListController {
             searchController.index(collection);
 
             searchController.addEventCallback("matchStart", () => {
-                this.listContainer.classList.add("hidden");
-                this.searchResultsContainer.innerHTML = "";
-                this.searchResultsCount = 0;
+                that.listContainer.classList.add("hidden");
+                that.searchResultsContainer.innerHTML = "";
+                that.searchResultsCount = 0;
             });
 
             searchController.addEventCallback("matchEnd", () => {
-                this.searchResultsContainer.classList.remove("hidden");
+                that.searchResultsContainer.classList.remove("hidden");
+
+                // add notice that we display only searchLimit results
+                
+                if (that.searchResultsCount > that.searchResultsLimit) {
+
+                    let searchResultsLimitedElement = document.createElement("div");
+                    searchResultsLimitedElement.className = that.searchResultsLimitedClass;
+                    searchResultsLimitedElement.textContent = that.searchResultsLimitedMessage;
+
+                    that.searchResultsContainer.appendChild(searchResultsLimitedElement);
+                }
             });
 
             searchController.addEventCallback("matched", (id) => {
-                if (++this.searchResultsCount > this.searchResultsLimit) return;
+                if (++that.searchResultsCount > that.searchResultsLimit) return;
 
-                var matchingElement = this.listContainer.querySelector("[data-id='" + id + "']");
+                var matchingElement = that.listContainer.querySelector("[data-id='" + id + "']");
                 if (matchingElement) {
-                    this.searchResultsContainer.appendChild(matchingElement.cloneNode(true));
+                    that.searchResultsContainer.appendChild(matchingElement.cloneNode(true));
                 }
             });
 
             searchController.addEventCallback("cleared", () => {
-                this.listContainer.classList.remove("hidden");
-                this.searchResultsContainer.classList.add("hidden");
+                that.listContainer.classList.remove("hidden");
+                that.searchResultsContainer.classList.add("hidden");
             });
         }
 

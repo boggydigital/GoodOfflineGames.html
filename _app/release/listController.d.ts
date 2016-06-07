@@ -26,6 +26,8 @@ export declare class ListController<T> implements IListController {
     searchResultsContainerClass: string;
     searchResultsLimit: number;
     searchResultsCount: number;
+    searchResultsLimitedClass: string;
+    searchResultsLimitedMessage: string;
     selectedClass: string;
     selectedChangedEvent: string;
     selectedClearedEvent: string;

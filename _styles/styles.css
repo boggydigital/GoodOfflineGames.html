@@ -73,6 +73,7 @@ body.dark {
     bottom:0;
     -ms-overflow-style: -ms-autohiding-scrollbar;
     overflow-x: hidden;
+        cursor: default;
 }
 
 #products .product {
@@ -81,7 +82,6 @@ body.dark {
     display: block;
     padding: 12px;
     text-decoration: none;
-    cursor: default;
 }
 
 #products .product:hover {
@@ -94,6 +94,13 @@ body.dark {
     overflow: hidden;
     text-overflow: ellipsis;
     display: inline-block;
+}
+
+#products .searchResultsLimited {
+    padding: 12px;
+    background: #ffc107;
+    color: black;
+    cursor: inherit;
 }
 
 /* Game Details */
