@@ -98,8 +98,7 @@ body.dark {
 
 #products .searchResultsLimited {
     padding: 12px;
-    background: #ffc107;
-    color: black;
+    color: rgb(255, 240, 0);
     cursor: inherit;
 }
 
@@ -119,7 +118,7 @@ body.dark {
 #gameDetails h1 {
     font-size: 24px;
     font-weight: normal;
-    margin: 24px 0 24px;
+    margin-bottom: 24px;
 }
 
 #gameDetails img {
