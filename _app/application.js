@@ -49,6 +49,11 @@ document.addEventListener("DOMContentLoaded", () => {
     // select the first item in the list
     productsListController.selectByIndex(0);
 
-    productsSearchController.match("doom");
+    // productsSearchController.match("doom");
+
+    let searchInput = document.querySelector("#search>input[type='search']");
+    searchInput.addEventListener("input", (e) => {
+        productsSearchController.match(searchInput.value); 
+    });
 });
 

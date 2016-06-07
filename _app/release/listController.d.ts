@@ -22,14 +22,20 @@ export interface IListController {
 export declare class ListController<T> implements IListController {
     viewController: IViewController;
     eventCallbackController: IEventCallbackController;
+    listContainerClass: string;
+    searchResultsContainerClass: string;
+    searchResultsLimit: number;
+    searchResultsCount: number;
     selectedClass: string;
     selectedChangedEvent: string;
     selectedClearedEvent: string;
-    container: Element;
-    constructor(collection: Array<T>, templateId: string, container: Element, viewController: IViewController, searchController: ISearchController<T>, eventCallbackController: IEventCallbackController);
+    parentElement: Element;
+    listContainer: Element;
+    searchResultsContainer: Element;
+    activeView: Element;
+    constructor(collection: Array<T>, templateId: string, parentElement: Element, viewController: IViewController, searchController: ISearchController<T>, eventCallbackController: IEventCallbackController);
     clearSelection: IClearSelectionDelegate;
     selectByIndex: ISelectByIndexDelegate;
     select: ISelectDelegate;
     addEventCallback: IAddEventCallbackDelegate;
-    public: any;
 }

@@ -30,23 +30,45 @@ export class ListController<T> implements IListController {
     viewController: IViewController;
     eventCallbackController: IEventCallbackController;
 
+    listContainerClass: string = "listContainer";
+    searchResultsContainerClass: string = "searchResultsContainer";
+
+    searchResultsLimit = 25;
+    searchResultsCount = 0;
+
     selectedClass: string = "selected";
     selectedChangedEvent = "selectedChanged";
     selectedClearedEvent = "selectedCleared";
 
-    container: Element;
+    parentElement: Element;
+
+    listContainer: Element;
+    searchResultsContainer: Element;
+
+    activeView: Element;
 
     public constructor(
         collection: Array<T>,
         templateId: string,
-        container: Element,
+        parentElement: Element,
         viewController: IViewController,
         searchController: ISearchController<T>,
         eventCallbackController: IEventCallbackController) {
 
-        this.container = container;
+        this.parentElement = parentElement;
         this.viewController = viewController;
         this.eventCallbackController = eventCallbackController;
+
+        // 0. create child container objects for list and searchResultsContainer
+        this.listContainer = document.createElement("div");
+        this.listContainer.classList.add(this.listContainerClass);
+
+        this.searchResultsContainer = document.createElement("div");
+        this.searchResultsContainer.classList.add(this.searchResultsContainerClass);
+        this.searchResultsContainer.classList.add("hidden");
+
+        this.parentElement.appendChild(this.listContainer);
+        this.parentElement.appendChild(this.searchResultsContainer);
 
         // 1. create the view of every element in the collection
         let viewCollection = new Array<string>();
@@ -55,11 +77,17 @@ export class ListController<T> implements IListController {
         }
 
         // 2. add view to the container
-        container.innerHTML = viewCollection.join("");
+        // first show initial N, than schedule (all - N) on next frame
+        let n = 25;
+        this.listContainer.innerHTML = viewCollection.slice(0, n).join("");
+
+        requestAnimationFrame(() => {
+            this.listContainer.innerHTML += viewCollection.join("");
+        });
 
         // 3. add a selection click handler
         let that = this;
-        container.addEventListener("click", (e) => {
+        this.parentElement.addEventListener("click", (e) => {
             let targetElement = e.target as Element;
             while (targetElement && !targetElement.classList.contains(templateId)) {
                 targetElement = targetElement.parentElement ? targetElement.parentElement : undefined;
@@ -70,16 +98,37 @@ export class ListController<T> implements IListController {
         if (searchController) {
             // 4. build search index and add matching events
             searchController.index(collection);
-            searchController.addEventCallback("matchStart", () => { console.log("match start"); });
-            searchController.addEventCallback("matchEnd", () => { console.log("match end"); });
-            searchController.addEventCallback("matched", (id) => { console.log(id); });
 
+            searchController.addEventCallback("matchStart", () => {
+                this.listContainer.classList.add("hidden");
+                this.searchResultsContainer.innerHTML = "";
+                this.searchResultsCount = 0;
+            });
+
+            searchController.addEventCallback("matchEnd", () => {
+                this.searchResultsContainer.classList.remove("hidden");
+            });
+
+            searchController.addEventCallback("matched", (id) => {
+                if (++this.searchResultsCount > this.searchResultsLimit) return;
+
+                var matchingElement = this.listContainer.querySelector("[data-id='" + id + "']");
+                if (matchingElement) {
+                    this.searchResultsContainer.appendChild(matchingElement.cloneNode(true));
+                }
+            });
+
+            searchController.addEventCallback("cleared", () => {
+                this.listContainer.classList.remove("hidden");
+                this.searchResultsContainer.classList.add("hidden");
+            });
         }
+
+        this.activeView = this.listContainer;
     }
 
-
     public clearSelection: IClearSelectionDelegate = function (): void {
-        var selectedElements = this.container.getElementsByClassName(this.selectedClass);
+        var selectedElements = this.parentElement.getElementsByClassName(this.selectedClass);
         if (selectedElements === undefined) return;
         for (var ii = 0; ii < selectedElements.length; ii++) {
             selectedElements[ii].classList.remove(this.selectedClass);
@@ -87,7 +136,7 @@ export class ListController<T> implements IListController {
     }
 
     public selectByIndex: ISelectByIndexDelegate = function (index: number): void {
-        var element = this.container.children[index];
+        var element = this.activeView.children[index];
         this.select(element);
     }
 
@@ -102,6 +151,4 @@ export class ListController<T> implements IListController {
     public addEventCallback: IAddEventCallbackDelegate = function (event: string, callback: Function) {
         this.eventCallbackController.addEventCallback(event, callback);
     }
-
-    public
 }

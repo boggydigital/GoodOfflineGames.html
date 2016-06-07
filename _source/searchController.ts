@@ -21,11 +21,12 @@ export class SearchController<T> implements ISearchController<T> {
     searchIndex: Array<SearchViewModel>;
     eventCallbackController: IEventCallbackController;
     
-    indexingStartEvent: string = "indexingStart";
-    indexingEndEvent: string = "indexingEnd";  
+    indexingStartEvent: string = "indexStart";
+    indexingEndEvent: string = "indexEnd";  
     matchStartEvent: string = "matchStart";
     matchEndEvent: string = "matchEnd";  
     matchedEvent: string = "matched";
+    clearedEvent: string = "cleared";
 
     public constructor(
         searchViewModelProvider: ISearchViewModelProvider<T>, 
@@ -48,6 +49,10 @@ export class SearchController<T> implements ISearchController<T> {
     }
     
     public match = (searchString: string): void => {
+        if (searchString === "") {
+            this.eventCallbackController.fire(this.clearedEvent, null);
+            return;
+        }
         this.eventCallbackController.fire(this.matchStartEvent, new Date());
         for (let ii=0; ii<this.searchIndex.length; ii++) {
             if (this.searchIndex[ii].searchString.indexOf(searchString) > -1)

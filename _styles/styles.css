@@ -4,6 +4,10 @@
     margin: 0;
 }
 
+.hidden {
+    display: none;
+}
+
 body.dark {
     background: black;
     color: white;
