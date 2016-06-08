@@ -55,13 +55,26 @@ body.dark {
 /* Products */
 
 #products .product.selected {
-    background: rgb(34,76,131);
-    color: white;
+    /*background: ;
+    color: white;*/
+    /*position: relative;*/
+    color: #2196f3;
 }
 
-#products .product.selected:hover {
-    background: rgb(38,94,168);
+#products .product.selected::before {
+    display: block;
+    position: absolute;
+    width: 4px;
+    height: 60%;
+    top: 20%;
+    left:0;
+    background: #2196f3;
+    content: " ";
 }
+
+/*#products .product.selected:hover {
+    background: rgb(38,94,168);
+}*/
 
 #products {
     background: rgb(23,23,23);
@@ -82,6 +95,7 @@ body.dark {
     display: block;
     padding: 12px;
     text-decoration: none;
+    position: relative;
 }
 
 #products .product:hover {
