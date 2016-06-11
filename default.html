@@ -13,7 +13,7 @@
 <body class="dark">
 
     <div id="search">
-        <input type="search" placeholder="Find a product"/>
+        <input type="search" placeholder="Find a product" />
     </div>
     <div id="products"></div>
     <div id="gameDetails"></div>
@@ -21,7 +21,8 @@
     <div id="templates">
         <div id="product">
             <div data-id='{{id}}' class='product {{class}}' title='{{title}}'>
-                <span class='title'>{{title}}</span>
+                <div class='title'>{{title}}</div>
+                <div class='badge owned'>Owned</div>
             </div>
         </div>
     </div>

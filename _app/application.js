@@ -12,15 +12,15 @@
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    let productViewModelProvider = new ProductCoreViewModelProvider();
+    let productsController = new ProductsCoreController(products);
+    let ownedController = new ProductsCoreController(owned);
+    productsController.addProducts(ownedController.getAll());
+    let combinedProducts = productsController.getAll();
+
+    let productViewModelProvider = new ProductCoreViewModelProvider(ownedController);
 
     let templateController = new TemplateController();
     let bindController = new BindController();
-    let viewController = new ViewController(
-        productViewModelProvider,
-        templateController, 
-        bindController);
-
     let eventCallbackController = new EventCallbackController();
 
     let productCoreSearchViewModelProvider = new ProductCoreSearchViewModelProvider();
@@ -28,9 +28,11 @@ document.addEventListener("DOMContentLoaded", () => {
         productCoreSearchViewModelProvider, 
         eventCallbackController);
 
-    let productsController = new ProductsCoreController(products);
-    productsController.addProducts(owned);
-    let combinedProducts = productsController.getAll();
+    let viewController = new ViewController(
+        productViewModelProvider,
+        templateController, 
+        bindController);
+
 
     let productsListController = new ListController(
         combinedProducts, // collection
