@@ -6,6 +6,7 @@
 /// <reference path="./release/eventCallbackController.d.ts" />
 /// <reference path="./release/listController.d.ts" />
 /// <reference path="./release/searchController.d.ts" />
+/// <reference path="./release/collectionController.d.ts" />
 /// <reference path="./release/productsCoreController.d.ts" />
 
 "use strict";
@@ -15,9 +16,12 @@ document.addEventListener("DOMContentLoaded", () => {
     let productsController = new ProductsCoreController(products);
     let ownedController = new ProductsCoreController(owned);
     productsController.addProducts(ownedController.getAll());
+    let wishlistController = new CollectionController(wishlisted);
     let combinedProducts = productsController.getAll();
 
-    let productViewModelProvider = new ProductCoreViewModelProvider(ownedController);
+    let productViewModelProvider = new ProductCoreViewModelProvider(
+        ownedController,
+        wishlistController);
 
     let templateController = new TemplateController();
     let bindController = new BindController();

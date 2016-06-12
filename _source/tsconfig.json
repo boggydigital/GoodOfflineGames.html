@@ -15,6 +15,7 @@
         // "bindController.ts",
         // "viewController.ts",
         "productsCoreController.ts",
+        "collectionController.ts",
         // "eventCallbackController.ts",
         "listController.ts"
         // "searchController.ts"

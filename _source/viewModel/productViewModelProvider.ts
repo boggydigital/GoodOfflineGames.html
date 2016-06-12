@@ -1,6 +1,7 @@
 import {ProductCore} from "../model/productCore";
 import {IGetViewModelDelegate, IViewModelProvider} from "./viewModelProvider";
 import {IProductsCoreController} from "../productsCoreController";
+import {ICollectionController} from "../collectionController";
 
 export class ProductViewModel {
     id: number;
@@ -26,23 +27,33 @@ export abstract class ProductViewModelProvider<Input> implements IProductViewMod
 export class ProductCoreViewModelProvider extends ProductViewModelProvider<ProductCore> {
 
     ownedController: IProductsCoreController;
+    wishlistController: ICollectionController<number>;
 
-    public constructor(ownedController: IProductsCoreController) {
+    public constructor(
+        ownedController: IProductsCoreController,
+        wishlistController: ICollectionController<number>) {
         super();
         this.ownedController = ownedController;
+        this.wishlistController = wishlistController;
     }
 
     public getViewModel = function(data: ProductCore): ProductViewModel {
         if (data == null) return null;
-        var productViewModel = new ProductViewModel();
-        
-        productViewModel.class = "";
+        let productViewModel = new ProductViewModel();
+        let classes = [];
+
         productViewModel.id = data.id;
         productViewModel.title = data.title;
 
         if (this.ownedController &&
             this.ownedController.getById(data.id)) 
-            productViewModel.class += "owned";
+            classes.push("owned");
+
+        if (this.wishlistController &&
+            this.wishlistController.check(data.id))
+            classes.push("wishlisted");
+
+        productViewModel.class = classes.join(" ");
 
         return productViewModel;
     }

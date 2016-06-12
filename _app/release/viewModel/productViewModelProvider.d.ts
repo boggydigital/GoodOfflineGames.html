@@ -1,6 +1,7 @@
 import { ProductCore } from "../model/productCore";
 import { IGetViewModelDelegate, IViewModelProvider } from "./viewModelProvider";
 import { IProductsCoreController } from "../productsCoreController";
+import { ICollectionController } from "../collectionController";
 export declare class ProductViewModel {
     id: number;
     class: string;
@@ -17,6 +18,7 @@ export declare abstract class ProductViewModelProvider<Input> implements IProduc
 }
 export declare class ProductCoreViewModelProvider extends ProductViewModelProvider<ProductCore> {
     ownedController: IProductsCoreController;
-    constructor(ownedController: IProductsCoreController);
+    wishlistController: ICollectionController<number>;
+    constructor(ownedController: IProductsCoreController, wishlistController: ICollectionController<number>);
     getViewModel: (data: ProductCore) => ProductViewModel;
 }
