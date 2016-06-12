@@ -10,7 +10,7 @@ export class CollectionController<T> implements ICollectionController<T> {
 
     private collection: Array<T>;
 
-    public contstructor = function (collection: Array<T>) {
+    public constructor(collection: Array<T>) {
         this.collection = collection;
     }
 

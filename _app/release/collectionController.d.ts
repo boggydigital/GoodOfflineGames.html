@@ -6,6 +6,6 @@ export interface ICollectionController<T> {
 }
 export declare class CollectionController<T> implements ICollectionController<T> {
     private collection;
-    contstructor: (collection: T[]) => void;
+    constructor(collection: Array<T>);
     check: ICheckDelegate<T>;
 }
