@@ -8,16 +8,10 @@
         "noImplicitReturns": true
     },
     "files": [
-        // "model/productCore.ts",
         "viewModel/searchViewModelProvider.ts",
         "viewModel/productViewModelProvider.ts",
-        // "templateController.ts",
-        // "bindController.ts",
-        // "viewController.ts",
-        "productsCoreController.ts",
         "collectionController.ts",
-        // "eventCallbackController.ts",
+        "productsController.ts",
         "listController.ts"
-        // "searchController.ts"
     ]
 }

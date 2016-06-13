@@ -13,13 +13,15 @@
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    let productsController = new ProductsCoreController(products);
-    let ownedController = new ProductsCoreController(owned);
+    let productsController = new ProductsController(products);
+    let ownedController = new ProductsController(owned);
+    let gameDetailsController = new GameDetailsController(gamedetails);
     productsController.addProducts(ownedController.getAll());
     let wishlistController = new CollectionController(wishlisted);
     let combinedProducts = productsController.getAll();
 
     let productViewModelProvider = new ProductCoreViewModelProvider(
+        gameDetailsController,
         ownedController,
         wishlistController);
 

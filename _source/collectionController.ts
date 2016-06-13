@@ -1,9 +1,9 @@
-export interface ICheckDelegate<T> {
-    (item: T): boolean;
+export interface IContainsDelegate<T> {
+    (T): boolean;
 }
 
 export interface ICollectionController<T> {
-    check: ICheckDelegate<T>;
+    contains: IContainsDelegate<T>;
 }
 
 export class CollectionController<T> implements ICollectionController<T> {
@@ -14,7 +14,7 @@ export class CollectionController<T> implements ICollectionController<T> {
         this.collection = collection;
     }
 
-    check: ICheckDelegate<T> = function (item: T): boolean {
+    contains: IContainsDelegate<T> = function (item: T): boolean {
         for (let ii = 0; ii < this.collection.length; ii++) {
             if (this.collection[ii] === item) return true;
         }

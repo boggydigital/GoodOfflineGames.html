@@ -17,7 +17,7 @@ export interface IProductsCoreController {
     contains: IContainsDelegate;
     getAll: IGetAllDelegate;
 }
-export declare class ProductsCoreController implements IProductsCoreController {
+export declare abstract class ProductsCoreController implements IProductsCoreController {
     model: Array<ProductCore>;
     constructor(products: Array<ProductCore>);
     getById: IGetByIdDelegete;
