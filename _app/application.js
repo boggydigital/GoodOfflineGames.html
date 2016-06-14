@@ -13,6 +13,8 @@
 
 document.addEventListener("DOMContentLoaded", () => {
 
+    let getProductIdDelegate = (p) => { return p.id};
+
     /* DOM Elements */
 
     let productsContainer = document.getElementById("products");
@@ -30,47 +32,50 @@ document.addEventListener("DOMContentLoaded", () => {
     let combinedProducts = productsController.getAll();
 
     let productViewModelProvider = new ProductCoreViewModelProvider(
-        gameDetailsController,
+        productsController,
         ownedController,
-        wishlistController,
-        productFilesController);
+        gameDetailsController,
+        productFilesController,
+        wishlistController);
 
-    let gameDetailsViewModelProvider = new GameDetailsViewModelProvider();
+    let gameDetailsViewModelProvider = new GameDetailsViewModelProvider(productsController);
 
     let templateController = new TemplateController();
     let bindController = new BindController();
     let eventCallbackController = new EventCallbackController();
 
     let productCoreSearchViewModelProvider = new ProductCoreSearchViewModelProvider(
-    	productViewModelProvider);
+        productViewModelProvider);
 
     let productsSearchController = new SearchController(
-        productCoreSearchViewModelProvider, 
+        productCoreSearchViewModelProvider,
         eventCallbackController);
 
     let viewControllerProducts = new ViewController(
         productViewModelProvider,
-        templateController, 
+        templateController,
         bindController);
 
     let viewControllerGameDetails = new ViewController(
         gameDetailsViewModelProvider,
         templateController,
-        bindController); 
+        bindController);
 
     let listViewController = new ListViewController(
         combinedProducts, // collection
+        getProductIdDelegate,
         "product", //templateId
         productsContainer, // container
         viewControllerProducts, // ...
         productsSearchController, // searchController
         eventCallbackController); // ...
-    
+
     let gameDetailsViewController = new GameDetailsViewController(
+        getProductIdDelegate,
         "gameDetails",
         gameDetailsContainer,
         viewControllerGameDetails,
-        gameDetailsController);
+        productsController);
 
     let masterDetailViewController = new MasterDetailViewController(
         listViewController,
@@ -80,7 +85,7 @@ document.addEventListener("DOMContentLoaded", () => {
     listViewController.selectByIndex(0);
 
     searchInput.addEventListener("input", (e) => {
-        productsSearchController.match(searchInput.value); 
+        productsSearchController.match(searchInput.value);
     });
 });
 

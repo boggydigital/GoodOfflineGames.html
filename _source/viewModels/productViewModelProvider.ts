@@ -18,48 +18,54 @@ export class GameDetailsViewModel {
     title: string;
 }
 
-export interface IGetProductViewModelDelegate<Input> extends IGetViewModelDelegate<Input, ProductViewModel> {
+export interface IGetProductViewModelDelegate extends IGetViewModelDelegate<ProductViewModel> {
     // ...
 }
 
-export class ProductCoreViewModelProvider implements IViewModelProvider<ProductCore, ProductViewModel> {
+export class ProductCoreViewModelProvider implements IViewModelProvider<ProductViewModel> {
 
+    productsController: IProductsCoreController<Product>;
     ownedController: IProductsCoreController<Product>;
     gameDetailsController: IProductsCoreController<GameDetails>;
     wishlistController: ICollectionController<number>;
     productFilesController: IProductFilesController;
 
     public constructor(
-        gameDetailsController: IProductsCoreController<GameDetails>,
+        productsController: IProductsCoreController<Product>,
         ownedController: IProductsCoreController<Product>,
-        wishlistController: ICollectionController<number>,
-        productFilesController: IProductFilesController) {
-        this.gameDetailsController = gameDetailsController;
+        gameDetailsController: IProductsCoreController<GameDetails>,
+        productFilesController: IProductFilesController,        
+        wishlistController: ICollectionController<number>) {
+        this.productsController = productsController;
         this.ownedController = ownedController;
-        this.wishlistController = wishlistController;
+        this.gameDetailsController = gameDetailsController;
         this.productFilesController = productFilesController;
+        this.wishlistController = wishlistController;
     }
 
-    public getViewModel: IGetViewModelDelegate<ProductCore, ProductViewModel> =
-    function (data: ProductCore): ProductViewModel {
+    public getViewModel: IGetViewModelDelegate<ProductViewModel> =
+    function (id: number): ProductViewModel {
 
-        if (data == null) return null;
+        if (id == null) return null;
+
+        let product = this.productsController.getById(id);
+        if (!product) return null;
 
         let productViewModel = new ProductViewModel();
         let classes = [];
         let tags = [];
 
-        productViewModel.id = data.id;
-        productViewModel.title = data.title;
+        productViewModel.id = id;
+        productViewModel.title = product.title;
 
         if (this.ownedController &&
-            this.ownedController.getById(data.id)) {
+            this.ownedController.getById(id)) {
             classes.push("owned");
             tags.push("OWNED");
         }
 
         if (this.productFilesController) {
-            let productFilesValidated = this.productFilesController.validated(data.id);
+            let productFilesValidated = this.productFilesController.validated(id);
             if (productFilesValidated === true) {
                 classes.push("validated");
                 tags.push("DATA OK");
@@ -70,13 +76,13 @@ export class ProductCoreViewModelProvider implements IViewModelProvider<ProductC
         }
 
         if (this.wishlistController &&
-            this.wishlistController.contains(data.id)) {
+            this.wishlistController.contains(id)) {
             classes.push("wishlisted");
             tags.push("WISHLISTED");
         }
 
         if (this.gameDetailsController) {
-            let gd = this.gameDetailsController.getById(data.id);
+            let gd = this.gameDetailsController.getById(id);
             if (gd && gd.tags && gd.tags.length) {
                 for (let tt = 0; tt < gd.tags.length; tt++)
                     tags.push(gd.tags[tt].name);
@@ -90,17 +96,25 @@ export class ProductCoreViewModelProvider implements IViewModelProvider<ProductC
     }
 }
 
-export class GameDetailsViewModelProvider implements IViewModelProvider<ProductCore, GameDetailsViewModel> {
+export class GameDetailsViewModelProvider implements IViewModelProvider<GameDetailsViewModel> {
 
-    public getViewModel: IGetViewModelDelegate<ProductCore, GameDetailsViewModel> =
-    function (data: ProductCore): GameDetailsViewModel {
+    productsController: IProductsCoreController<Product>;
 
-        if (data == null) return null;
+    public constructor(productsController: IProductsCoreController<Product>) {
+        this.productsController = productsController;
+    }
+
+    public getViewModel: IGetViewModelDelegate<GameDetailsViewModel> =
+    function (id: number): GameDetailsViewModel {
+
+        if (id == null) return null;
+
+        let product = this.productsController.getById(id); 
 
         let gameDetailsViewModel = new GameDetailsViewModel();
 
-        gameDetailsViewModel.id = data.id;
-        gameDetailsViewModel.title = data.title;
+        gameDetailsViewModel.id = id;
+        gameDetailsViewModel.title = product.title;
 
         return gameDetailsViewModel;
     }

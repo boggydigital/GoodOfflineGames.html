@@ -1,6 +1,7 @@
 import {IEventCallbackController, IAddEventCallbackDelegate} from "../eventCallbackController";
 import {IViewController} from "./viewController";
 import {ISearchController} from "../searchController";
+import {IGetIdDelegate} from "./viewController";
 
 export interface IClearSelectionDelegate {
     (): void;
@@ -27,7 +28,7 @@ export interface IListViewController {
 
 export class ListViewController<T> implements IListViewController {
 
-    viewController: IViewController;
+    viewController: IViewController<T>;
     eventCallbackController: IEventCallbackController;
 
     listContainerClass: string = "listContainer";
@@ -55,9 +56,10 @@ export class ListViewController<T> implements IListViewController {
 
     public constructor(
         collection: Array<T>,
+        getIdDelegate: IGetIdDelegate<T>,
         templateId: string,
         parentElement: Element,
-        viewController: IViewController,
+        viewController: IViewController<T>,
         searchController: ISearchController<T>,
         eventCallbackController: IEventCallbackController) {
 
@@ -81,7 +83,8 @@ export class ListViewController<T> implements IListViewController {
         // 1. create the view of every element in the collection
         let viewCollection = new Array<string>();
         for (let ii = 0; ii < n; ii++)
-            viewCollection.push(viewController.create(collection[ii], templateId));
+            viewCollection.push(viewController.create(
+                collection[ii], getIdDelegate, templateId));
 
         // 2. add view to the container
         // first show initial N, than schedule (all - N) on next frame
@@ -91,7 +94,10 @@ export class ListViewController<T> implements IListViewController {
         requestAnimationFrame(() => {
             viewCollection = new Array<string>();
             for (let ii = n; ii < collection.length; ii++)
-                viewCollection.push(viewController.create(collection[ii], templateId));
+                viewCollection.push(viewController.create(
+                    collection[ii], 
+                    getIdDelegate, 
+                    templateId));
             this.listContainer.innerHTML += viewCollection.join("");
         });
 
@@ -106,10 +112,10 @@ export class ListViewController<T> implements IListViewController {
         });
 
         if (searchController) {
-            
+
             // 4. build search index and add matching events
             requestAnimationFrame(() => {
-                searchController.index(collection);
+                searchController.index(collection, getIdDelegate);
             });
 
             searchController.addEventCallback("matchStart", () => {

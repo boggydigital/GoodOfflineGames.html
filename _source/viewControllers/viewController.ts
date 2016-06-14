@@ -1,23 +1,27 @@
 import {ITemplateController} from "../templateController";
-import {IBindController} from "../bindController"; 
+import {IBindController} from "../bindController";
 import {IViewModelProvider} from "../viewModels/viewModelProvider";
 
-export interface ICreateDelegate {
-    (model: any, templateId: string): string;
+export interface IGetIdDelegate<T> {
+    (item: T): number;
 }
 
-export interface IViewController {
-    create: ICreateDelegate;
+export interface ICreateDelegate<T> {
+    (model: T, getIdDelegate: IGetIdDelegate<T>, templateId: string): string;
 }
 
-export class ViewController<Type, ViewModel> implements IViewController {
+export interface IViewController<T> {
+    create: ICreateDelegate<T>;
+}
+
+export class ViewController<Type, ViewModel> implements IViewController<Type> {
 
     templateController: ITemplateController;
     bindController: IBindController<ViewModel>;
-    viewModelProvider: IViewModelProvider<Type, ViewModel>;
+    viewModelProvider: IViewModelProvider<ViewModel>;
 
     public constructor(
-        viewModelProvider: IViewModelProvider<Type, ViewModel>,
+        viewModelProvider: IViewModelProvider<ViewModel>,
         templateController: ITemplateController,
         bindController: IBindController<ViewModel>) {
         this.viewModelProvider = viewModelProvider;
@@ -25,10 +29,12 @@ export class ViewController<Type, ViewModel> implements IViewController {
         this.bindController = bindController;
     }
 
-    public create: ICreateDelegate = (model: Type, templateId: string): string => {
+    public create: ICreateDelegate<Type> =
+    (model: Type, getIdDelegate: IGetIdDelegate<Type>, templateId: string): string => {
         let view = "";
         let template = this.templateController.getTemplate(templateId);
-        let viewModel = this.viewModelProvider.getViewModel(model);
+        let id = getIdDelegate(model);
+        let viewModel = this.viewModelProvider.getViewModel(id);
         if (template === "") view = "(cannot find template)";
         view = this.bindController.bindTemplateToModel(template, viewModel);
         return view;

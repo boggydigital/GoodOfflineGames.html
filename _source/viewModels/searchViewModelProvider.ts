@@ -7,43 +7,28 @@ export class SearchViewModel {
     searchString: string;
 }
 
-export interface IGetSearchViewModelDelegate<Input> extends IGetViewModelDelegate<Input, SearchViewModel> {
-    // ...
-}
+export class ProductCoreSearchViewModelProvider implements IViewModelProvider<SearchViewModel> {
 
-export interface ISearchViewModelProvider<Input> extends IViewModelProvider<Input, SearchViewModel> {
-    getViewModel: IGetSearchViewModelDelegate<Input>;
-}
+    productViewModelProvider: IViewModelProvider<ProductViewModel>;
 
-export abstract class SearchViewModelProvider<Input> implements ISearchViewModelProvider<Input> {
-    public getViewModel = (data: Input): SearchViewModel => {
-        return null;
-    }
-}
-
-export class ProductCoreSearchViewModelProvider extends SearchViewModelProvider<ProductCore> {
-
-    productViewModelProvider: IViewModelProvider<ProductCore, ProductViewModel>;
-
-    public constructor(productViewModelProvider: IViewModelProvider<ProductCore, ProductViewModel>) {
-        super();
+    public constructor(productViewModelProvider: IViewModelProvider<ProductViewModel>) {
         this.productViewModelProvider = productViewModelProvider;
     }
 
-    public getViewModel = function (data: ProductCore): SearchViewModel {
-        if (data == null) return null;
+    public getViewModel = function (id: number): SearchViewModel {
+        if (id == null) return null;
 
         let searchParts = [];
 
         if (this.productViewModelProvider) {
-            let productViewModel = this.productViewModelProvider.getViewModel(data);
+            let productViewModel = this.productViewModelProvider.getViewModel(id);
             searchParts.push(productViewModel.title.toLocaleLowerCase());
             searchParts.push(productViewModel.id);
             searchParts.push(productViewModel.tags.toLocaleLowerCase());
         }
 
         let searchViewModel = new SearchViewModel();
-        searchViewModel.id = data.id;
+        searchViewModel.id = id;
         searchViewModel.searchString = searchParts.join(" ");
         return searchViewModel;
     }
