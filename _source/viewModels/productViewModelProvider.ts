@@ -13,21 +13,16 @@ export class ProductViewModel {
     title: string;
 }
 
+export class GameDetailsViewModel {
+    id: number;
+    title: string;
+}
+
 export interface IGetProductViewModelDelegate<Input> extends IGetViewModelDelegate<Input, ProductViewModel> {
     // ...
 }
 
-export interface IProductViewModelProvider<Input> extends IViewModelProvider<Input, ProductViewModel> {
-    getViewModel: IGetProductViewModelDelegate<Input>;
-}
-
-export abstract class ProductViewModelProvider<Input> implements IProductViewModelProvider<Input> {
-    public getViewModel = (data: Input): ProductViewModel => {
-        return null;
-    }
-}
-
-export class ProductCoreViewModelProvider extends ProductViewModelProvider<ProductCore> {
+export class ProductCoreViewModelProvider implements IViewModelProvider<ProductCore, ProductViewModel> {
 
     ownedController: IProductsCoreController<Product>;
     gameDetailsController: IProductsCoreController<GameDetails>;
@@ -39,15 +34,15 @@ export class ProductCoreViewModelProvider extends ProductViewModelProvider<Produ
         ownedController: IProductsCoreController<Product>,
         wishlistController: ICollectionController<number>,
         productFilesController: IProductFilesController) {
-        super();
         this.gameDetailsController = gameDetailsController;
         this.ownedController = ownedController;
         this.wishlistController = wishlistController;
         this.productFilesController = productFilesController;
     }
 
-    public getViewModel: IGetViewModelDelegate<ProductCore,ProductViewModel> = 
+    public getViewModel: IGetViewModelDelegate<ProductCore, ProductViewModel> =
     function (data: ProductCore): ProductViewModel {
+
         if (data == null) return null;
 
         let productViewModel = new ProductViewModel();
@@ -83,7 +78,7 @@ export class ProductCoreViewModelProvider extends ProductViewModelProvider<Produ
         if (this.gameDetailsController) {
             let gd = this.gameDetailsController.getById(data.id);
             if (gd && gd.tags && gd.tags.length) {
-                for (let tt=0; tt<gd.tags.length; tt++) 
+                for (let tt = 0; tt < gd.tags.length; tt++)
                     tags.push(gd.tags[tt].name);
             }
         }
@@ -93,4 +88,21 @@ export class ProductCoreViewModelProvider extends ProductViewModelProvider<Produ
 
         return productViewModel;
     }
+}
+
+export class GameDetailsViewModelProvider implements IViewModelProvider<ProductCore, GameDetailsViewModel> {
+
+    public getViewModel: IGetViewModelDelegate<ProductCore, GameDetailsViewModel> =
+    function (data: ProductCore): GameDetailsViewModel {
+
+        if (data == null) return null;
+
+        let gameDetailsViewModel = new GameDetailsViewModel();
+
+        gameDetailsViewModel.id = data.id;
+        gameDetailsViewModel.title = data.title;
+
+        return gameDetailsViewModel;
+    }
+
 }

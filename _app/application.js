@@ -35,6 +35,8 @@ document.addEventListener("DOMContentLoaded", () => {
         wishlistController,
         productFilesController);
 
+    let gameDetailsViewModelProvider = new GameDetailsViewModelProvider();
+
     let templateController = new TemplateController();
     let bindController = new BindController();
     let eventCallbackController = new EventCallbackController();
@@ -46,21 +48,29 @@ document.addEventListener("DOMContentLoaded", () => {
         productCoreSearchViewModelProvider, 
         eventCallbackController);
 
-    let viewController = new ViewController(
+    let viewControllerProducts = new ViewController(
         productViewModelProvider,
         templateController, 
         bindController);
+
+    let viewControllerGameDetails = new ViewController(
+        gameDetailsViewModelProvider,
+        templateController,
+        bindController); 
 
     let listViewController = new ListViewController(
         combinedProducts, // collection
         "product", //templateId
         productsContainer, // container
-        viewController, // ...
+        viewControllerProducts, // ...
         productsSearchController, // searchController
         eventCallbackController); // ...
     
     let gameDetailsViewController = new GameDetailsViewController(
-        gameDetailsContainer);
+        "gameDetails",
+        gameDetailsContainer,
+        viewControllerGameDetails,
+        gameDetailsController);
 
     let masterDetailViewController = new MasterDetailViewController(
         listViewController,
