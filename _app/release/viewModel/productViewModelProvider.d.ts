@@ -25,5 +25,5 @@ export declare class ProductCoreViewModelProvider extends ProductViewModelProvid
     wishlistController: ICollectionController<number>;
     productFilesController: IProductFilesController;
     constructor(gameDetailsController: IProductsCoreController<GameDetails>, ownedController: IProductsCoreController<Product>, wishlistController: ICollectionController<number>, productFilesController: IProductFilesController);
-    getViewModel: (data: ProductCore) => ProductViewModel;
+    getViewModel: IGetViewModelDelegate<ProductCore, ProductViewModel>;
 }

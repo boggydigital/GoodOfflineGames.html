@@ -1,4 +1,5 @@
 import { ProductCore } from "../model/productCore";
+import { IProductViewModelProvider } from "./productViewModelProvider";
 import { IGetViewModelDelegate, IViewModelProvider } from "./viewModelProvider";
 export declare class SearchViewModel {
     id: number;
@@ -13,5 +14,7 @@ export declare abstract class SearchViewModelProvider<Input> implements ISearchV
     getViewModel: (data: Input) => SearchViewModel;
 }
 export declare class ProductCoreSearchViewModelProvider extends SearchViewModelProvider<ProductCore> {
+    productViewModelProvider: IProductViewModelProvider<ProductCore>;
+    constructor(productViewModelProvider: IProductViewModelProvider<ProductCore>);
     getViewModel: (data: ProductCore) => SearchViewModel;
 }

@@ -9,9 +9,6 @@
     },
     "files": [
         "viewModel/searchViewModelProvider.ts",
-        "viewModel/productViewModelProvider.ts",
-        "collectionController.ts",
-        "productFilesController.ts",
         "listController.ts"
     ]
 }

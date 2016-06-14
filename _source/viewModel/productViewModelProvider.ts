@@ -46,7 +46,7 @@ export class ProductCoreViewModelProvider extends ProductViewModelProvider<Produ
         this.productFilesController = productFilesController;
     }
 
-    public getViewModel = function (data: ProductCore): ProductViewModel {
+    public getViewModel: IGetViewModelDelegate<ProductCore,ProductViewModel> = function (data: ProductCore): ProductViewModel {
         if (data == null) return null;
         let productViewModel = new ProductViewModel();
         let classes = [];
@@ -58,7 +58,7 @@ export class ProductCoreViewModelProvider extends ProductViewModelProvider<Produ
         if (this.ownedController &&
             this.ownedController.getById(data.id)) {
             classes.push("owned");
-            tags.push("OWN");
+            tags.push("OWNED");
         }
 
         if (this.productFilesController) {
@@ -75,7 +75,7 @@ export class ProductCoreViewModelProvider extends ProductViewModelProvider<Produ
         if (this.wishlistController &&
             this.wishlistController.contains(data.id)) {
             classes.push("wishlisted");
-            tags.push("WISH");
+            tags.push("WISHLISTED");
         }
 
         if (this.gameDetailsController) {

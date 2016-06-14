@@ -1,4 +1,5 @@
 import {ProductCore} from "../model/productCore";
+import {IProductViewModelProvider, ProductViewModel} from "./productViewModelProvider";
 import {IGetViewModelDelegate, IViewModelProvider} from "./viewModelProvider";
 
 export class SearchViewModel {
@@ -21,11 +22,27 @@ export abstract class SearchViewModelProvider<Input> implements ISearchViewModel
 }
 
 export class ProductCoreSearchViewModelProvider extends SearchViewModelProvider<ProductCore> {
+
+    productViewModelProvider: IProductViewModelProvider<ProductCore>;
+
+    public constructor(productViewModelProvider: IProductViewModelProvider<ProductCore>) {
+        super();
+        this.productViewModelProvider = productViewModelProvider;
+    }
+    
     public getViewModel = function(data: ProductCore): SearchViewModel {
         if (data == null) return null;
-        var searchViewModel = new SearchViewModel();
+        
+        let searchParts = [];
+
+        let productViewModel = this.productViewModelProvider.getViewModel(data);
+        searchParts.push(productViewModel.title.toLocaleLowerCase());
+        searchParts.push(productViewModel.id);
+        searchParts.push(productViewModel.tags.toLocaleLowerCase());
+
+        let searchViewModel = new SearchViewModel();
         searchViewModel.id = data.id;
-        searchViewModel.searchString = data.title.toLocaleLowerCase();
+        searchViewModel.searchString = searchParts.join(" ");
         return searchViewModel;
     }
 }
