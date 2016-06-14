@@ -106,6 +106,7 @@ export class ListController<T> implements IListController {
             searchController.index(collection);
 
             searchController.addEventCallback("matchStart", () => {
+	            this.clearSelection();
                 that.listContainer.classList.add("hidden");
                 that.searchResultsContainer.innerHTML = "";
                 that.searchResultsCount = 0;
@@ -131,7 +132,8 @@ export class ListController<T> implements IListController {
 
                 var matchingElement = that.listContainer.querySelector("[data-id='" + id + "']");
                 if (matchingElement) {
-                    that.searchResultsContainer.appendChild(matchingElement.cloneNode(true));
+                    let matchedClone = matchingElement.cloneNode(true);
+                    that.searchResultsContainer.appendChild(matchedClone);
                 }
             });
 

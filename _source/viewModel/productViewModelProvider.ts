@@ -46,8 +46,10 @@ export class ProductCoreViewModelProvider extends ProductViewModelProvider<Produ
         this.productFilesController = productFilesController;
     }
 
-    public getViewModel: IGetViewModelDelegate<ProductCore,ProductViewModel> = function (data: ProductCore): ProductViewModel {
+    public getViewModel: IGetViewModelDelegate<ProductCore,ProductViewModel> = 
+    function (data: ProductCore): ProductViewModel {
         if (data == null) return null;
+
         let productViewModel = new ProductViewModel();
         let classes = [];
         let tags = [];
