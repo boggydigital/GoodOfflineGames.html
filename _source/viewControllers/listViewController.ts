@@ -37,10 +37,10 @@ export class ListViewController<T> implements IListViewController {
     searchResultsCount = 0;
     searchResultsLimitedClass: string = "searchResultsLimited";
 
-    searchResultsLimitedMessage: string = 
-        "Search results are limited to " + 
-        this.searchResultsLimit + 
-        " items";
+    searchResultsLimitedMessage: string =
+    "Search results are limited to " +
+    this.searchResultsLimit +
+    " items";
 
     selectedClass: string = "selected";
     selectedChangedEvent = "selectedChanged";
@@ -76,18 +76,22 @@ export class ListViewController<T> implements IListViewController {
         this.parentElement.appendChild(this.listContainer);
         this.parentElement.appendChild(this.searchResultsContainer);
 
+        let n = Math.min(25, collection.length);
+
         // 1. create the view of every element in the collection
         let viewCollection = new Array<string>();
-        for (let ii = 0; ii < collection.length; ii++) {
+        for (let ii = 0; ii < n; ii++)
             viewCollection.push(viewController.create(collection[ii], templateId));
-        }
 
         // 2. add view to the container
         // first show initial N, than schedule (all - N) on next frame
-        let n = 25;
-        this.listContainer.innerHTML = viewCollection.splice(0, n).join("");
+
+        this.listContainer.innerHTML = viewCollection.join("");
 
         requestAnimationFrame(() => {
+            viewCollection = new Array<string>();
+            for (let ii = n; ii < collection.length; ii++)
+                viewCollection.push(viewController.create(collection[ii], templateId));
             this.listContainer.innerHTML += viewCollection.join("");
         });
 
@@ -102,11 +106,14 @@ export class ListViewController<T> implements IListViewController {
         });
 
         if (searchController) {
+            
             // 4. build search index and add matching events
-            searchController.index(collection);
+            requestAnimationFrame(() => {
+                searchController.index(collection);
+            });
 
             searchController.addEventCallback("matchStart", () => {
-	            this.clearSelection();
+                this.clearSelection();
                 that.listContainer.classList.add("hidden");
                 that.searchResultsContainer.innerHTML = "";
                 that.searchResultsCount = 0;
@@ -116,7 +123,7 @@ export class ListViewController<T> implements IListViewController {
                 that.searchResultsContainer.classList.remove("hidden");
 
                 // add notice that we display only searchLimit results
-                
+
                 if (that.searchResultsCount > that.searchResultsLimit) {
 
                     let searchResultsLimitedElement = document.createElement("div");
