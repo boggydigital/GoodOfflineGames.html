@@ -54,9 +54,13 @@ export class SearchController<T> implements ISearchController<T> {
             return;
         }
         this.eventCallbackController.fire(this.matchStartEvent, new Date());
+        let searchTerms = searchString.split(" ");
         for (let ii=0; ii<this.searchIndex.length; ii++) {
-            if (this.searchIndex[ii].searchString.indexOf(searchString) > -1)
-                this.eventCallbackController.fire(this.matchedEvent, this.searchIndex[ii].id);
+            let indexMatched = true;
+            for (let jj=0; jj<searchTerms.length; jj++)
+                indexMatched = indexMatched && (this.searchIndex[ii].searchString.indexOf(searchTerms[jj]) > -1);
+	
+            if (indexMatched) this.eventCallbackController.fire(this.matchedEvent, this.searchIndex[ii].id);
         }
         this.eventCallbackController.fire(this.matchEndEvent, new Date());        
     }

@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let eventCallbackController = new EventCallbackController();
 
     let productCoreSearchViewModelProvider = new ProductCoreSearchViewModelProvider(
-        productViewModelProvider);
+    	productViewModelProvider);
     let productsSearchController = new SearchController(
         productCoreSearchViewModelProvider, 
         eventCallbackController);
@@ -41,7 +41,6 @@ document.addEventListener("DOMContentLoaded", () => {
         productViewModelProvider,
         templateController, 
         bindController);
-
 
     let productsListController = new ListController(
         combinedProducts, // collection

@@ -29,16 +29,18 @@ export class ProductCoreSearchViewModelProvider extends SearchViewModelProvider<
         super();
         this.productViewModelProvider = productViewModelProvider;
     }
-    
-    public getViewModel = function(data: ProductCore): SearchViewModel {
+
+    public getViewModel = function (data: ProductCore): SearchViewModel {
         if (data == null) return null;
-        
+
         let searchParts = [];
 
-        let productViewModel = this.productViewModelProvider.getViewModel(data);
-        searchParts.push(productViewModel.title.toLocaleLowerCase());
-        searchParts.push(productViewModel.id);
-        searchParts.push(productViewModel.tags.toLocaleLowerCase());
+        if (this.productViewModelProvider) {
+            let productViewModel = this.productViewModelProvider.getViewModel(data);
+            searchParts.push(productViewModel.title.toLocaleLowerCase());
+            searchParts.push(productViewModel.id);
+            searchParts.push(productViewModel.tags.toLocaleLowerCase());
+        }
 
         let searchViewModel = new SearchViewModel();
         searchViewModel.id = data.id;
