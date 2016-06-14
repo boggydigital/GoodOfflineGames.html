@@ -8,7 +8,9 @@
         "noImplicitReturns": true
     },
     "files": [
-        "viewModel/searchViewModelProvider.ts",
-        "listController.ts"
+        "viewModels/searchViewModelProvider.ts",
+        "viewControllers/listViewController.ts",
+        "viewControllers/gameDetailsViewController.ts",
+        "viewControllers/masterDetailViewController.ts"
     ]
 }

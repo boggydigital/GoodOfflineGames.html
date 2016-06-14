@@ -1,4 +1,4 @@
-import {ProductCore} from "../model/productCore";
+import {ProductCore} from "../models/productCore";
 import {IProductViewModelProvider, ProductViewModel} from "./productViewModelProvider";
 import {IGetViewModelDelegate, IViewModelProvider} from "./viewModelProvider";
 

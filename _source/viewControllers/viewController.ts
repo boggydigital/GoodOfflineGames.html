@@ -1,6 +1,6 @@
-import {ITemplateController} from "./templateController";
-import {IBindController} from "./bindController"; 
-import {IViewModelProvider} from "./viewModel/viewModelProvider";
+import {ITemplateController} from "../templateController";
+import {IBindController} from "../bindController"; 
+import {IViewModelProvider} from "../viewModels/viewModelProvider";
 
 export interface ICreateDelegate {
     (model: any, templateId: string): string;

@@ -1,6 +1,6 @@
-import {IEventCallbackController, IAddEventCallbackDelegate} from "./eventCallbackController";
+import {IEventCallbackController, IAddEventCallbackDelegate} from "../eventCallbackController";
 import {IViewController} from "./viewController";
-import {ISearchController} from "./searchController";
+import {ISearchController} from "../searchController";
 
 export interface IClearSelectionDelegate {
     (): void;
@@ -18,14 +18,14 @@ export interface ISelectionChangedDelegate {
     (element: Element): void;
 }
 
-export interface IListController {
+export interface IListViewController {
     clearSelection: IClearSelectionDelegate;
     select: ISelectDelegate;
     selectByIndex: ISelectByIndexDelegate;
     addEventCallback: IAddEventCallbackDelegate;
 }
 
-export class ListController<T> implements IListController {
+export class ListViewController<T> implements IListViewController {
 
     viewController: IViewController;
     eventCallbackController: IEventCallbackController;
@@ -164,7 +164,9 @@ export class ListController<T> implements IListController {
         if (element === undefined || element === null) return;
         element.classList.add(this.selectedClass);
 
-        this.eventCallbackController.fire(this.selectedChangedEvent, element);
+        var id = parseInt(element.getAttribute("data-id"));
+
+        this.eventCallbackController.fire(this.selectedChangedEvent, id);
     }
 
     public addEventCallback: IAddEventCallbackDelegate = function (event: string, callback: Function) {

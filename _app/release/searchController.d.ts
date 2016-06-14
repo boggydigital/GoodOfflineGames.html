@@ -1,4 +1,4 @@
-import { SearchViewModel, ISearchViewModelProvider } from "./viewModel/searchViewModelProvider";
+import { SearchViewModel, ISearchViewModelProvider } from "./viewModels/searchViewModelProvider";
 import { IEventCallbackController, IAddEventCallbackDelegate } from "./eventCallbackController";
 export interface IIndexDelegate<T> {
     (items: Array<T>): void;

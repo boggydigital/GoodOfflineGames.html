@@ -4,7 +4,7 @@
 /// <reference path="./release/bindController.d.ts" />
 /// <reference path="./release/viewController.d.ts" />
 /// <reference path="./release/eventCallbackController.d.ts" />
-/// <reference path="./release/listController.d.ts" />
+/// <reference path="./release/listViewController.d.ts" />
 /// <reference path="./release/searchController.d.ts" />
 /// <reference path="./release/collectionController.d.ts" />
 /// <reference path="./release/productsCoreController.d.ts" />
@@ -33,6 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let productCoreSearchViewModelProvider = new ProductCoreSearchViewModelProvider(
     	productViewModelProvider);
+
     let productsSearchController = new SearchController(
         productCoreSearchViewModelProvider, 
         eventCallbackController);
@@ -42,7 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
         templateController, 
         bindController);
 
-    let productsListController = new ListController(
+    let listViewController = new ListViewController(
         combinedProducts, // collection
         "product", //templateId
         document.getElementById("products"), // container
@@ -50,16 +51,17 @@ document.addEventListener("DOMContentLoaded", () => {
         productsSearchController, // searchController
         eventCallbackController); // ...
     
-    productsListController.addEventCallback("selectedChanged", function (e) {
-        let id = parseInt(e.getAttribute("data-id"));
-        let product = productsController.getById(id)
-        document.getElementById("gameDetails").innerHTML = "<h1>" + product.title + "</h1>";
-    });
+    let gameDetailsViewController = new GameDetailsViewController(
+        document.getElementById("gameDetails")
+    );
+
+    let masterDetailViewController = new MasterDetailViewController(
+        listViewController,
+        gameDetailsViewController
+    );
 
     // select the first item in the list
-    productsListController.selectByIndex(0);
-
-    // productsSearchController.match("doom");
+    listViewController.selectByIndex(0);
 
     let searchInput = document.querySelector("#search>input[type='search']");
     searchInput.addEventListener("input", (e) => {

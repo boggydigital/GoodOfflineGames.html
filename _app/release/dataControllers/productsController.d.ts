@@ -1,6 +1,6 @@
-import { ProductCore } from "./models/productCore";
-import { Product } from "./models/product";
-import { GameDetails } from "./models/gameDetails";
+import { ProductCore } from "../models/productCore";
+import { Product } from "../models/product";
+import { GameDetails } from "../models/gameDetails";
 import { IContainsDelegate } from "./collectionController";
 export interface IGetByIdDelegate<T> {
     (id: number): T;

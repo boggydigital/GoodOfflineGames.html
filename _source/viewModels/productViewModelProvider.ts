@@ -1,10 +1,10 @@
-import {ProductCore} from "../model/productCore";
-import {Product} from "../model/product";
-import {GameDetails} from "../model/gameDetails";
+import {ProductCore} from "../models/productCore";
+import {Product} from "../models/product";
+import {GameDetails} from "../models/gameDetails";
 import {IGetViewModelDelegate, IViewModelProvider} from "./viewModelProvider";
-import {IProductsCoreController} from "../productsController";
-import {ICollectionController} from "../collectionController";
-import {IProductFilesController} from "../productFilesController";
+import {IProductsCoreController} from "../dataControllers/productsController";
+import {ICollectionController} from "../dataControllers/collectionController";
+import {IProductFilesController} from "../dataControllers/productFilesController";
 
 export class ProductViewModel {
     id: number;
