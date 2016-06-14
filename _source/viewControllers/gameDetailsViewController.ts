@@ -9,7 +9,6 @@ export class GameDetailsViewController implements IDetailsViewController {
 
     templateId: string;
     parentElement: Element;
-    // gameDetailsController: IProductsCoreController<GameDetails>;
     productsController: IProductsCoreController<Product>;
     viewController: IViewController<Product>;
     getIdDelegate: IGetIdDelegate<Product>;
@@ -20,12 +19,10 @@ export class GameDetailsViewController implements IDetailsViewController {
         parentElement: Element,
         viewController: IViewController<Product>,
         productsController: IProductsCoreController<Product>) {
-        // gameDetailsController: IProductsCoreController<GameDetails>) {
         this.getIdDelegate = getIdDelegate;
         this.templateId = templateId;
         this.parentElement = parentElement;
         this.viewController = viewController;
-        // this.gameDetailsController = gameDetailsController;
         this.productsController = productsController;
     }
 
@@ -38,7 +35,7 @@ export class GameDetailsViewController implements IDetailsViewController {
             product,
             this.getIdDelegate,
             this.templateId);
-            
+
         this.parentElement.innerHTML = gameDetailsView;
     }
 }

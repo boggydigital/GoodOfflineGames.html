@@ -7,7 +7,7 @@ export class SearchViewModel {
     searchString: string;
 }
 
-export class ProductCoreSearchViewModelProvider implements IViewModelProvider<SearchViewModel> {
+export class ProductSearchViewModelProvider implements IViewModelProvider<SearchViewModel> {
 
     productViewModelProvider: IViewModelProvider<ProductViewModel>;
 

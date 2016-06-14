@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let wishlistController = new CollectionController(wishlisted);
     let combinedProducts = productsController.getAll();
 
-    let productViewModelProvider = new ProductCoreViewModelProvider(
+    let productViewModelProvider = new ProductViewModelProvider(
         productsController,
         ownedController,
         gameDetailsController,
@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let bindController = new BindController();
     let eventCallbackController = new EventCallbackController();
 
-    let productCoreSearchViewModelProvider = new ProductCoreSearchViewModelProvider(
+    let productCoreSearchViewModelProvider = new ProductSearchViewModelProvider(
         productViewModelProvider);
 
     let productsSearchController = new SearchController(

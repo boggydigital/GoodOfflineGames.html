@@ -13,16 +13,7 @@ export class ProductViewModel {
     title: string;
 }
 
-export class GameDetailsViewModel {
-    id: number;
-    title: string;
-}
-
-export interface IGetProductViewModelDelegate extends IGetViewModelDelegate<ProductViewModel> {
-    // ...
-}
-
-export class ProductCoreViewModelProvider implements IViewModelProvider<ProductViewModel> {
+export class ProductViewModelProvider implements IViewModelProvider<ProductViewModel> {
 
     productsController: IProductsCoreController<Product>;
     ownedController: IProductsCoreController<Product>;
@@ -34,7 +25,7 @@ export class ProductCoreViewModelProvider implements IViewModelProvider<ProductV
         productsController: IProductsCoreController<Product>,
         ownedController: IProductsCoreController<Product>,
         gameDetailsController: IProductsCoreController<GameDetails>,
-        productFilesController: IProductFilesController,        
+        productFilesController: IProductFilesController,
         wishlistController: ICollectionController<number>) {
         this.productsController = productsController;
         this.ownedController = ownedController;
@@ -94,29 +85,4 @@ export class ProductCoreViewModelProvider implements IViewModelProvider<ProductV
 
         return productViewModel;
     }
-}
-
-export class GameDetailsViewModelProvider implements IViewModelProvider<GameDetailsViewModel> {
-
-    productsController: IProductsCoreController<Product>;
-
-    public constructor(productsController: IProductsCoreController<Product>) {
-        this.productsController = productsController;
-    }
-
-    public getViewModel: IGetViewModelDelegate<GameDetailsViewModel> =
-    function (id: number): GameDetailsViewModel {
-
-        if (id == null) return null;
-
-        let product = this.productsController.getById(id); 
-
-        let gameDetailsViewModel = new GameDetailsViewModel();
-
-        gameDetailsViewModel.id = id;
-        gameDetailsViewModel.title = product.title;
-
-        return gameDetailsViewModel;
-    }
-
 }
