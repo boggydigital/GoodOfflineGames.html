@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let productsController = new ProductsController(products);
     let ownedController = new ProductsController(owned);
     let gameDetailsController = new GameDetailsController(gamedetails);
+    let productFilesController = new ProductFilesController(productfiles);
     productsController.addProducts(ownedController.getAll());
     let wishlistController = new CollectionController(wishlisted);
     let combinedProducts = productsController.getAll();
@@ -23,7 +24,8 @@ document.addEventListener("DOMContentLoaded", () => {
     let productViewModelProvider = new ProductCoreViewModelProvider(
         gameDetailsController,
         ownedController,
-        wishlistController);
+        wishlistController,
+        productFilesController);
 
     let templateController = new TemplateController();
     let bindController = new BindController();

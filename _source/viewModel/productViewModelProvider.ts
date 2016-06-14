@@ -4,6 +4,7 @@ import {GameDetails} from "../model/gameDetails";
 import {IGetViewModelDelegate, IViewModelProvider} from "./viewModelProvider";
 import {IProductsCoreController} from "../productsController";
 import {ICollectionController} from "../collectionController";
+import {IProductFilesController} from "../productFilesController";
 
 export class ProductViewModel {
     id: number;
@@ -31,15 +32,18 @@ export class ProductCoreViewModelProvider extends ProductViewModelProvider<Produ
     ownedController: IProductsCoreController<Product>;
     gameDetailsController: IProductsCoreController<GameDetails>;
     wishlistController: ICollectionController<number>;
+    productFilesController: IProductFilesController;
 
     public constructor(
         gameDetailsController: IProductsCoreController<GameDetails>,
         ownedController: IProductsCoreController<Product>,
-        wishlistController: ICollectionController<number>) {
+        wishlistController: ICollectionController<number>,
+        productFilesController: IProductFilesController) {
         super();
         this.gameDetailsController = gameDetailsController;
         this.ownedController = ownedController;
         this.wishlistController = wishlistController;
+        this.productFilesController = productFilesController;
     }
 
     public getViewModel = function (data: ProductCore): ProductViewModel {
@@ -57,6 +61,17 @@ export class ProductCoreViewModelProvider extends ProductViewModelProvider<Produ
             tags.push("OWN");
         }
 
+        if (this.productFilesController) {
+            let productFilesValidated = this.productFilesController.validated(data.id);
+            if (productFilesValidated === true) {
+                classes.push("validated");
+                tags.push("DATA OK");
+            } else if (productFilesValidated === false) {
+                classes.push("validation-issue");
+                tags.push("CHECK DATA");
+            }
+        }
+
         if (this.wishlistController &&
             this.wishlistController.contains(data.id)) {
             classes.push("wishlisted");
@@ -72,7 +87,7 @@ export class ProductCoreViewModelProvider extends ProductViewModelProvider<Produ
         }
 
         productViewModel.class = classes.join(" ");
-        productViewModel.tags = tags.join(" ");
+        productViewModel.tags = tags.join(". ");
 
         return productViewModel;
     }

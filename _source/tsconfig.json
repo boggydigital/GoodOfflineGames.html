@@ -11,7 +11,7 @@
         "viewModel/searchViewModelProvider.ts",
         "viewModel/productViewModelProvider.ts",
         "collectionController.ts",
-        "productsController.ts",
+        "productFilesController.ts",
         "listController.ts"
     ]
 }

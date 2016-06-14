@@ -4,6 +4,7 @@ import { GameDetails } from "../model/gameDetails";
 import { IGetViewModelDelegate, IViewModelProvider } from "./viewModelProvider";
 import { IProductsCoreController } from "../productsController";
 import { ICollectionController } from "../collectionController";
+import { IProductFilesController } from "../productFilesController";
 export declare class ProductViewModel {
     id: number;
     class: string;
@@ -22,6 +23,7 @@ export declare class ProductCoreViewModelProvider extends ProductViewModelProvid
     ownedController: IProductsCoreController<Product>;
     gameDetailsController: IProductsCoreController<GameDetails>;
     wishlistController: ICollectionController<number>;
-    constructor(gameDetailsController: IProductsCoreController<GameDetails>, ownedController: IProductsCoreController<Product>, wishlistController: ICollectionController<number>);
+    productFilesController: IProductFilesController;
+    constructor(gameDetailsController: IProductsCoreController<GameDetails>, ownedController: IProductsCoreController<Product>, wishlistController: ICollectionController<number>, productFilesController: IProductFilesController);
     getViewModel: (data: ProductCore) => ProductViewModel;
 }
