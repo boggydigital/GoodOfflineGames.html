@@ -13,6 +13,14 @@
 
 document.addEventListener("DOMContentLoaded", () => {
 
+    /* DOM Elements */
+
+    let productsContainer = document.getElementById("products");
+    let gameDetailsContainer = document.getElementById("gameDetails");
+    let searchInput = document.querySelector("#search>input[type='search']");
+
+    /* Controller */
+
     let productsController = new ProductsController(products);
     let ownedController = new ProductsController(owned);
     let gameDetailsController = new GameDetailsController(gamedetails);
@@ -46,24 +54,21 @@ document.addEventListener("DOMContentLoaded", () => {
     let listViewController = new ListViewController(
         combinedProducts, // collection
         "product", //templateId
-        document.getElementById("products"), // container
+        productsContainer, // container
         viewController, // ...
         productsSearchController, // searchController
         eventCallbackController); // ...
     
     let gameDetailsViewController = new GameDetailsViewController(
-        document.getElementById("gameDetails")
-    );
+        gameDetailsContainer);
 
     let masterDetailViewController = new MasterDetailViewController(
         listViewController,
-        gameDetailsViewController
-    );
+        gameDetailsViewController);
 
     // select the first item in the list
     listViewController.selectByIndex(0);
 
-    let searchInput = document.querySelector("#search>input[type='search']");
     searchInput.addEventListener("input", (e) => {
         productsSearchController.match(searchInput.value); 
     });

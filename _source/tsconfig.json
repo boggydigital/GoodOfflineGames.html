@@ -2,7 +2,7 @@
     "compilerOptions": {
         "target": "es5",
         "outDir": "../_app/release",
-        "declaration": true,
+        // "declaration": true,
         "inlineSourceMap": true,
         "listFiles": true,
         "noImplicitReturns": true

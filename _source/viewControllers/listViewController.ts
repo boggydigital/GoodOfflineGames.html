@@ -85,7 +85,7 @@ export class ListViewController<T> implements IListViewController {
         // 2. add view to the container
         // first show initial N, than schedule (all - N) on next frame
         let n = 25;
-        this.listContainer.innerHTML = viewCollection.slice(0, n).join("");
+        this.listContainer.innerHTML = viewCollection.splice(0, n).join("");
 
         requestAnimationFrame(() => {
             this.listContainer.innerHTML += viewCollection.join("");
