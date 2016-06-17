@@ -73,6 +73,7 @@ body.dark {
     left: -2px;
     display: block;
     padding: 12px;
+    padding-left: 16px;
     text-decoration: none;
     position: relative;
     -ms-user-select: none;
