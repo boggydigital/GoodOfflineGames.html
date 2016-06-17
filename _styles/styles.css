@@ -13,6 +13,11 @@ body.dark {
     color: white;
 }
 
+body.light {
+    background: white;
+    color: black;
+}
+
 /* Search */
 
 #search {
@@ -30,16 +35,28 @@ body.dark {
     width: calc(320px - 2*12px);
     height: 32px;
     font-size: 14px;
-    border: 2px solid rgb(133,133,133);
-    background: black;
+    border: 2px solid;
+    background: inherit;
     /* WebKit fix */
     -webkit-appearance: none;
     outline: none;
     color: white;
 }
 
-#search input[type=search]:hover {
+.dark #search input[type=search] {
+    border-color: rgb(133,133,133);
+}
+
+.light #search input[type=search] {
+    border-color: rgb(122,122,122);
+}
+
+.dark #search input[type=search]:hover {
     border-color: white;
+}
+
+.light #search input[type=search]:hover {
+    border-color: rgb(23,23,23);
 }
 
 #search input[type=search]:focus {
@@ -102,13 +119,24 @@ body.dark {
     display: block;
 }
 
-#products .product:hover {
+.dark #products .product:hover {
     background: rgb(25,25,25);
 }
 
+.light #products .product:hover {
+    background: rgb(230,230,230);
+}
+
 #products .product:active {
-    background: rgb(51,51,51);
     transform: scale(0.99);
+}
+
+.dark #products .product:active {
+    background: rgb(51,51,51);
+}
+
+.light #products .product:active {
+    background: rgb(204,204,204);
 }
 
 #products .product.selected {
