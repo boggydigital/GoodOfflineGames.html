@@ -182,11 +182,12 @@ html {
     right: 0;
     bottom: 0;
     padding: 1em;
-    font-size: 1.5em;
+    font-size: 1.5rem;
 }
 
 #gameDetails h1 {
     font-size: 1em;
     font-weight: normal;
     margin-bottom: 1em;
+	margin-top: 0;
 }
