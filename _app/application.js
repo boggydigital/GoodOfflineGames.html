@@ -41,7 +41,8 @@ document.addEventListener("DOMContentLoaded", () => {
     let eventCallbackController = new EventCallbackController();
 
     let productCoreSearchViewModelProvider = new ProductSearchViewModelProvider(
-        productViewModelProvider);
+        productViewModelProvider,
+        productsDataController);
 
     let productsSearchController = new SearchController(
         productCoreSearchViewModelProvider,

@@ -181,6 +181,7 @@ html {
     right: 0;
     bottom: 0;
     padding: 1em;
+    overflow: auto;
 }
 
 #gameDetails h1, h2 {

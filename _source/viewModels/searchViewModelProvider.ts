@@ -1,5 +1,8 @@
 import {ProductCore} from "../models/productCore";
+import {ProductData} from "../models/productData";
 import {ProductViewModel} from "./productViewModelProvider";
+import {IProductsCoreController} from "../dataControllers/productsController";
+
 import {IGetViewModelDelegate, IViewModelProvider} from "./viewModelProvider";
 
 export class SearchViewModel {
@@ -10,9 +13,12 @@ export class SearchViewModel {
 export class ProductSearchViewModelProvider implements IViewModelProvider<SearchViewModel> {
 
     productViewModelProvider: IViewModelProvider<ProductViewModel>;
+    productsDataController: IProductsCoreController<ProductData>;
 
-    public constructor(productViewModelProvider: IViewModelProvider<ProductViewModel>) {
+    public constructor(productViewModelProvider: IViewModelProvider<ProductViewModel>,
+        productsDataController: IProductsCoreController<ProductData>) {
         this.productViewModelProvider = productViewModelProvider;
+        this.productsDataController = productsDataController;
     }
 
     public getViewModel = function (id: number): SearchViewModel {
@@ -25,6 +31,12 @@ export class ProductSearchViewModelProvider implements IViewModelProvider<Search
             searchParts.push(productViewModel.title.toLocaleLowerCase());
             searchParts.push(productViewModel.id);
             searchParts.push(productViewModel.tags.toLocaleLowerCase());
+        }
+
+        if (this.productsDataController) {
+            let productData = this.productsDataController.getById(id);
+            if (productData && productData.developer) searchParts.push(productData.developer.name.toLocaleLowerCase());
+            if (productData && productData.publisher) searchParts.push(productData.publisher.name.toLocaleLowerCase());
         }
 
         let searchViewModel = new SearchViewModel();
