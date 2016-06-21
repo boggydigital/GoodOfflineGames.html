@@ -24,6 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
     /* Controller */
 
     let productsController = new ProductsController(products);
+    let productsDataController = new ProductsDataController(productsdata);
     let ownedController = new ProductsController(owned);
     let gameDetailsController = new GameDetailsController(gamedetails);
     let productFilesController = new ProductFilesController(productfiles);
@@ -33,6 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let productViewModelProvider = new ProductViewModelProvider(
         productsController,
+        productsDataController,
         ownedController,
         gameDetailsController,
         productFilesController,

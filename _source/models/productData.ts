@@ -16,6 +16,6 @@ export class ProductData extends ProductCore {
     genres: Array<NamedEntry>;
     image: string;
     publisher: NamedEntry;
-    // requiredProducts: any;
+    requiredProducts: Array<ProductCore>;
     series: Series;
 }

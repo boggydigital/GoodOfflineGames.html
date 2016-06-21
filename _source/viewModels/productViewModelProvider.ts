@@ -1,5 +1,6 @@
 import {ProductCore} from "../models/productCore";
 import {Product} from "../models/product";
+import {ProductData} from "../models/productData";
 import {GameDetails} from "../models/gameDetails";
 import {IGetViewModelDelegate, IViewModelProvider} from "./viewModelProvider";
 import {IProductsCoreController} from "../dataControllers/productsController";
@@ -16,6 +17,7 @@ export class ProductViewModel {
 export class ProductViewModelProvider implements IViewModelProvider<ProductViewModel> {
 
     productsController: IProductsCoreController<Product>;
+    productsDataController: IProductsCoreController<ProductData>;
     ownedController: IProductsCoreController<Product>;
     gameDetailsController: IProductsCoreController<GameDetails>;
     wishlistController: ICollectionController<number>;
@@ -23,11 +25,13 @@ export class ProductViewModelProvider implements IViewModelProvider<ProductViewM
 
     public constructor(
         productsController: IProductsCoreController<Product>,
+        productsDataController: IProductsCoreController<ProductData>,
         ownedController: IProductsCoreController<Product>,
         gameDetailsController: IProductsCoreController<GameDetails>,
         productFilesController: IProductFilesController,
         wishlistController: ICollectionController<number>) {
         this.productsController = productsController;
+        this.productsDataController = productsDataController;
         this.ownedController = ownedController;
         this.gameDetailsController = gameDetailsController;
         this.productFilesController = productFilesController;
@@ -48,6 +52,16 @@ export class ProductViewModelProvider implements IViewModelProvider<ProductViewM
 
         productViewModel.id = id;
         productViewModel.title = product.title;
+
+        if (this.productsDataController) {
+            let productData = this.productsDataController.getById(id);
+            if (productData &&
+                productData.requiredProducts &&
+                productData.requiredProducts.length) {
+                classes.push("dlc");
+                tags.push("DLC");
+            }
+        }
 
         if (this.ownedController &&
             this.ownedController.getById(id)) {
@@ -78,6 +92,10 @@ export class ProductViewModelProvider implements IViewModelProvider<ProductViewM
                 for (let tt = 0; tt < gd.tags.length; tt++)
                     tags.push(gd.tags[tt].name);
             }
+        }
+
+        if (classes.length) {
+            classes.push("hasTags");
         }
 
         productViewModel.class = classes.join(" ");

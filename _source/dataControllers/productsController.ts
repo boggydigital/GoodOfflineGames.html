@@ -1,5 +1,6 @@
 import {ProductCore} from "../models/productCore";
 import {Product} from "../models/product";
+import {ProductData} from "../models/productData";
 import {GameDetails} from "../models/gameDetails";
 import {IContainsDelegate} from "./collectionController";
 
@@ -59,6 +60,12 @@ export abstract class ProductsCoreController<T> implements IProductsCoreControll
 export class ProductsController extends ProductsCoreController<Product> {
     public constructor(products: Array<Product>) {
         super(products);
+    }
+}
+
+export class ProductsDataController extends ProductsCoreController<ProductData> {
+    public constructor(productsData: Array<ProductData>) {
+        super(productsData);
     }
 }
 

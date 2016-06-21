@@ -118,8 +118,7 @@ html {
     display: none;
 }
 
-#products .product.owned .tags,
-#products .product.wishlisted .tags
+#products .product.hasTags .tags
  {
     display: block;
 }

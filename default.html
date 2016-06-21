@@ -15,7 +15,9 @@
     <div id="search">
         <input type="search" placeholder="Find a product" />
     </div>
-    <div id="products"></div>
+    <div id="products" 
+        data-ui="list" 
+        data-list-item-template="product"></div>
     <div id="gameDetails"></div>
 
     <div id="templates" class="hidden">
@@ -57,6 +59,7 @@
     <!-- dataControllers -->
     <script src="./_app/release/dataControllers/collectionController.js"></script>
     <script src="./_app/release/dataControllers/productsController.js"></script>
+    <script src="./_app/release/dataControllers/productsDataController.js"></script>    
     <script src="./_app/release/dataControllers/productFilesController.js"></script>
     <!-- viewControllers -->
     <script src="./_app/release/viewControllers/viewController.js"></script>
