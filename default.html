@@ -27,7 +27,7 @@
         </div>
         <div id="gameDetails">
             <h1>{{title}}</h1>
-            <img srcset='{{productImage}} 1x, {{productImageRetina}} 2x' src='{{productImage}}' />
+            <img srcset='{{productImage}} 1x, {{productImageRetina}} 2x' src='{{productImage}}' onerror="this.classList.add('hidden')"/>
             <h2>Developer</h2>
             <p>{{developer}}</p>
             <h2>Publisher</h2>
