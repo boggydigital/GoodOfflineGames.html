@@ -27,7 +27,7 @@
         </div>
         <div id="gameDetails">
             <h1>{{title}}</h1>
-            <img srcset='{{productImage}} 1x, {{productImageRetina}} 2x' src='{{productImage}}' onerror="this.classList.add('hidden')"/>
+            <img class='hidden' data-srcset='{{productImage}} 1x, {{productImageRetina}} 2x' data-src='{{productImage}}' onerror="this.classList.add('hidden')"/>
             <h2>Developer</h2>
             <p>{{developer}}</p>
             <h2>Publisher</h2>
@@ -47,13 +47,13 @@
         var exports = {};
     </script>
     <!-- model -->
-    <script src="../products.js"></script>
-    <script src="../owned.js"></script>
-    <script src="../wishlisted.js"></script>
-    <script src="../productsdata.js"></script>
-    <script src="../gamedetails.js"></script>
-    <script src="../productfiles.js"></script>
-    <script src="../screenshots.js"></script>
+    <script src="./products.js"></script>
+    <script src="./owned.js"></script>
+    <script src="./wishlisted.js"></script>
+    <script src="./productsdata.js"></script>
+    <script src="./gamedetails.js"></script>
+    <script src="./productfiles.js"></script>
+    <script src="./screenshots.js"></script>
     <!-- controllers -->
     <script src="./_app/release/templateController.js"></script>
     <script src="./_app/release/bindController.js"></script>

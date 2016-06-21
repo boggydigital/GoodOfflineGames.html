@@ -5,6 +5,7 @@ import {ProductData} from "../models/productData";
 import {IProductsCoreController} from "../dataControllers/productsController";
 import {IViewController} from "./viewController";
 import {IGetIdDelegate} from "./viewController";
+import {IImagesController} from "../viewControllers/imagesController";
 
 export class GameDetailsViewController implements IDetailsViewController {
 
@@ -13,18 +14,21 @@ export class GameDetailsViewController implements IDetailsViewController {
     productsController: IProductsCoreController<Product>;
     viewController: IViewController<Product>;
     getIdDelegate: IGetIdDelegate<Product>;
+    imagesController: IImagesController;
 
     public constructor(
         getIdDelegate: IGetIdDelegate<Product>,
         templateId: string,
         parentElement: Element,
         viewController: IViewController<Product>,
-        productsController: IProductsCoreController<Product>) {
+        productsController: IProductsCoreController<Product>,
+        imagesController: IImagesController) {
         this.getIdDelegate = getIdDelegate;
         this.templateId = templateId;
         this.parentElement = parentElement;
         this.viewController = viewController;
         this.productsController = productsController;
+        this.imagesController = imagesController;
     }
 
     public showDetails: IShowDetailsDelegate =
@@ -38,5 +42,8 @@ export class GameDetailsViewController implements IDetailsViewController {
             this.templateId);
 
         this.parentElement.innerHTML = gameDetailsView;
+
+        // devirtualize images
+        this.imagesController.load(this.parentElement);
     }
 }

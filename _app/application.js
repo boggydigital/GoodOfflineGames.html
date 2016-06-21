@@ -71,7 +71,8 @@ document.addEventListener("DOMContentLoaded", () => {
         "gameDetails",
         gameDetailsContainer,
         viewControllerGameDetails,
-        productsController);
+        productsController,
+        imagesController);
 
     let masterDetailViewController = new MasterDetailViewController(
         listViewController,
