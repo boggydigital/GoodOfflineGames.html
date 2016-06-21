@@ -15,9 +15,7 @@
     <div id="search">
         <input type="search" placeholder="Find a product" />
     </div>
-    <div id="products" 
-        data-ui="list" 
-        data-list-item-template="product"></div>
+    <div id="products" data-ui="list" data-list-item-template="product"></div>
     <div id="gameDetails"></div>
 
     <div id="templates" class="hidden">
@@ -29,6 +27,11 @@
         </div>
         <div id="gameDetails">
             <h1>{{title}}</h1>
+            <img srcset='{{productImage}} 1x, {{productImageRetina}} 2x' src='{{productImage}}' />
+            <h2>Developer</h2>
+            <p>{{developer}}</p>
+            <h2>Publisher</h2>
+            <p>{{publisher}}</p>
         </div>
     </div>
 
@@ -59,9 +62,10 @@
     <!-- dataControllers -->
     <script src="./_app/release/dataControllers/collectionController.js"></script>
     <script src="./_app/release/dataControllers/productsController.js"></script>
-    <script src="./_app/release/dataControllers/productsDataController.js"></script>    
+    <script src="./_app/release/dataControllers/productsDataController.js"></script>
     <script src="./_app/release/dataControllers/productFilesController.js"></script>
     <!-- viewControllers -->
+    <script src="./_app/release/viewControllers/imagesController.js"></script>
     <script src="./_app/release/viewControllers/viewController.js"></script>
     <script src="./_app/release/viewControllers/listViewController.js"></script>
     <script src="./_app/release/viewControllers/gameDetailsViewController.js"></script>
@@ -70,7 +74,7 @@
     <script src="./_app/release/viewModels/searchViewModelProvider.js"></script>
     <script src="./_app/release/viewModels/productViewModelProvider.js"></script>
     <script src="./_app/release/viewModels/gameDetailsViewModelProvider.js"></script>
-    
+
     <!-- application entry point -->
     <script src="./_app/application.js"></script>
 </body>

@@ -1,14 +1,3 @@
-/// <reference path="./release/model/productCore.d.ts" />
-/// <reference path="./release/viewModel/searchViewModelProvider.d.ts" />
-/// <reference path="./release/templateController.d.ts" />
-/// <reference path="./release/bindController.d.ts" />
-/// <reference path="./release/viewController.d.ts" />
-/// <reference path="./release/eventCallbackController.d.ts" />
-/// <reference path="./release/listViewController.d.ts" />
-/// <reference path="./release/searchController.d.ts" />
-/// <reference path="./release/collectionController.d.ts" />
-/// <reference path="./release/productsCoreController.d.ts" />
-
 "use strict";
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -32,6 +21,8 @@ document.addEventListener("DOMContentLoaded", () => {
     let wishlistController = new CollectionController(wishlisted);
     let combinedProducts = productsController.getAll();
 
+    let imagesController = new ImagesController();
+
     let productViewModelProvider = new ProductViewModelProvider(
         productsController,
         productsDataController,
@@ -40,7 +31,10 @@ document.addEventListener("DOMContentLoaded", () => {
         productFilesController,
         wishlistController);
 
-    let gameDetailsViewModelProvider = new GameDetailsViewModelProvider(productsController);
+    let gameDetailsViewModelProvider = new GameDetailsViewModelProvider(
+        imagesController,
+        productsController,
+        productsDataController);
 
     let templateController = new TemplateController();
     let bindController = new BindController();

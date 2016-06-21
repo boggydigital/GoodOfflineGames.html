@@ -1,6 +1,7 @@
 import {IDetailsViewController, IShowDetailsDelegate} from "./detailsViewController";
 import {GameDetails} from "../models/gameDetails"
 import {Product} from "../models/product";
+import {ProductData} from "../models/productData";
 import {IProductsCoreController} from "../dataControllers/productsController";
 import {IViewController} from "./viewController";
 import {IGetIdDelegate} from "./viewController";

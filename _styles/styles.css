@@ -181,12 +181,19 @@ html {
     right: 0;
     bottom: 0;
     padding: 1em;
+}
+
+#gameDetails h1, h2 {
     font-size: 1.5rem;
+    font-weight: normal;
 }
 
 #gameDetails h1 {
-    font-size: 1em;
-    font-weight: normal;
     margin-bottom: 1em;
 	margin-top: 0;
+}
+
+#gameDetails img {
+    width: 100%;
+    max-width: 800px;
 }
