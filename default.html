@@ -9,21 +9,21 @@
     <link rel="stylesheet" href="./_styles/styles.css" />
 </head>
 <!-- switch default theme on the body: dark, light -->
+<body class="windows light">
 
-<body class="windows dark">
-
-    <div id="search">
-        <input type="search" placeholder="Find a product" />
+    <h1 id="appTitle">GoodOfflineGames.html</h1>
+    <div id="search" role="search">
+        <input type="search" role="searchbox" tabindex="1" placeholder="Find a product"/>
     </div>
-    <div id="products" data-ui="list" data-list-item-template="product"></div>
-    <div id="gameDetails"></div>
+    <nav id="products" tabindex="2" data-ui="list" data-list-item-template="product"></nav>
+    <main id="gameDetails" tabindex="3"></main>
 
     <div id="templates" class="hidden">
         <div id="product">
-            <div data-id='{{id}}' class='product {{class}}' title='{{title}}'>
+            <li data-id='{{id}}' class='product {{class}}' title='{{title}}'>
                 <div class='title'>{{title}}</div>
                 <div class='tags' title='{{tags}}'>{{tags}}</div>
-            </div>
+            </li>
         </div>
         <div id="gameDetails">
             <h1>{{title}}</h1>

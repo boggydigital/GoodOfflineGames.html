@@ -43,6 +43,7 @@ export class ListViewController<T> implements IListViewController {
     this.searchResultsLimit +
     " items";
 
+    keyboardSelectedClass: string = "keyboardSelected";
     selectedClass: string = "selected";
     selectedChangedEvent = "selectedChanged";
     selectedClearedEvent = "selectedCleared";
@@ -68,10 +69,10 @@ export class ListViewController<T> implements IListViewController {
         this.eventCallbackController = eventCallbackController;
 
         // 0. create child container objects for list and searchResultsContainer
-        this.listContainer = document.createElement("div");
+        this.listContainer = document.createElement("ul");
         this.listContainer.classList.add(this.listContainerClass);
 
-        this.searchResultsContainer = document.createElement("div");
+        this.searchResultsContainer = document.createElement("ul");
         this.searchResultsContainer.classList.add(this.searchResultsContainerClass);
         this.searchResultsContainer.classList.add("hidden");
 
@@ -95,13 +96,13 @@ export class ListViewController<T> implements IListViewController {
             viewCollection = new Array<string>();
             for (let ii = n; ii < collection.length; ii++)
                 viewCollection.push(viewController.create(
-                    collection[ii], 
-                    getIdDelegate, 
+                    collection[ii],
+                    getIdDelegate,
                     templateId));
             this.listContainer.innerHTML += viewCollection.join("");
         });
 
-        // 3. add a selection click handler
+        // 3. add event handlers
         let that = this;
         this.parentElement.addEventListener("click", (e) => {
             let targetElement = e.target as Element;
@@ -109,6 +110,24 @@ export class ListViewController<T> implements IListViewController {
                 targetElement = targetElement.parentElement ? targetElement.parentElement : undefined;
             }
             if (targetElement !== undefined) that.select(targetElement);
+        });
+
+        this.parentElement.addEventListener("keydown", (e: KeyboardEvent) => {
+            let value = 0;
+
+            if (e.key === "Enter") {
+                let keyboardSelected = this.activeView.querySelector("." + this.keyboardSelectedClass);
+                this.select(keyboardSelected);
+            }
+
+            if (e.key === "Up") value = e.shiftKey ? Number.MIN_VALUE : -1;
+            if (e.key === "Down") value = e.shiftKey ? Number.MAX_VALUE : 1;
+
+            if (value !== 0) {
+                this.moveKeyboardSelection(value);
+                e.preventDefault();
+                e.stopPropagation();
+            }
         });
 
         if (searchController) {
@@ -119,10 +138,11 @@ export class ListViewController<T> implements IListViewController {
             });
 
             searchController.addEventCallback("matchStart", () => {
-                this.clearSelection();
+                that.clearSelection();
                 that.listContainer.classList.add("hidden");
                 that.searchResultsContainer.innerHTML = "";
                 that.searchResultsCount = 0;
+                that.activeView = that.searchResultsContainer;
             });
 
             searchController.addEventCallback("matchEnd", () => {
@@ -153,6 +173,7 @@ export class ListViewController<T> implements IListViewController {
             searchController.addEventCallback("cleared", () => {
                 that.listContainer.classList.remove("hidden");
                 that.searchResultsContainer.classList.add("hidden");
+                that.activeView = that.listContainer;
             });
         }
 
@@ -162,8 +183,17 @@ export class ListViewController<T> implements IListViewController {
     public clearSelection: IClearSelectionDelegate = function (): void {
         var selectedElements = this.parentElement.getElementsByClassName(this.selectedClass);
         if (selectedElements === undefined) return;
-        for (var ii = 0; ii < selectedElements.length; ii++) {
+        for (let ii = 0; ii < selectedElements.length; ii++) {
             selectedElements[ii].classList.remove(this.selectedClass);
+        }
+        this.clearKeyboardSelection();
+    }
+
+    public clearKeyboardSelection: IClearSelectionDelegate = function (): void {
+        var keyboardSelectedElements = this.parentElement.getElementsByClassName(this.keyboardSelectedClass);
+        if (keyboardSelectedElements === undefined) return;
+        for (let ii = 0; ii < keyboardSelectedElements.length; ii++) {
+            keyboardSelectedElements[ii].classList.remove(this.keyboardSelectedClass);
         }
     }
 
@@ -180,6 +210,35 @@ export class ListViewController<T> implements IListViewController {
         var id = parseInt(element.getAttribute("data-id"));
 
         this.eventCallbackController.fire(this.selectedChangedEvent, id);
+    }
+
+    public moveKeyboardSelection = function (value: number) {
+        let keyboardSelected =
+            this.activeView.querySelector("." + this.keyboardSelectedClass);
+        if (!keyboardSelected) keyboardSelected =
+            this.activeView.querySelector("." + this.selectedClass);
+        let nextKeyboardFocus = this.activeView.children[0];
+        if (keyboardSelected) {
+            switch (value) {
+                case 1: if (keyboardSelected.nextElementSibling)
+                    nextKeyboardFocus = keyboardSelected.nextElementSibling;
+                    break;
+                case -1: if (keyboardSelected.previousElementSibling)
+                    nextKeyboardFocus = keyboardSelected.previousElementSibling;
+                    break;
+                case Number.MIN_VALUE:
+                    nextKeyboardFocus = this.activeView.children[0];
+                    break;
+                case Number.MAX_VALUE:
+                    nextKeyboardFocus = this.activeView.children[this.activeView.children.length - 1];
+                    break;
+            }
+        }
+        if (nextKeyboardFocus) {
+            if (keyboardSelected) keyboardSelected.classList.remove(this.keyboardSelectedClass);
+            nextKeyboardFocus.classList.add(this.keyboardSelectedClass);
+            (nextKeyboardFocus as HTMLElement).scrollIntoView(false);
+        }
     }
 
     public addEventCallback: IAddEventCallbackDelegate = function (event: string, callback: Function) {

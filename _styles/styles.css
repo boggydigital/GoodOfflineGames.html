@@ -1,5 +1,5 @@
 html {
-    font-family: -apple-system, "Segoe UI", sans-serif;
+    font-family: -apple-system, 'Segoe UI', sans-serif;
     margin: 0;
 	font-size: 16px;
 }
@@ -18,37 +18,50 @@ html {
     color: black;
 }
 
+h1, h2 {
+    font-size: 1.5rem;
+    font-weight: normal;
+}
+
+/* App Title */
+
+h1#appTitle {
+    padding-left: 0.25em;
+    font-weight: 200;
+    opacity: 0.75;
+}
+
 /* Search */
 
 #search {
     position: fixed;
     left: 0;
-    top: 0;
+    top: 3.75em;
     height: calc(2em+0.75em+0.75em);
     width: 20em;
     background-color: inherit;
 }
 
 #search input[type=search] {
-    margin: 0.75rem;
-    padding: 0.1875rem 0.375rem 0.3125rem 0.625rem;
-    width: calc(20em - 2*0.75rem);
-    height: 2rem;
-    font-size: 0.875rem;
-    border: 0.125rem solid;
+    margin: 0.75em;
+    /*padding: 0.5em 0.3125em 0.3125em 0.4375em;*/
+    padding-left: 0.4375em;
+    width: calc(100% - 0.75rem - 0.125em);
+    height: calc(2rem - 2*0.125em);
+    outline: 0.125rem solid;
+    border: 0;
     background: inherit;
     color: inherit;
-    outline: none;
     /* WebKit fix */
     -webkit-appearance: none;
 }
 
 .dark #search input[type=search] {
-    border-color: rgb(133,133,133);
+    outline-color: rgb(133,133,133);
 }
 
 .light #search input[type=search] {
-    border-color: rgb(122,122,122);
+    outline-color: rgb(122,122,122);
 }
 
 .dark #search input[type=search]::-webkit-input-placeholder {
@@ -56,15 +69,15 @@ html {
 }
 
 .light #search input[type=search]::-webkit-input-placeholder {
-    border-color: rgb(122,122,122);    
+    outline-color: rgb(122,122,122);    
 }
 
 #search input[type=search]:hover {
-    border-color: currentColor;
+    outline-color: currentColor;
 }
 
 #search input[type=search]:focus {
-    border-color: rgb(0,120,215);
+    outline-color: rgb(0,120,215);
     background: white;
     color: black;
 }
@@ -81,11 +94,16 @@ html {
     width: 20em;
     position: fixed;
     left: 0;
-    top: calc(2em + 0.75em + 0.75em);
+    top: calc(3.75em + 2em + 0.75em + 0.75em);
     bottom:0;
     -ms-overflow-style: -ms-autohiding-scrollbar;
     overflow-x: hidden;
     cursor: default;
+}
+
+#products ul {
+    margin: 0;
+    padding: 0;
 }
 
 #products .product {
@@ -123,11 +141,13 @@ html {
     display: block;
 }
 
-.dark #products .product:hover {
+.dark #products .product:hover,
+.dark #products .keyboardSelected {
     background: rgb(25,25,25);
 }
 
-.light #products .product:hover {
+.light #products .product:hover,
+.light #products .keyboardSelected {
     background: rgb(230,230,230);
 }
 
@@ -182,11 +202,6 @@ html {
     bottom: 0;
     padding: 1em;
     overflow: auto;
-}
-
-#gameDetails h1, h2 {
-    font-size: 1.5rem;
-    font-weight: normal;
 }
 
 #gameDetails h1 {
