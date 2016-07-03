@@ -119,7 +119,6 @@ h1#appTitle {
     -ms-user-select: none;
     -webkit-user-select: none;
     transition: transform 167ms ease-in;
-    box-sizing: border-box;
 }
 
 #products .product .title {
