@@ -136,7 +136,7 @@ h1#appTitle {
     display: none;
 }
 
-#products .product.hasTags .product.hasTags {
+#products .product.hasTags .tags {
     display: block;
 }
 
