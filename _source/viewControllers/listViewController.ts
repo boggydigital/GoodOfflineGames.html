@@ -113,20 +113,26 @@ export class ListViewController<T> implements IListViewController {
         });
 
         this.parentElement.addEventListener("keydown", (e: KeyboardEvent) => {
+            const enterKeyCode: number = 13;
+            const upKeyCode: number = 38;
+            const downKeyCode: number = 40;
+            // const rightKeyCode: number = 39;
+            // const leftKeyCode: number = 37;
+
             let value = 0;
 
-            if (e.key === "Enter") {
-                let keyboardSelected = this.activeView.querySelector("." + this.keyboardSelectedClass);
-                this.select(keyboardSelected);
-            }
-
-            if (e.key === "Up") value = e.shiftKey ? Number.MIN_VALUE : -1;
-            if (e.key === "Down") value = e.shiftKey ? Number.MAX_VALUE : 1;
+            if (e.keyCode === upKeyCode) value = e.shiftKey ? Number.MIN_VALUE : -1;
+            if (e.keyCode === downKeyCode) value = e.shiftKey ? Number.MAX_VALUE : 1;
 
             if (value !== 0) {
                 this.moveKeyboardSelection(value);
                 e.preventDefault();
                 e.stopPropagation();
+            }
+
+            if (e.keyCode === enterKeyCode) {
+                let keyboardSelected = this.activeView.querySelector("." + this.keyboardSelectedClass);
+                this.select(keyboardSelected);
             }
         });
 

@@ -109,7 +109,7 @@ h1#appTitle {
 #products .product {
     background: inherit;
     width: calc(20em-1.25em);
-    left: -0.125em;
+    overflow: visible;
     display: block;
     font-size: 1em;
     padding: 0.75em;
@@ -139,13 +139,25 @@ h1#appTitle {
     display: block;
 }
 
-.dark #products .product:hover,
-.dark #products .keyboardSelected {
-    background: rgb(25,25,25);
+#products .keyboardSelected {
+    outline: 2px solid;
+    outline-offset: -2px;
 }
 
-.light #products .product:hover,
+.dark #products .keyboardSelected {
+    outline-color: white;
+}
+
 .light #products .keyboardSelected {
+    outline-color: black;
+}
+
+.dark #products .product:hover {
+    background: rgb(25,25,25);
+
+}
+
+.light #products .product:hover {
     background: rgb(230,230,230);
 }
 
@@ -168,11 +180,12 @@ h1#appTitle {
 #products .product.selected::before {
     display: block;
     position: absolute;
-    width: 0.375em;
+    width: 0.5em;
     height: 50%;
     top: 25%;
-    left:0;
+    left:-0.175em;
     background: currentColor;
+    z-index: -1;
     content: " ";
 }
 
