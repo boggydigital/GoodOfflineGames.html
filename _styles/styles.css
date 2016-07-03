@@ -119,7 +119,7 @@ h1#appTitle {
     -ms-user-select: none;
     -webkit-user-select: none;
     transition: transform 167ms ease-in;
-    transform: translate
+    box-sizing: border-box;
 }
 
 #products .product .title {
@@ -136,8 +136,7 @@ h1#appTitle {
     display: none;
 }
 
-#products .product.hasTags .tags
- {
+#products .product.hasTags .product.hasTags {
     display: block;
 }
 
