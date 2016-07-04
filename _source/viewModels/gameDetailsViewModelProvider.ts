@@ -18,7 +18,7 @@ export class GameDetailsViewModel {
     seriesVisible: string;
     requiredProducts: string;
     requiredProductsVisible: string;
-    // releaseDate: string;
+    worksOn: string;
 }
 
 export class GameDetailsViewModelProvider implements IViewModelProvider<GameDetailsViewModel> {
@@ -47,8 +47,12 @@ export class GameDetailsViewModelProvider implements IViewModelProvider<GameDeta
         let gameDetailsViewModel = new GameDetailsViewModel();
 
         let product = this.productsController.getById(id);
+
+        if (!product) return null;
+
         let genres = new Array<string>();
         let requiredProducts = new Array<string>();
+        let worksOn = new Array<string>();
 
         gameDetailsViewModel.id = id;
         gameDetailsViewModel.title = product.title;
@@ -58,7 +62,6 @@ export class GameDetailsViewModelProvider implements IViewModelProvider<GameDeta
         gameDetailsViewModel.genresVisible = "hidden";
         gameDetailsViewModel.seriesVisible = "hidden";
         gameDetailsViewModel.requiredProductsVisible = "hidden";
-        // gameDetailsViewModel.releaseDate = "";
 
         var productImageUris = this.imagesController.getLocalUri(product.image);
         gameDetailsViewModel.productImage = productImageUris.product;
@@ -75,6 +78,9 @@ export class GameDetailsViewModelProvider implements IViewModelProvider<GameDeta
             }
         }
 
+        ["Windows", "Mac", "Linux"].forEach(os => { if (product.worksOn[os]) worksOn.push(os) });
+
+        gameDetailsViewModel.worksOn = worksOn.join(", ");
         gameDetailsViewModel.genres = genres.join(", ");
         gameDetailsViewModel.requiredProducts = requiredProducts.join(", ");
 
