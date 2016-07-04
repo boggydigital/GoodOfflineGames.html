@@ -14,6 +14,8 @@ export class GameDetailsViewModel {
     developer: string;
     genres: string;
     genresVisible: string;
+    series: string;
+    seriesVisible: string;
 }
 
 export class GameDetailsViewModelProvider implements IViewModelProvider<GameDetailsViewModel> {
@@ -50,6 +52,7 @@ export class GameDetailsViewModelProvider implements IViewModelProvider<GameDeta
         gameDetailsViewModel.developer = "N/A";
         gameDetailsViewModel.genres = "";
         gameDetailsViewModel.genresVisible = "hidden";
+        gameDetailsViewModel.seriesVisible = "hidden";
         
         var productImageUris = this.imagesController.getLocalUri(product.image);
         gameDetailsViewModel.productImage = productImageUris.product;
@@ -61,6 +64,7 @@ export class GameDetailsViewModelProvider implements IViewModelProvider<GameDeta
                 if (productData.publisher) gameDetailsViewModel.publisher = productData.publisher.name;
                 if (productData.developer) gameDetailsViewModel.developer = productData.developer.name;
                 if (productData.genres) productData.genres.forEach(g => { genres.push(g.name) });
+                if (productData.series && productData.series.id > 0) gameDetailsViewModel.series = productData.series.name;
             }
         }
 
@@ -69,6 +73,10 @@ export class GameDetailsViewModelProvider implements IViewModelProvider<GameDeta
         if (genres.length > 0) {
             gameDetailsViewModel.genres = genres.join(", ");
             gameDetailsViewModel.genresVisible = "";
+        }
+
+        if (gameDetailsViewModel.series) {
+            gameDetailsViewModel.seriesVisible = "";
         }
 
         return gameDetailsViewModel;
