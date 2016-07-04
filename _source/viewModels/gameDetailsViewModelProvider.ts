@@ -16,6 +16,9 @@ export class GameDetailsViewModel {
     genresVisible: string;
     series: string;
     seriesVisible: string;
+    requiredProducts: string;
+    requiredProductsVisible: string;
+    // releaseDate: string;
 }
 
 export class GameDetailsViewModelProvider implements IViewModelProvider<GameDetailsViewModel> {
@@ -45,6 +48,7 @@ export class GameDetailsViewModelProvider implements IViewModelProvider<GameDeta
 
         let product = this.productsController.getById(id);
         let genres = new Array<string>();
+        let requiredProducts = new Array<string>();
 
         gameDetailsViewModel.id = id;
         gameDetailsViewModel.title = product.title;
@@ -53,7 +57,9 @@ export class GameDetailsViewModelProvider implements IViewModelProvider<GameDeta
         gameDetailsViewModel.genres = "";
         gameDetailsViewModel.genresVisible = "hidden";
         gameDetailsViewModel.seriesVisible = "hidden";
-        
+        gameDetailsViewModel.requiredProductsVisible = "hidden";
+        // gameDetailsViewModel.releaseDate = "";
+
         var productImageUris = this.imagesController.getLocalUri(product.image);
         gameDetailsViewModel.productImage = productImageUris.product;
         gameDetailsViewModel.productImageRetina = productImageUris.productRetina;
@@ -65,19 +71,18 @@ export class GameDetailsViewModelProvider implements IViewModelProvider<GameDeta
                 if (productData.developer) gameDetailsViewModel.developer = productData.developer.name;
                 if (productData.genres) productData.genres.forEach(g => { genres.push(g.name) });
                 if (productData.series && productData.series.id > 0) gameDetailsViewModel.series = productData.series.name;
+                if (productData.requiredProducts) productData.requiredProducts.forEach(rp => { requiredProducts.push(rp.title) });
             }
         }
 
+        gameDetailsViewModel.genres = genres.join(", ");
+        gameDetailsViewModel.requiredProducts = requiredProducts.join(", ");
+
         // visibility
 
-        if (genres.length > 0) {
-            gameDetailsViewModel.genres = genres.join(", ");
-            gameDetailsViewModel.genresVisible = "";
-        }
-
-        if (gameDetailsViewModel.series) {
-            gameDetailsViewModel.seriesVisible = "";
-        }
+        if (genres.length > 0) gameDetailsViewModel.genresVisible = "";
+        if (requiredProducts.length > 0) gameDetailsViewModel.requiredProductsVisible = "";
+        if (gameDetailsViewModel.series) gameDetailsViewModel.seriesVisible = "";
 
         return gameDetailsViewModel;
     }
