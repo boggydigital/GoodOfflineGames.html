@@ -51,20 +51,30 @@ export class SearchController<T> implements ISearchController<T> {
         this.eventCallbackController.addEventCallback(event, callback);
     }
 
-    public match = (searchString: string): void => {
-        if (searchString === "") {
+    matchTermSearchIndexTerms = function (inputSearchTerm: string, searchIndexTerms: Array<string>): boolean {
+        for (let ii = 0; ii < searchIndexTerms.length; ii++)
+            if (searchIndexTerms[ii].indexOf(inputSearchTerm) > -1) return true;
+        return false;
+    }
+
+    matchTermsSearchIndex = function (inputSearchTerms: Array<string>, searchIndexTerms: Array<string>): boolean {
+        for (let ii = 0; ii < inputSearchTerms.length; ii++)
+            if (!this.matchTermSearchIndexTerms(inputSearchTerms[ii], searchIndexTerms)) return false;
+        return true;
+    }
+
+    public match = (inputSearchString: string): void => {
+        if (inputSearchString === "") {
             this.eventCallbackController.fire(this.clearedEvent, null);
             return;
         }
         this.eventCallbackController.fire(this.matchStartEvent, new Date());
-        let searchTerms = searchString.split(" ");
-        for (let ii = 0; ii < this.searchIndex.length; ii++) {
-            let indexMatched = true;
-            for (let jj = 0; jj < searchTerms.length; jj++)
-                indexMatched = indexMatched && (this.searchIndex[ii].searchString.indexOf(searchTerms[jj]) > -1);
+        let inputSearchTerms = inputSearchString.split(" ");
 
-            if (indexMatched) this.eventCallbackController.fire(this.matchedEvent, this.searchIndex[ii].id);
-        }
+        for (let ii = 0; ii < this.searchIndex.length; ii++)
+            if (this.matchTermsSearchIndex(inputSearchTerms, this.searchIndex[ii].searchTerms))
+                this.eventCallbackController.fire(this.matchedEvent, this.searchIndex[ii].id);
+
         this.eventCallbackController.fire(this.matchEndEvent, new Date());
     }
 }

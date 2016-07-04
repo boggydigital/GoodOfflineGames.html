@@ -23,13 +23,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let imagesController = new ImagesController();
 
-    let productViewModelProvider = new ProductViewModelProvider(
-        productsController,
+    let tagsController = new TagsController(
         productsDataController,
         ownedController,
         gameDetailsController,
         productFilesController,
         wishlistController);
+
+    let productViewModelProvider = new ProductViewModelProvider(
+        productsController,
+        tagsController);
 
     let gameDetailsViewModelProvider = new GameDetailsViewModelProvider(
         imagesController,
@@ -40,12 +43,13 @@ document.addEventListener("DOMContentLoaded", () => {
     let bindController = new BindController();
     let eventCallbackController = new EventCallbackController();
 
-    let productCoreSearchViewModelProvider = new ProductSearchViewModelProvider(
-        productViewModelProvider,
+    let searchViewModelProvider = new SearchViewModelProvider(
+        productsController,
+        tagsController,
         productsDataController);
 
     let productsSearchController = new SearchController(
-        productCoreSearchViewModelProvider,
+        searchViewModelProvider,
         eventCallbackController);
 
     let viewControllerProducts = new ViewController(

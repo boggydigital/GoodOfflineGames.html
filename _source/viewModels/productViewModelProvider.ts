@@ -6,6 +6,7 @@ import {IGetViewModelDelegate, IViewModelProvider} from "./viewModelProvider";
 import {IProductsCoreController} from "../dataControllers/productsController";
 import {ICollectionController} from "../dataControllers/collectionController";
 import {IProductFilesController} from "../dataControllers/productFilesController";
+import {ITagsController} from "../dataControllers/tagsController";
 
 export class ProductViewModel {
     id: number;
@@ -17,25 +18,13 @@ export class ProductViewModel {
 export class ProductViewModelProvider implements IViewModelProvider<ProductViewModel> {
 
     productsController: IProductsCoreController<Product>;
-    productsDataController: IProductsCoreController<ProductData>;
-    ownedController: IProductsCoreController<Product>;
-    gameDetailsController: IProductsCoreController<GameDetails>;
-    wishlistController: ICollectionController<number>;
-    productFilesController: IProductFilesController;
+    tagsController: ITagsController;
 
     public constructor(
         productsController: IProductsCoreController<Product>,
-        productsDataController: IProductsCoreController<ProductData>,
-        ownedController: IProductsCoreController<Product>,
-        gameDetailsController: IProductsCoreController<GameDetails>,
-        productFilesController: IProductFilesController,
-        wishlistController: ICollectionController<number>) {
+        tagsController: ITagsController) {
         this.productsController = productsController;
-        this.productsDataController = productsDataController;
-        this.ownedController = ownedController;
-        this.gameDetailsController = gameDetailsController;
-        this.productFilesController = productFilesController;
-        this.wishlistController = wishlistController;
+        this.tagsController = tagsController;
     }
 
     public getViewModel: IGetViewModelDelegate<ProductViewModel> =
@@ -47,59 +36,16 @@ export class ProductViewModelProvider implements IViewModelProvider<ProductViewM
         if (!product) return null;
 
         let productViewModel = new ProductViewModel();
-        let classes = [];
-        let tags = [];
+        let tags = this.tagsController.getTags(id);
 
         productViewModel.id = id;
         productViewModel.title = product.title;
 
-        if (this.productsDataController) {
-            let productData = this.productsDataController.getById(id);
-            if (productData &&
-                productData.requiredProducts &&
-                productData.requiredProducts.length) {
-                classes.push("dlc");
-                tags.push("DLC");
-            }
+        if (tags.length) {
+            productViewModel.class = tags.join(" ") + " hasTags";
+            productViewModel.tags = tags.join(". ");
         }
 
-        if (this.ownedController &&
-            this.ownedController.getById(id)) {
-            classes.push("owned");
-            tags.push("OWNED");
-        }
-
-        if (this.productFilesController) {
-            let productFilesValidated = this.productFilesController.validated(id);
-            if (productFilesValidated === true) {
-                classes.push("validated");
-                tags.push("DATA OK");
-            } else if (productFilesValidated === false) {
-                classes.push("validation-issue");
-                tags.push("CHECK DATA");
-            }
-        }
-
-        if (this.wishlistController &&
-            this.wishlistController.contains(id)) {
-            classes.push("wishlisted");
-            tags.push("WISHLISTED");
-        }
-
-        if (this.gameDetailsController) {
-            let gd = this.gameDetailsController.getById(id);
-            if (gd && gd.tags && gd.tags.length) {
-                for (let tt = 0; tt < gd.tags.length; tt++)
-                    tags.push(gd.tags[tt].name);
-            }
-        }
-
-        if (classes.length) {
-            classes.push("hasTags");
-        }
-
-        productViewModel.class = classes.join(" ");
-        productViewModel.tags = tags.join(". ");
 
         return productViewModel;
     }
