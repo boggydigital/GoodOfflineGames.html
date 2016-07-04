@@ -44,14 +44,15 @@ h1#appTitle {
 }
 
 #search input[type=search] {
-    margin: 0.75em;
-    padding-left: 0.4375em;
-    width: calc(100% - 0.75rem);
-    height: calc(2rem - 2*0.125em);
+    margin: 0.75rem;
+    padding-left: 0.4375rem;
+    width: calc(100% - 0.75rem - 0.125rem);
+    height: calc(2rem - 2*0.125rem);
     outline: 0.125rem solid;
     border: 0;
     background: inherit;
     color: inherit;
+    font-size: inherit;
     /* WebKit fix */
     -webkit-appearance: none;
 }
