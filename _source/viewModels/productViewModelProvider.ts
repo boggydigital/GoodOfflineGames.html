@@ -11,7 +11,7 @@ import {ITagsController} from "../dataControllers/tagsController";
 export class ProductViewModel {
     id: number;
     class: string;
-    tags: string;
+    tags: Array<string>;
     title: string;
 }
 
@@ -43,9 +43,8 @@ export class ProductViewModelProvider implements IViewModelProvider<ProductViewM
 
         if (tags.length) {
             productViewModel.class = tags.join(" ") + " hasTags";
-            productViewModel.tags = tags.join(". ");
+            productViewModel.tags = tags;
         }
-
 
         return productViewModel;
     }

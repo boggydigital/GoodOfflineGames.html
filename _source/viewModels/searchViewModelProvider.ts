@@ -43,8 +43,11 @@ export class SearchViewModelProvider implements IViewModelProvider<SearchViewMod
 
         if (this.productsDataController) {
             let productData = this.productsDataController.getById(id);
-            if (productData && productData.developer) searchTerms.push(productData.developer.name.toLocaleLowerCase());
-            if (productData && productData.publisher) searchTerms.push(productData.publisher.name.toLocaleLowerCase());
+            if (productData) {
+                if (productData.developer) searchTerms.push(productData.developer.name.toLocaleLowerCase());
+                if (productData.publisher) searchTerms.push(productData.publisher.name.toLocaleLowerCase());
+                if (productData.genres) productData.genres.forEach(g => { searchTerms.push(g.name.toLocaleLowerCase()) });
+            }
         }
 
         let searchViewModel = new SearchViewModel();

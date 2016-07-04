@@ -37,6 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let gameDetailsViewModelProvider = new GameDetailsViewModelProvider(
         imagesController,
         productsController,
+        gameDetailsController,
         productsDataController);
 
     let templateController = new TemplateController();

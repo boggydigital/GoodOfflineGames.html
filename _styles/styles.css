@@ -28,7 +28,7 @@ h1, h2 {
 h1#appTitle {
     padding-left: 1rem;
     font-weight: 200;
-    opacity: 0.75;
+    opacity: 0.8;
 }
 
 /* Search */
@@ -40,12 +40,13 @@ h1#appTitle {
     height: calc(4em+0.75em+0.75em);
     width: 20em;
     background-color: inherit;
+    overflow: visible;
 }
 
 #search input[type=search] {
     margin: 0.75em;
     padding-left: 0.4375em;
-    width: calc(100% - 0.75rem - 0.125em);
+    width: calc(100% - 0.75rem);
     height: calc(2rem - 2*0.125em);
     outline: 0.125rem solid;
     border: 0;

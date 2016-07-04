@@ -8,11 +8,12 @@
     <link rel="stylesheet" href="./_styles/styles.css" />
 </head>
 <!-- switch default theme on the body: dark, light -->
+
 <body class="windows dark">
 
     <div id="search" role="search">
         <h1 id="appTitle">GoodOfflineGames.html</h1>
-        <input type="search" role="searchbox" tabindex="1" placeholder="Find a product"/>
+        <input type="search" role="searchbox" tabindex="1" placeholder="Find a product" />
     </div>
     <nav id="products" tabindex="2" data-ui="list" data-list-item-template="product"></nav>
     <main id="gameDetails" tabindex="3"></main>
@@ -26,11 +27,16 @@
         </div>
         <div id="gameDetails">
             <h1>{{title}}</h1>
-            <img class='hidden' data-srcset='{{productImage}} 1x, {{productImageRetina}} 2x' data-src='{{productImage}}' onerror="this.classList.add('hidden')"/>
+            <img class='hidden' data-srcset='{{productImage}} 1x, {{productImageRetina}} 2x' data-src='{{productImage}}' onerror="this.classList.add('hidden')"
+            />
             <h2>Developer</h2>
             <p>{{developer}}</p>
             <h2>Publisher</h2>
             <p>{{publisher}}</p>
+            <div class='{{genresVisible}}'>
+                <h2>Genres</h2>
+                <p>{{genres}}</p>
+            </div>
         </div>
     </div>
 
@@ -63,7 +69,7 @@
     <script src="./_app/release/dataControllers/productsController.js"></script>
     <script src="./_app/release/dataControllers/productsDataController.js"></script>
     <script src="./_app/release/dataControllers/productFilesController.js"></script>
-    <script src="./_app/release/dataControllers/tagsController.js"></script>    
+    <script src="./_app/release/dataControllers/tagsController.js"></script>
     <!-- viewControllers -->
     <script src="./_app/release/viewControllers/imagesController.js"></script>
     <script src="./_app/release/viewControllers/viewController.js"></script>
