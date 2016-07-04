@@ -50,6 +50,8 @@ export class SearchViewModelProvider implements IViewModelProvider<SearchViewMod
             }
         }
 
+        ["Windows", "Mac", "Linux"].forEach(os => { if (product.worksOn[os]) searchTerms.push(os.toLocaleLowerCase()) });
+
         let searchViewModel = new SearchViewModel();
         searchViewModel.id = id;
         searchViewModel.searchTerms = searchTerms;

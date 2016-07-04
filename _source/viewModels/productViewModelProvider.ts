@@ -43,7 +43,7 @@ export class ProductViewModelProvider implements IViewModelProvider<ProductViewM
 
         if (tags.length) {
             productViewModel.class = tags.join(" ") + " hasTags";
-            productViewModel.tags = tags;
+            productViewModel.tags = tags.join(". ");
         }
 
         return productViewModel;
