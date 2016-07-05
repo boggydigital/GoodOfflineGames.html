@@ -1,3 +1,29 @@
+/* Custom properties */
+
+:root {
+    --accentColor: rgb(0,120,215);
+}
+
+:root .dark {
+    --foreground: white;
+    --background: black;
+    --inputOutline: rgb(133,133,133);
+    --hover: rgb(25,25,25);
+    --active: rgb(51,51,51);
+    --warning: rgb(255, 240, 0);
+}
+
+:root .light {
+    --foreground: black;
+    --background: white;
+    --inputOutline: rgb(122,122,122);
+    --hover: rgb(230,230,230);
+    --active: rgb(204,204,204);
+    --warning: rgb(197,5,0);
+} 
+
+/* Common */
+
 html {
     font-family: -apple-system, 'Segoe UI', sans-serif;
     margin: 0;
@@ -8,14 +34,9 @@ html {
     display: none;
 }
 
-.dark {
-    background: black;
-    color: white;
-}
-
-.light {
-    background: white;
-    color: black;
+body {
+    background: var(--background);
+    color: var(--foreground);
 }
 
 h1, h2 {
@@ -49,6 +70,7 @@ h1#appTitle {
     width: calc(100% - 0.75rem - 0.125rem);
     height: calc(2rem - 2*0.125rem);
     outline: 0.125rem solid;
+    outline-color: var(--inputOutline);
     border: 0;
     background: inherit;
     color: inherit;
@@ -57,20 +79,8 @@ h1#appTitle {
     -webkit-appearance: none;
 }
 
-.dark #search input[type=search] {
-    outline-color: rgb(133,133,133);
-}
-
-.light #search input[type=search] {
-    outline-color: rgb(122,122,122);
-}
-
-.dark #search input[type=search]::-webkit-input-placeholder {
-    color: rgb(133,133,133);
-}
-
-.light #search input[type=search]::-webkit-input-placeholder {
-    outline-color: rgb(122,122,122);    
+#search input[type=search]::-webkit-input-placeholder {
+    color: var(--inputOutline)
 }
 
 #search input[type=search]:hover {
@@ -79,6 +89,7 @@ h1#appTitle {
 
 #search input[type=search]:focus {
     outline-color: rgb(0,120,215);
+    outline-color: var(--accentColor);
     background: white;
     color: black;
 }
@@ -143,39 +154,21 @@ h1#appTitle {
 #products .keyboardSelected {
     outline: 2px solid;
     outline-offset: -2px;
+    outline-color: var(--foreground)
 }
 
-.dark #products .keyboardSelected {
-    outline-color: white;
-}
-
-.light #products .keyboardSelected {
-    outline-color: black;
-}
-
-.dark #products .product:hover {
-    background: rgb(25,25,25);
-
-}
-
-.light #products .product:hover {
-    background: rgb(230,230,230);
+#products .product:hover {
+    background: var(--hover)
 }
 
 #products .product:active {
     transform: scale(0.99);
-}
-
-.dark #products .product:active {
-    background: rgb(51,51,51);
-}
-
-.light #products .product:active {
-    background: rgb(204,204,204);
+    background: var(--active)
 }
 
 #products .product.selected {
     color: rgb(0,120,215);
+    color: var(--accentColor)
 }
 
 #products .product.selected::before {
@@ -192,14 +185,7 @@ h1#appTitle {
 #products .searchResultsLimited {
     padding: 0.75em;
     cursor: inherit;
-}
-
-.dark #products .searchResultsLimited {
-    color: rgb(255, 240, 0);
-}
-
-.light #products .searchResultsLimited {
-    color: rgb(197,5,0);
+    color: var(--warning)
 }
 
 /* Game Details */
@@ -228,7 +214,6 @@ h1#appTitle {
 #gameDetails h3 {
     font-weight: 600;
     font-size: 1em;
-    /*margin: 0;*/
     margin-bottom: 0;
 }
 
