@@ -26,7 +26,21 @@
     outline-color: rgb(122,122,122);    
 }
 
+#search input[type=search]:focus {
+    outline-color: rgb(0,120,215);
+    background: white;
+    color: black;
+}
+
+#search input[type=search]:focus::-webkit-input-placeholder {
+    color: rgb(153,153,153)
+}
+
 /* Products */
+
+#products .product.selected {
+    color: rgb(0,120,215);
+}
 
 .dark #products .keyboardSelected {
     outline-color: white;

@@ -1,7 +1,10 @@
-/* Custom properties */
+/* CSS Custom properties */
 
 :root {
-    --accentColor: rgb(0,120,215);
+    --accent: rgb(0,120,215);
+    --inputBackground: white;
+    --inputForeground: black;
+    --inputPlaceholder: rgb(153,153,153)
 }
 
 :root .dark {
@@ -88,14 +91,13 @@ h1#appTitle {
 }
 
 #search input[type=search]:focus {
-    outline-color: rgb(0,120,215);
-    outline-color: var(--accentColor);
-    background: white;
-    color: black;
+    outline-color: var(--accent);
+    background: var(--inputBackground);
+    color: var(--inputForeground);
 }
 
 #search input[type=search]:focus::-webkit-input-placeholder {
-    color: rgb(153,153,153)
+    color: var(--inputPlaceholder)
 }
 
 /* Products */
@@ -167,8 +169,7 @@ h1#appTitle {
 }
 
 #products .product.selected {
-    color: rgb(0,120,215);
-    color: var(--accentColor)
+    color: var(--accent)
 }
 
 #products .product.selected::before {
