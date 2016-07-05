@@ -225,8 +225,13 @@ h1#appTitle {
     max-width: 800px;
 }
 
-#gameDetails .title {
-    display: inline-block;
-    min-width: 10em;
+#gameDetails h3 {
     font-weight: 600;
+    font-size: 1em;
+    /*margin: 0;*/
+    margin-bottom: 0;
+}
+
+#gameDetails p {
+    margin-top: 0;
 }

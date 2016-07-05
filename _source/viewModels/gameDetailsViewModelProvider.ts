@@ -13,12 +13,14 @@ export class GameDetailsViewModel {
     publisher: string;
     developer: string;
     genres: string;
-    genresVisible: string;
+    genresVisibility: string;
     series: string;
-    seriesVisible: string;
+    seriesVisibility: string;
     requiredProducts: string;
-    requiredProductsVisible: string;
+    requiredProductsVisibility: string;
     worksOn: string;
+    dlc: string;
+    dlcVisibility: string;
 }
 
 export class GameDetailsViewModelProvider implements IViewModelProvider<GameDetailsViewModel> {
@@ -44,7 +46,7 @@ export class GameDetailsViewModelProvider implements IViewModelProvider<GameDeta
 
         if (id == null) return null;
 
-        let gameDetailsViewModel = new GameDetailsViewModel();
+        let gdVM = new GameDetailsViewModel();
 
         let product = this.productsController.getById(id);
 
@@ -53,43 +55,47 @@ export class GameDetailsViewModelProvider implements IViewModelProvider<GameDeta
         let genres = new Array<string>();
         let requiredProducts = new Array<string>();
         let worksOn = new Array<string>();
+        let dlcs = new Array<string>();
 
-        gameDetailsViewModel.id = id;
-        gameDetailsViewModel.title = product.title;
-        gameDetailsViewModel.publisher = "N/A";
-        gameDetailsViewModel.developer = "N/A";
-        gameDetailsViewModel.genres = "";
-        gameDetailsViewModel.genresVisible = "hidden";
-        gameDetailsViewModel.seriesVisible = "hidden";
-        gameDetailsViewModel.requiredProductsVisible = "hidden";
+        gdVM.id = id;
+        gdVM.title = product.title;
+        gdVM.publisher = "N/A";
+        gdVM.developer = "N/A";
+        gdVM.genresVisibility = "hidden";
+        gdVM.seriesVisibility = "hidden";
+        gdVM.requiredProductsVisibility = "hidden";
+        gdVM.dlcVisibility = "hidden";
 
         var productImageUris = this.imagesController.getLocalUri(product.image);
-        gameDetailsViewModel.productImage = productImageUris.product;
-        gameDetailsViewModel.productImageRetina = productImageUris.productRetina;
+        gdVM.productImage = productImageUris.product;
+        gdVM.productImageRetina = productImageUris.productRetina;
 
         if (this.productsDataController) {
-            let productData = this.productsDataController.getById(id);
-            if (productData) {
-                if (productData.publisher) gameDetailsViewModel.publisher = productData.publisher.name;
-                if (productData.developer) gameDetailsViewModel.developer = productData.developer.name;
-                if (productData.genres) productData.genres.forEach(g => { genres.push(g.name) });
-                if (productData.series && productData.series.id > 0) gameDetailsViewModel.series = productData.series.name;
-                if (productData.requiredProducts) productData.requiredProducts.forEach(rp => { requiredProducts.push(rp.title) });
+            let pd = this.productsDataController.getById(id);
+            if (pd) {
+                if (pd.publisher) gdVM.publisher = pd.publisher.name;
+                if (pd.developer) gdVM.developer = pd.developer.name;
+                if (pd.genres) pd.genres.forEach(g => { genres.push(g.name) });
+                if (pd.series && pd.series.id > 0) gdVM.series = pd.series.name;
+                if (pd.requiredProducts) pd.requiredProducts.forEach(rp => { requiredProducts.push(rp.title) });
+                if (pd.dlcs) pd.dlcs.forEach(dlc => { dlcs.push(dlc.title) });
             }
         }
 
         ["Windows", "Mac", "Linux"].forEach(os => { if (product.worksOn[os]) worksOn.push(os) });
 
-        gameDetailsViewModel.worksOn = worksOn.join(", ");
-        gameDetailsViewModel.genres = genres.join(", ");
-        gameDetailsViewModel.requiredProducts = requiredProducts.join(", ");
+        gdVM.worksOn = worksOn.join(", ");
+        gdVM.genres = genres.join(", ");
+        gdVM.requiredProducts = requiredProducts.join(", ");
+        gdVM.dlc = dlcs.join(", ");
 
         // visibility
 
-        if (genres.length > 0) gameDetailsViewModel.genresVisible = "";
-        if (requiredProducts.length > 0) gameDetailsViewModel.requiredProductsVisible = "";
-        if (gameDetailsViewModel.series) gameDetailsViewModel.seriesVisible = "";
+        if (genres.length > 0) gdVM.genresVisibility = "";
+        if (requiredProducts.length > 0) gdVM.requiredProductsVisibility = "";
+        if (gdVM.series) gdVM.seriesVisibility = "";
+        if (dlcs.length > 0) gdVM.dlcVisibility = "";
 
-        return gameDetailsViewModel;
+        return gdVM;
     }
 }

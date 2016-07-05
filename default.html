@@ -30,23 +30,27 @@
             <img class='hidden' data-srcset='{{productImage}} 1x, {{productImageRetina}} 2x' data-src='{{productImage}}' onerror="this.classList.add('hidden')"
             />
             <h2>Information</h2>
-            <div id='developer'>
-                <span class='title'>Developer</span><span>{{developer}}</span>
+            <h3>Developer</h3>
+            <p>{{developer}}</p>
+            <h3>Publisher</h3>
+            <p>{{publisher}}</p>
+            <h3>Works on</h3>
+            <p>{{worksOn}}</p>
+            <div class='{{genresVisibility}}'>
+                <h3 class='title'>Genres</h3>
+                <p>{{genres}}</p>
             </div>
-            <div id='publisher'>
-                <span class='title'>Publisher</span><span>{{publisher}}</span>
+            <div class='{{seriesVisibility}} '>
+                <h3>Series</h3>
+                <p>{{series}}</p>
             </div>
-            <div id='worksOn'>
-                <span class='title'>Works on</span><span>{{worksOn}}</span>
+            <div class='{{requiredProductsVisibility}}'>
+                <h3>Required products</h3>
+                <p>{{requiredProducts}}</p>
             </div>
-            <div id='genres' class='{{genresVisible}}'>
-                <span class='title'>Genres</span><span>{{genres}}</span>
-            </div>
-            <div id='series' class='{{seriesVisible}} '>
-                <span class='title'>Series</span><span>{{series}}</span>
-            </div>
-            <div id='requiredProducts' class='{{requiredProductsVisible}}'>
-                <span class='title'>Required products</span><span>{{requiredProducts}}</span>
+            <div class='{{dlcVisibility}}'>
+                <h3>Downloadable content</h3>
+                <p>{{dlc}}</p>
             </div>
         </div>
     </div>
