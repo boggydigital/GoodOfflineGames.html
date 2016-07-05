@@ -29,23 +29,24 @@
             <h1>{{title}}</h1>
             <img class='hidden' data-srcset='{{productImage}} 1x, {{productImageRetina}} 2x' data-src='{{productImage}}' onerror="this.classList.add('hidden')"
             />
-            <h2>Developer</h2>
-            <p>{{developer}}</p>
-            <h2>Publisher</h2>
-            <p>{{publisher}}</p>
-            <h2>Works on</h2>
-            <p>{{worksOn}}</p>
-            <div class='{{requiredProductsVisible}}'>
-                <h2>Required products</h2>
-                <p>{{requiredProducts}}</p>
+            <h2>Information</h2>
+            <div id='developer'>
+                <span class='title'>Developer</span><span>{{developer}}</span>
             </div>
-            <div class='{{genresVisible}}'>
-                <h2>Genres</h2>
-                <p>{{genres}}</p>
+            <div id='publisher'>
+                <span class='title'>Publisher</span><span>{{publisher}}</span>
             </div>
-            <div class='{{seriesVisible}}'>
-                <h2>Series</h2>
-                <p>{{series}}</p>
+            <div id='worksOn'>
+                <span class='title'>Works on</span><span>{{worksOn}}</span>
+            </div>
+            <div id='genres' class='{{genresVisible}}'>
+                <span class='title'>Genres</span><span>{{genres}}</span>
+            </div>
+            <div id='series' class='{{seriesVisible}} '>
+                <span class='title'>Series</span><span>{{series}}</span>
+            </div>
+            <div id='requiredProducts' class='{{requiredProductsVisible}}'>
+                <span class='title'>Required products</span><span>{{requiredProducts}}</span>
             </div>
         </div>
     </div>
