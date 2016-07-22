@@ -22,6 +22,7 @@ export class GameDetailsViewModel {
     worksOn: string;
     dlc: string;
     screenshots: Array<string>;
+    changelog: string;
     visibility: string;
 }
 
@@ -109,14 +110,12 @@ export class GameDetailsViewModelProvider implements IViewModelProvider<GameDeta
             if (gd) {
                 let cdKey = this.getCdKeys(gd);
                 gdVM.cdKey = cdKey.join("<br>");
-                if (gdVM.cdKey) visibilityClasses.push("cdKey");
+                gdVM.changelog = gd.changelog;
             }
         }
 
         if (this.screenshotsController) {
             gdVM.screenshots = this.screenshotsController.getScreenshotsById(id);
-            if (gdVM.screenshots !== null &&
-                gdVM.screenshots.length) visibilityClasses.push("screenshots");
         }
 
         ["Windows", "Mac", "Linux"].forEach(os => {
@@ -130,10 +129,14 @@ export class GameDetailsViewModelProvider implements IViewModelProvider<GameDeta
 
         // visibility
 
-        if (genres.length > 0) visibilityClasses.push("genres");
-        if (requiredProducts.length > 0) visibilityClasses.push("requiredProducts");
+        if (gdVM.genres) visibilityClasses.push("genres");
+        if (gdVM.requiredProducts) visibilityClasses.push("requiredProducts");
+        if (gdVM.dlc) visibilityClasses.push("dlc");
         if (gdVM.series) visibilityClasses.push("series");
-        if (dlcs.length > 0) visibilityClasses.push("dlc");
+        if (gdVM.cdKey) visibilityClasses.push("cdKey");
+        if (gdVM.changelog) visibilityClasses.push("changelog");
+        if (gdVM.screenshots !== null &&
+            gdVM.screenshots.length > 0) visibilityClasses.push("screenshots");
 
         gdVM.visibility = visibilityClasses.join(" ");
 
