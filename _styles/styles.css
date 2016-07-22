@@ -202,10 +202,6 @@ h1#appTitle {
     overflow: auto;
 }
 
-#gameDetails .container {
-    overflow: visible;
-}
-
 #gameDetails .cdKeySection,
 #gameDetails .genresSection,
 #gameDetails .seriesSection,
@@ -240,19 +236,20 @@ h1#appTitle {
     color: var(--background);
 }
 
-#gameDetails .screenshots {
+#gameDetails .screenshotsScroller {
     width: 100%;
     overflow-y: hidden;
     scroll-snap-type: mandatory;  
-    padding-bottom: 1em;
     -ms-overflow-style: -ms-autohiding-scrollbar;
+    padding-bottom: 1em;
+    margin-bottom: 1em;
 }
 
-#gameDetails .screenshots .container {
+#gameDetails .screenshotsScroller .container {
     white-space: nowrap;
 }
 
-#gameDetails .screenshots img {
+#gameDetails .screenshotsScroller img {
     display: inline-block;
     margin-right: 0.5em;
     scroll-snap-align: center none;
