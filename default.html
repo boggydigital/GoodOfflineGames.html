@@ -27,9 +27,22 @@
             </li>
         </template>
         <template id="gameDetails">
+            [[productTitle]] 
+            [[productImage]] 
+            [[information]] 
+            [[genres]] 
+            [[series]] 
+            [[requiredProducts]] 
+            [[dlc]]
+        </template>
+        <template id="productTitle">
             <h1>{{title}}</h1>
+        </template>
+        <template id="productImage">
             <img class='hidden' sizes='(max-width: 150px) 196px, (max-width: 350px) 392px, 800px' data-srcset='{{thumbnail}} 196w, {{thumbnailRetina}} 392w, {{hero}} 800w, {{heroRetina}} 1600w'
                 data-src='{{heroRetina}}' onerror="this.classList.add('hidden')">
+        </template>
+        <template id="information">
             <h2>Information</h2>
             <h3>Developer</h3>
             <p>{{developer}}</p>
@@ -37,18 +50,26 @@
             <p>{{publisher}}</p>
             <h3>Works on</h3>
             <p>{{worksOn}}</p>
+        </template>
+        <template id="genres">
             <div class='{{genresVisibility}}'>
                 <h3 class='title'>Genres</h3>
                 <p>{{genres}}</p>
             </div>
+        </template>
+        <template id="series">
             <div class='{{seriesVisibility}} '>
                 <h3>Series</h3>
                 <p>{{series}}</p>
             </div>
+        </template>
+        <template id="requiredProducts">
             <div class='{{requiredProductsVisibility}}'>
                 <h3>Required products</h3>
                 <p>{{requiredProducts}}</p>
             </div>
+        </template>
+        <template id="dlc">
             <div class='{{dlcVisibility}}'>
                 <h3>Downloadable content</h3>
                 <p>{{dlc}}</p>

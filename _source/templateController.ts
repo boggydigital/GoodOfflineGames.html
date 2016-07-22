@@ -38,8 +38,10 @@ export class TemplateController implements ITemplateController {
         let knownTemplates = this.getKnownTemplates();
         knownTemplates.forEach(knownTemplate => {
             let replacedTemplate = "[[" + knownTemplate + "]]";
-            while (template.indexOf(replacedTemplate) > -1)
-                template = template.replace(replacedTemplate, knownTemplate);
+            while (template.indexOf(replacedTemplate) > -1) {
+                let knownTemplateContent = this.getTemplate(knownTemplate);
+                template = template.replace(replacedTemplate, knownTemplateContent);
+            }
         });
         return template;
     }
