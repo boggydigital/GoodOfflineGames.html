@@ -73,7 +73,9 @@
             <div class='{{screenshotsVisibility}}'>
                 <h2>Screenshots</h2>
                 <div class='screenshots'>
-                    <template data-images='{{screenshots}}'></template>
+                    <div class='container'>
+                        <template data-images='{{screenshots}}'></template>
+                    </div>
                 </div>
             </div>
         </template>
@@ -87,6 +89,8 @@
         var wishlisted = undefined;
         var screenshots = undefined;
         var productfiles = undefined;
+        
+        var exports = {};
     </script>
     <!-- model -->
     <script src="./products.js"></script>
@@ -118,7 +122,8 @@
     <script src="./_app/release/viewModels/searchViewModelProvider.js"></script>
     <script src="./_app/release/viewModels/productViewModelProvider.js"></script>
     <script src="./_app/release/viewModels/gameDetailsViewModelProvider.js"></script>
-    <!-- entry point -->
+
+    <!-- application entry point -->
     <script src="./_app/application.js"></script>
 </body>
 

@@ -57,8 +57,14 @@ export class ImagesController implements IImagesController {
         for (let ii = 0; ii < images.length; ii++) {
             let dataSrcset = images[ii].getAttribute("data-srcset");
             let dataSrc = images[ii].getAttribute("data-src");
-            if (dataSrcset) images[ii].setAttribute("srcset", dataSrcset);
-            if (dataSrc) images[ii].setAttribute("src", dataSrc);
+            if (dataSrcset) {
+                images[ii].setAttribute("srcset", dataSrcset);
+                images[ii].removeAttribute("data-srcset");
+            }
+            if (dataSrc) {
+                images[ii].setAttribute("src", dataSrc);
+                images[ii].removeAttribute("data-src");
+            }
             if (dataSrc || dataSrcset) images[ii].classList.remove("hidden");
         }
     }
@@ -69,16 +75,18 @@ export class ImagesController implements IImagesController {
         for (let ii=0; ii< elementsToExpand.length; ii++) {
             let images = elementsToExpand[ii].getAttribute("data-images").split(",");
             images.forEach(i => {
-                elementsToExpand[ii].parentElement.appendChild(this.createImage(i));
+                elementsToExpand[ii].parentElement.appendChild(this.createFocusableImage(i));
             });
             elementsToExpand[ii].remove();
         }
     }
 
-    private createImage = 
+    private createFocusableImage = 
     (uri: string): HTMLImageElement => {
         let img = document.createElement("img");
         img.setAttribute("data-src", uri);
+        img.setAttribute("tabindex", "4");
+        img.onclick = (e) => { (e.target as HTMLImageElement).focus() };
         img.classList.add("hidden");
         return img;
     }

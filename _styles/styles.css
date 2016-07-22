@@ -212,6 +212,24 @@ h1#appTitle {
     max-width: 800px;
 }
 
+#gameDetails .screenshots {
+    width: 100%;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    scroll-snap-type: mandatory;      
+}
+
+#gameDetails .screenshots .container {
+    white-space: nowrap;
+  
+}
+
+#gameDetails .screenshots img {
+    display: inline-block;
+    padding-right: 1em;
+    scroll-snap-align: center none
+}
+
 #gameDetails h3 {
     font-weight: 600;
     font-size: 1em;
