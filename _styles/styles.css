@@ -202,6 +202,24 @@ h1#appTitle {
     overflow: auto;
 }
 
+#gameDetails .container {
+    overflow: visible;
+}
+
+#gameDetails .container .genres,
+#gameDetails .container .series,
+#gameDetails .container .requiredProducts,
+#gameDetails .container .dlc {
+    display: none;
+}
+
+#gameDetails .container.genres .genres,
+#gameDetails .container.series .series,
+#gameDetails .container.requiredProducts .requiredProducts,
+#gameDetails .container.dlc .dlc {
+    display: block;
+}
+
 #gameDetails h1 {
     margin-bottom: 1em;
 	margin-top: 0;
@@ -214,7 +232,6 @@ h1#appTitle {
 
 #gameDetails .screenshots {
     width: 100%;
-    overflow-x: scroll;
     overflow-y: hidden;
     scroll-snap-type: mandatory;      
 }
@@ -226,7 +243,7 @@ h1#appTitle {
 
 #gameDetails .screenshots img {
     display: inline-block;
-    padding-right: 1em;
+    margin-right: 0.5em;
     scroll-snap-align: center none
 }
 

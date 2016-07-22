@@ -16,16 +16,12 @@ export class GameDetailsViewModel {
     publisher: string;
     developer: string;
     genres: string;
-    genresVisibility: string;
     series: string;
-    seriesVisibility: string;
     requiredProducts: string;
-    requiredProductsVisibility: string;
     worksOn: string;
     dlc: string;
-    dlcVisibility: string;
     screenshots: Array<string>;
-    screenshotsVisibility: string;
+    visibility: string;
 }
 
 export class GameDetailsViewModelProvider implements IViewModelProvider<GameDetailsViewModel> {
@@ -64,16 +60,12 @@ export class GameDetailsViewModelProvider implements IViewModelProvider<GameDeta
         let requiredProducts = new Array<string>();
         let worksOn = new Array<string>();
         let dlcs = new Array<string>();
+        let visibilityClasses = new Array<string>();
 
         gdVM.id = id;
         gdVM.title = product.title;
         gdVM.publisher = "N/A";
         gdVM.developer = "N/A";
-        gdVM.genresVisibility = "hidden";
-        gdVM.seriesVisibility = "hidden";
-        gdVM.requiredProductsVisibility = "hidden";
-        gdVM.dlcVisibility = "hidden";
-        gdVM.screenshotsVisibility = "hidden";
 
         var productImageUris = this.imagesController.getProductImageUris(product.image);
         gdVM.thumbnail = productImageUris.thumbnail;
@@ -96,7 +88,7 @@ export class GameDetailsViewModelProvider implements IViewModelProvider<GameDeta
         if (this.screenshotsController) {
             gdVM.screenshots = this.screenshotsController.getScreenshotsById(id);
             if (gdVM.screenshots !== null &&
-                gdVM.screenshots.length) gdVM.screenshotsVisibility = "";
+                gdVM.screenshots.length) visibilityClasses.push("screenshots");
         }
 
         ["Windows", "Mac", "Linux"].forEach(os => {
@@ -110,10 +102,12 @@ export class GameDetailsViewModelProvider implements IViewModelProvider<GameDeta
 
         // visibility
 
-        if (genres.length > 0) gdVM.genresVisibility = "";
-        if (requiredProducts.length > 0) gdVM.requiredProductsVisibility = "";
-        if (gdVM.series) gdVM.seriesVisibility = "";
-        if (dlcs.length > 0) gdVM.dlcVisibility = "";
+        if (genres.length > 0) visibilityClasses.push("genres");
+        if (requiredProducts.length > 0) visibilityClasses.push("requiredProducts");
+        if (gdVM.series) visibilityClasses.push("series");
+        if (dlcs.length > 0) visibilityClasses.push("dlc");
+
+        gdVM.visibility = visibilityClasses.join(" ");
 
         return gdVM;
     }
