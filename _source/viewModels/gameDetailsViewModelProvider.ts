@@ -3,7 +3,8 @@ import {ProductData} from "../models/productData";
 import {GameDetails} from "../models/gameDetails";
 import {IGetViewModelDelegate, IViewModelProvider} from "./viewModelProvider";
 import {IProductsCoreController} from "../dataControllers/productsController";
-import {IImagesController} from "../viewControllers/imagesController";
+import {IImagesController} from "../imagesController";
+import {IScreenshotsController} from "../dataControllers/screenshotsController";
 
 export class GameDetailsViewModel {
     id: number;
@@ -23,6 +24,8 @@ export class GameDetailsViewModel {
     worksOn: string;
     dlc: string;
     dlcVisibility: string;
+    screenshots: Array<string>;
+    screenshotsVisibility: string;
 }
 
 export class GameDetailsViewModelProvider implements IViewModelProvider<GameDetailsViewModel> {
@@ -31,16 +34,19 @@ export class GameDetailsViewModelProvider implements IViewModelProvider<GameDeta
     productsDataController: IProductsCoreController<ProductData>;
     gameDetailsController: IProductsCoreController<GameDetails>;
     imagesController: IImagesController;
+    screenshotsController: IScreenshotsController;
 
     public constructor(
-        imagesController: IImagesController,
         productsController: IProductsCoreController<Product>,
         gameDetailsController: IProductsCoreController<GameDetails>,
-        productsDataController: IProductsCoreController<ProductData>) {
-        this.imagesController = imagesController;
+        productsDataController: IProductsCoreController<ProductData>,
+        imagesController: IImagesController,
+        screenshotsController: IScreenshotsController) {
         this.productsController = productsController;
         this.gameDetailsController = gameDetailsController;
         this.productsDataController = productsDataController;
+        this.imagesController = imagesController;
+        this.screenshotsController = screenshotsController;
     }
 
     public getViewModel: IGetViewModelDelegate<GameDetailsViewModel> =
@@ -67,12 +73,13 @@ export class GameDetailsViewModelProvider implements IViewModelProvider<GameDeta
         gdVM.seriesVisibility = "hidden";
         gdVM.requiredProductsVisibility = "hidden";
         gdVM.dlcVisibility = "hidden";
+        gdVM.screenshotsVisibility = "hidden";
 
         var productImageUris = this.imagesController.getProductImageUris(product.image);
         gdVM.thumbnail = productImageUris.thumbnail;
         gdVM.thumbnailRetina = productImageUris.thumbnailRetina;
         gdVM.hero = productImageUris.hero;
-        gdVM.heroRetina = productImageUris.heroRetina;        
+        gdVM.heroRetina = productImageUris.heroRetina;
 
         if (this.productsDataController) {
             let pd = this.productsDataController.getById(id);
@@ -86,7 +93,15 @@ export class GameDetailsViewModelProvider implements IViewModelProvider<GameDeta
             }
         }
 
-        ["Windows", "Mac", "Linux"].forEach(os => { if (product.worksOn[os]) worksOn.push(os) });
+        if (this.screenshotsController) {
+            gdVM.screenshots = this.screenshotsController.getScreenshotsById(id);
+            if (gdVM.screenshots !== null &&
+                gdVM.screenshots.length) gdVM.screenshotsVisibility = "";
+        }
+
+        ["Windows", "Mac", "Linux"].forEach(os => {
+            if (product.worksOn[os]) worksOn.push(os)
+        });
 
         gdVM.worksOn = worksOn.join(", ");
         gdVM.genres = genres.join(", ");

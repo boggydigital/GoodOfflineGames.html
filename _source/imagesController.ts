@@ -47,7 +47,7 @@ export class ImagesController implements IImagesController {
     public getScreenshotUri: IGetScreenshotUri =
     (uri: string): string => {
         let lastPart = this.getImageLastPart(uri);
-        return "_screenshots/" + lastPart + ".jpg";
+        return "_screenshots/" + lastPart;
     }
 
     public load: ILoadDelegate =

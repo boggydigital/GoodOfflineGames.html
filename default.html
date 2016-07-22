@@ -20,19 +20,16 @@
     <main id="gameDetails" tabindex="3"></main>
 
     <div id="templates" class="hidden">
-        <div id="product">
+        <template id="product">
             <li data-id='{{id}}' class='product {{class}}' title='{{title}}'>
                 <div class='title'>{{title}}</div>
                 <div class='tags' title='{{tags}}'>{{tags}}</div>
             </li>
-        </div>
-        <div id="gameDetails">
+        </template>
+        <template id="gameDetails">
             <h1>{{title}}</h1>
-            <img class='hidden' 
-                sizes='(max-width: 150px) 196px, (max-width: 350px) 392px, 800px' 
-                data-srcset='{{thumbnail}} 196w, {{thumbnailRetina}} 392w, {{hero}} 800w, {{heroRetina}} 1600w' 
-                data-src='{{heroRetina}}'
-                onerror="this.classList.add('hidden')">
+            <img class='hidden' sizes='(max-width: 150px) 196px, (max-width: 350px) 392px, 800px' data-srcset='{{thumbnail}} 196w, {{thumbnailRetina}} 392w, {{hero}} 800w, {{heroRetina}} 1600w'
+                data-src='{{heroRetina}}' onerror="this.classList.add('hidden')">
             <h2>Information</h2>
             <h3>Developer</h3>
             <p>{{developer}}</p>
@@ -56,7 +53,7 @@
                 <h3>Downloadable content</h3>
                 <p>{{dlc}}</p>
             </div>
-        </div>
+        </template>
     </div>
 
     <script>
@@ -89,8 +86,9 @@
     <script src="./_app/release/dataControllers/productsDataController.js"></script>
     <script src="./_app/release/dataControllers/productFilesController.js"></script>
     <script src="./_app/release/dataControllers/tagsController.js"></script>
+    <script src="./_app/release/dataControllers/screenshotsController.js"></script>
     <!-- viewControllers -->
-    <script src="./_app/release/viewControllers/imagesController.js"></script>
+    <script src="./_app/release/imagesController.js"></script>
     <script src="./_app/release/viewControllers/viewController.js"></script>
     <script src="./_app/release/viewControllers/listViewController.js"></script>
     <script src="./_app/release/viewControllers/gameDetailsViewController.js"></script>

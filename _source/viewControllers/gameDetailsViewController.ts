@@ -5,7 +5,7 @@ import {ProductData} from "../models/productData";
 import {IProductsCoreController} from "../dataControllers/productsController";
 import {IViewController} from "./viewController";
 import {IGetIdDelegate} from "./viewController";
-import {IImagesController} from "../viewControllers/imagesController";
+import {IImagesController} from "../imagesController";
 
 export class GameDetailsViewController implements IDetailsViewController {
 

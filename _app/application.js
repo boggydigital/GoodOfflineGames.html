@@ -22,6 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let combinedProducts = productsController.getAll();
 
     let imagesController = new ImagesController();
+    let screenshotsController = new ScreenshotsController(screenshots, imagesController);
 
     let tagsController = new TagsController(
         productsDataController,
@@ -35,10 +36,11 @@ document.addEventListener("DOMContentLoaded", () => {
         tagsController);
 
     let gameDetailsViewModelProvider = new GameDetailsViewModelProvider(
-        imagesController,
         productsController,
         gameDetailsController,
-        productsDataController);
+        productsDataController,
+        imagesController,
+        screenshotsController);
 
     let templateController = new TemplateController();
     let bindController = new BindController();
