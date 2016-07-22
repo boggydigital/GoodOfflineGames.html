@@ -253,7 +253,8 @@ h1#appTitle {
 #gameDetails .screenshots img {
     display: inline-block;
     margin-right: 0.5em;
-    scroll-snap-align: center none
+    scroll-snap-align: center none;
+    vertical-align: top
 }
 
 #gameDetails h3 {
