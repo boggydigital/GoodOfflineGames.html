@@ -6,14 +6,15 @@ export interface IGetScreenshotUri {
     (uri: string): string;
 }
 
-export interface ILoadDelegate {
+export interface IElementActionDelegate {
     (container: Element): void;
 }
 
 export interface IImagesController {
     getProductImageUris: IGetProductImageUrisDelegate;
     getScreenshotUri: IGetScreenshotUri;
-    load: ILoadDelegate;
+    load: IElementActionDelegate;
+    expandCollection: IElementActionDelegate
 }
 
 export class ImageUris {
@@ -50,15 +51,35 @@ export class ImagesController implements IImagesController {
         return "_screenshots/" + lastPart;
     }
 
-    public load: ILoadDelegate =
+    public load: IElementActionDelegate =
     (container: Element): void => {
         var images = container.querySelectorAll("img");
         for (let ii = 0; ii < images.length; ii++) {
             let dataSrcset = images[ii].getAttribute("data-srcset");
             let dataSrc = images[ii].getAttribute("data-src");
-            images[ii].setAttribute("srcset", dataSrcset);
-            images[ii].setAttribute("src", dataSrc);
-            images[ii].classList.remove("hidden");
+            if (dataSrcset) images[ii].setAttribute("srcset", dataSrcset);
+            if (dataSrc) images[ii].setAttribute("src", dataSrc);
+            if (dataSrc || dataSrcset) images[ii].classList.remove("hidden");
         }
+    }
+
+    public expandCollection: IElementActionDelegate =
+    (container: Element): void => {
+        var elementsToExpand = container.querySelectorAll("[data-images]");
+        for (let ii=0; ii< elementsToExpand.length; ii++) {
+            let images = elementsToExpand[ii].getAttribute("data-images").split(",");
+            images.forEach(i => {
+                elementsToExpand[ii].parentElement.appendChild(this.createImage(i));
+            });
+            elementsToExpand[ii].remove();
+        }
+    }
+
+    private createImage = 
+    (uri: string): HTMLImageElement => {
+        let img = document.createElement("img");
+        img.setAttribute("data-src", uri);
+        img.classList.add("hidden");
+        return img;
     }
 }

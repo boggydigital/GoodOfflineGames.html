@@ -27,20 +27,14 @@
             </li>
         </template>
         <template id="gameDetails">
-            [[productTitle]] 
-            [[productImage]] 
-            [[information]] 
-            [[genres]] 
-            [[series]] 
-            [[requiredProducts]] 
-            [[dlc]]
+            [[productTitle]] [[productImage]] [[information]] [[genres]] [[series]] [[requiredProducts]] [[dlc]] [[screenshots]]
         </template>
         <template id="productTitle">
             <h1>{{title}}</h1>
         </template>
         <template id="productImage">
             <img class='hidden' sizes='(max-width: 150px) 196px, (max-width: 350px) 392px, 800px' data-srcset='{{thumbnail}} 196w, {{thumbnailRetina}} 392w, {{hero}} 800w, {{heroRetina}} 1600w'
-                data-src='{{heroRetina}}' onerror="this.classList.add('hidden')">
+                data-src='{{heroRetina}}' onerror="this.classList.add('hidden')" alt='Product image'>
         </template>
         <template id="information">
             <h2>Information</h2>
@@ -75,6 +69,14 @@
                 <p>{{dlc}}</p>
             </div>
         </template>
+        <template id="screenshots">
+            <div class='{{screenshotsVisibility}}'>
+                <h2>Screenshots</h2>
+                <div class='screenshots'>
+                    <template data-images='{{screenshots}}'></template>
+                </div>
+            </div>
+        </template>
     </div>
 
     <script>
@@ -85,8 +87,6 @@
         var wishlisted = undefined;
         var screenshots = undefined;
         var productfiles = undefined;
-        
-        var exports = {};
     </script>
     <!-- model -->
     <script src="./products.js"></script>
@@ -118,8 +118,7 @@
     <script src="./_app/release/viewModels/searchViewModelProvider.js"></script>
     <script src="./_app/release/viewModels/productViewModelProvider.js"></script>
     <script src="./_app/release/viewModels/gameDetailsViewModelProvider.js"></script>
-
-    <!-- application entry point -->
+    <!-- entry point -->
     <script src="./_app/application.js"></script>
 </body>
 

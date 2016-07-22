@@ -43,7 +43,11 @@ export class GameDetailsViewController implements IDetailsViewController {
 
         this.parentElement.innerHTML = gameDetailsView;
 
-        // devirtualize images
-        this.imagesController.load(this.parentElement);
+        // expand images
+        this.imagesController.expandCollection(this.parentElement);
+        // load images
+        requestAnimationFrame(() => {
+            this.imagesController.load(this.parentElement);
+        });
     }
 }
