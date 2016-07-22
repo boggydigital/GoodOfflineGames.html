@@ -8,8 +8,10 @@ import {IImagesController} from "../viewControllers/imagesController";
 export class GameDetailsViewModel {
     id: number;
     title: string;
-    productImage: string;
-    productImageRetina: string;
+    thumbnail: string;
+    thumbnailRetina: string;
+    hero: string;
+    heroRetina: string;
     publisher: string;
     developer: string;
     genres: string;
@@ -66,9 +68,11 @@ export class GameDetailsViewModelProvider implements IViewModelProvider<GameDeta
         gdVM.requiredProductsVisibility = "hidden";
         gdVM.dlcVisibility = "hidden";
 
-        var productImageUris = this.imagesController.getLocalUri(product.image);
-        gdVM.productImage = productImageUris.product;
-        gdVM.productImageRetina = productImageUris.productRetina;
+        var productImageUris = this.imagesController.getProductImageUris(product.image);
+        gdVM.thumbnail = productImageUris.thumbnail;
+        gdVM.thumbnailRetina = productImageUris.thumbnailRetina;
+        gdVM.hero = productImageUris.hero;
+        gdVM.heroRetina = productImageUris.heroRetina;        
 
         if (this.productsDataController) {
             let pd = this.productsDataController.getById(id);

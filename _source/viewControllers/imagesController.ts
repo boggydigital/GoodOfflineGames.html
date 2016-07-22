@@ -1,5 +1,9 @@
-export interface IGetLocalUriDelegate {
+export interface IGetProductImageUrisDelegate {
     (uri: string): ImageUris;
+}
+
+export interface IGetScreenshotUri {
+    (uri: string): string;
 }
 
 export interface ILoadDelegate {
@@ -7,34 +11,49 @@ export interface ILoadDelegate {
 }
 
 export interface IImagesController {
-    getLocalUri: IGetLocalUriDelegate;
+    getProductImageUris: IGetProductImageUrisDelegate;
+    getScreenshotUri: IGetScreenshotUri;
     load: ILoadDelegate;
 }
 
 export class ImageUris {
-    product: string;
-    productRetina: string;
+    thumbnail: string;
+    thumbnailRetina: string;
+    hero: string;
+    heroRetina: string;
     screenshot: string;
 }
 
 export class ImagesController implements IImagesController {
-    public getLocalUri: IGetLocalUriDelegate = 
-    (uri: string): ImageUris => {
 
-         let imageParts = uri.split("/");
-         let lastPart = imageParts[imageParts.length - 1];
-         let imageUris = new ImageUris();
-         imageUris.product = "_images/" + lastPart + "_800.jpg";
-         imageUris.productRetina = "_images/" + lastPart + ".jpg";
-         imageUris.screenshot = "_screenshots/" + lastPart;
+    private getImageLastPart = (uri: string): string => {
+        let imageParts = uri.split("/");
+        return imageParts[imageParts.length - 1];
+    }
+
+    public getProductImageUris: IGetProductImageUrisDelegate =
+    (uri: string): ImageUris => {
+        let lastPart = this.getImageLastPart(uri);
+
+        let imageUris = new ImageUris();
+        imageUris.thumbnail = "_images/" + lastPart + "_196.jpg";
+        imageUris.thumbnailRetina = "_images/" + lastPart + "_392.jpg";
+        imageUris.hero = "_images/" + lastPart + "_800.jpg";
+        imageUris.heroRetina = "_images/" + lastPart + ".jpg";
 
         return imageUris;
+    }
+
+    public getScreenshotUri: IGetScreenshotUri =
+    (uri: string): string => {
+        let lastPart = this.getImageLastPart(uri);
+        return "_screenshots/" + lastPart + ".jpg";
     }
 
     public load: ILoadDelegate =
     (container: Element): void => {
         var images = container.querySelectorAll("img");
-        for (let ii=0;ii<images.length;ii++) {
+        for (let ii = 0; ii < images.length; ii++) {
             let dataSrcset = images[ii].getAttribute("data-srcset");
             let dataSrc = images[ii].getAttribute("data-src");
             images[ii].setAttribute("srcset", dataSrcset);

@@ -23,16 +23,6 @@
     --hover: rgb(230,230,230);
     --active: rgb(204,204,204);
     --warning: rgb(197,5,0);
-} 
-
-:root .materialDark {
-    --accent: #2196f3;
-    --foreground: #fafafa;
-    --background: #000000;;
-    --inputOutline: #bdbdbd;
-    --hover: #212121;
-    --active: #424242;
-    --warning: #ffeb3b;    
 }
 
 /* Common */
