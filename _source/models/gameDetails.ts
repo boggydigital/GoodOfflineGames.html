@@ -21,5 +21,6 @@ export class GameDetails extends ProductCore {
     tags: Array<Tag>;
     extras: Array<DownloadEntry>;
     languageDownloads: Array<LanguageDownload>;
+    dlcs: Array<GameDetails>;
     releaseTimestamp: number;
 }

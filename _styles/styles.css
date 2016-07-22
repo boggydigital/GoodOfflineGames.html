@@ -206,17 +206,19 @@ h1#appTitle {
     overflow: visible;
 }
 
-#gameDetails .container .genres,
-#gameDetails .container .series,
-#gameDetails .container .requiredProducts,
-#gameDetails .container .dlc {
+#gameDetails .cdKeySection,
+#gameDetails .genresSection,
+#gameDetails .seriesSection,
+#gameDetails .requiredProductsSection,
+#gameDetails .dlcSection {
     display: none;
 }
 
-#gameDetails .container.genres .genres,
-#gameDetails .container.series .series,
-#gameDetails .container.requiredProducts .requiredProducts,
-#gameDetails .container.dlc .dlc {
+#gameDetails .cdKey .cdKeySection,
+#gameDetails .genres .genresSection,
+#gameDetails .series .seriesSection,
+#gameDetails .requiredProducts .requiredProductsSection,
+#gameDetails .dlc .dlcSection {
     display: block;
 }
 
@@ -230,6 +232,10 @@ h1#appTitle {
     max-width: 800px;
 }
 
+#gameDetails .cdKeySection p {
+    color: var(--background);
+}
+
 #gameDetails .screenshots {
     width: 100%;
     overflow-y: hidden;
@@ -238,7 +244,6 @@ h1#appTitle {
 
 #gameDetails .screenshots .container {
     white-space: nowrap;
-  
 }
 
 #gameDetails .screenshots img {

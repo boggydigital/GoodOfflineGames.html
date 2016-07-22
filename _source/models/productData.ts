@@ -12,7 +12,7 @@ export class Series {
 
 export class ProductData extends ProductCore {
     developer: NamedEntry;
-    // dlcs: any;
+    dlcs: Array<ProductData>;
     genres: Array<NamedEntry>;
     image: string;
     publisher: NamedEntry;

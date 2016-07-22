@@ -15,6 +15,7 @@ export class GameDetailsViewModel {
     heroRetina: string;
     publisher: string;
     developer: string;
+    cdKey: string;
     genres: string;
     series: string;
     requiredProducts: string;
@@ -45,8 +46,26 @@ export class GameDetailsViewModelProvider implements IViewModelProvider<GameDeta
         this.screenshotsController = screenshotsController;
     }
 
+    private getCdKeys = (gameDetails: GameDetails): Array<string> => {
+        let cdKeys = new Array<string>();
+
+        if (gameDetails.cdKey) {
+            cdKeys.push(gameDetails.title + " " + gameDetails.cdKey)
+        }
+
+        if (gameDetails.dlcs) {
+            gameDetails.dlcs.forEach(dlc => {
+                let dlcKeys = this.getCdKeys(dlc);
+                if (dlcKeys)
+                    dlcKeys.forEach(key => { cdKeys.push(key) });
+            })
+        }
+
+        return cdKeys;
+    }
+
     public getViewModel: IGetViewModelDelegate<GameDetailsViewModel> =
-    function (id: number): GameDetailsViewModel {
+    (id: number): GameDetailsViewModel => {
 
         if (id == null) return null;
 
@@ -82,6 +101,15 @@ export class GameDetailsViewModelProvider implements IViewModelProvider<GameDeta
                 if (pd.series && pd.series.id > 0) gdVM.series = pd.series.name;
                 if (pd.requiredProducts) pd.requiredProducts.forEach(rp => { requiredProducts.push(rp.title) });
                 if (pd.dlcs) pd.dlcs.forEach(dlc => { dlcs.push(dlc.title) });
+            }
+        }
+
+        if (this.gameDetailsController) {
+            let gd = this.gameDetailsController.getById(id);
+            if (gd) {
+                let cdKey = this.getCdKeys(gd);
+                gdVM.cdKey = cdKey.join("<br>");
+                if (gdVM.cdKey) visibilityClasses.push("cdKey");
             }
         }
 

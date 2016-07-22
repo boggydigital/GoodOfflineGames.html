@@ -28,7 +28,7 @@
         </template>
         <template id="gameDetails">
             <div class='container {{visibility}}'>
-                [[productTitle]] [[productImage]] [[information]] [[genres]] [[series]] [[requiredProducts]] [[dlc]] [[screenshots]]
+                [[productTitle]] [[productImage]] [[information]] [[cdKey]] [[genres]] [[series]] [[requiredProducts]] [[dlc]] [[screenshots]]
             </div>
         </template>
         <template id="productTitle">
@@ -39,7 +39,7 @@
                 data-src='{{heroRetina}}' onerror="this.classList.add('hidden')" alt='Product image'>
         </template>
         <template id="information">
-            <div class="information">
+            <div class="informationSection">
                 <h2>Information</h2>
                 <h3>Developer</h3>
                 <p>{{developer}}</p>
@@ -49,32 +49,38 @@
                 <p>{{worksOn}}</p>
             </div>
         </template>
+        <template id="cdKey">
+            <div class="cdKeySection">
+                <h3>CD Key (select to reveal)</h3>
+                <p>{{cdKey}}</p>
+            </div>
+        </template>
         <template id="genres">
-            <div class='genres'>
+            <div class='genresSection'>
                 <h3 class='title'>Genres</h3>
                 <p>{{genres}}</p>
             </div>
         </template>
         <template id="series">
-            <div class='series'>
+            <div class='seriesSection'>
                 <h3>Series</h3>
                 <p>{{series}}</p>
             </div>
         </template>
         <template id="requiredProducts">
-            <div class='requiredProducts'>
+            <div class='requiredProductsSection'>
                 <h3>Required products</h3>
                 <p>{{requiredProducts}}</p>
             </div>
         </template>
         <template id="dlc">
-            <div class='dlc'>
+            <div class='dlcSection'>
                 <h3>Downloadable content</h3>
                 <p>{{dlc}}</p>
             </div>
         </template>
         <template id="screenshots">
-            <div class='screenshots'>
+            <div class='screenshotsSection'>
                 <h2>Screenshots</h2>
                 <div class='screenshots'>
                     <div class='container'>

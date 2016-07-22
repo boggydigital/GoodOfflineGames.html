@@ -73,3 +73,13 @@
 .light #products .searchResultsLimited {
     color: rgb(197,5,0);
 }
+
+/* GameDetails */
+
+.light #gameDetails .cdKeySection p {
+    color: white;
+}
+
+.dark #gameDetails .cdKeySection p {
+    color: black;
+}
