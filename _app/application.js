@@ -22,7 +22,8 @@ document.addEventListener("DOMContentLoaded", () => {
     let combinedProducts = productsController.getAll();
 
     let imageUriController = new ImageUriController();
-    let screenshotsController = new ScreenshotsController(screenshots, imageUriController);
+    // declared in default.html
+    screenshotsController = new ScreenshotsController(screenshots, imageUriController);
 
     let tagsController = new TagsController(
         productsDataController,

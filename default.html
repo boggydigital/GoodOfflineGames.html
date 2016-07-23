@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="./_styles/stylesNoCSSCustomProperties.css" />
     <link rel="stylesheet" href="./_styles/styles.css" />
 </head>
+
 <!-- switch default theme on the body: dark, light -->
 
 <body class="windows dark">
@@ -18,6 +19,9 @@
     </div>
     <nav id="products" tabindex="2" data-ui="list" data-list-item-template="product"></nav>
     <main id="gameDetails" tabindex="3"></main>
+
+    <div id='screenshotFullscreenContainer' class='hidden' onclick='this.classList.add("hidden")'>
+    </div>
 
     <div id="templates" class="hidden">
         <template id="product">
@@ -97,7 +101,7 @@
             </div>
         </template>
         <template id='focusableImage'>
-            <img class='hidden' data-src='{{uri}}' tabindex='4'>
+            <img class='hidden' tabindex='4' data-src='{{uri}}' onclick='screenshotsController.showFullscreen(this)'>
         </template>
     </div>
 
@@ -109,7 +113,10 @@
         var wishlisted = undefined;
         var screenshots = undefined;
         var productfiles = undefined;
-        
+
+        // this is declared in global scope to make focusableImage onclick work
+        var screenshotsController = undefined;
+
         var exports = {};
     </script>
     <!-- model -->

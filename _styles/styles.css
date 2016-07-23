@@ -34,7 +34,7 @@ html {
 }
 
 .hidden {
-    display: none;
+    display: none !important;
 }
 
 body {
@@ -269,4 +269,24 @@ h1#appTitle {
 
 #gameDetails p {
     margin-top: 0;
+}
+
+/* Screenshot Fullscreen Container */
+
+#screenshotFullscreenContainer {
+    display: flex;
+    align-items: center;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    cursor: zoom-out;
+    background: inherit
+}
+
+#screenshotFullscreenContainer img {
+    width: 100%;
+    margin: auto 0;
 }

@@ -4,8 +4,13 @@ export interface IGetScreenshotsById {
     (id: number): Array<string>
 }
 
+export interface IShowFullscreenDelegate {
+    (element: HTMLImageElement): void;
+}
+
 export interface IScreenshotsController {
-    getScreenshotsById: IGetScreenshotsById
+    getScreenshotsById: IGetScreenshotsById;
+    showFullscreen: IShowFullscreenDelegate
 }
 
 class ScreenshotEntry {
@@ -37,5 +42,12 @@ export class ScreenshotsController implements IScreenshotsController {
         return result;
     }
 
-
+    public showFullscreen: IShowFullscreenDelegate =
+    (element: HTMLImageElement): void => {
+        // alert(element);
+        let sfContainer = document.getElementById("screenshotFullscreenContainer");
+        sfContainer.innerHTML = "";
+        sfContainer.appendChild(element.cloneNode());
+        sfContainer.classList.remove("hidden");
+    }
 }

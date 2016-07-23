@@ -32,6 +32,10 @@ export class ImageLoadController implements IPostProcessingController {
 
 class ImageUriViewModel {
     uri: string;
+
+    public constructor(uri: string) {
+        this.uri = uri;
+    }
 }
 
 export class ImageExpandController {
@@ -61,8 +65,7 @@ export class ImageExpandController {
 
     private getImageContent =
     (uri: string): string => {
-        let imageUriViewModel = new ImageUriViewModel();
-        imageUriViewModel.uri = uri;
+        let imageUriViewModel = new ImageUriViewModel(uri);
         let template = this.templateController.getTemplate("focusableImage");
         return this.bindController.bindTemplateToModel(template, imageUriViewModel);
     }
