@@ -5,7 +5,8 @@ import {ProductData} from "../models/productData";
 import {IProductsCoreController} from "../dataControllers/productsController";
 import {IViewController} from "./viewController";
 import {IGetIdDelegate} from "./viewController";
-import {IImagesController} from "../imagesController";
+import {IImageUriController} from "../imageUriController";
+import {IPostProcessingController} from "../postProcessingController";
 
 export class GameDetailsViewController implements IDetailsViewController {
 
@@ -14,7 +15,9 @@ export class GameDetailsViewController implements IDetailsViewController {
     productsController: IProductsCoreController<Product>;
     viewController: IViewController<Product>;
     getIdDelegate: IGetIdDelegate<Product>;
-    imagesController: IImagesController;
+    // imageUriController: IImageUriController;
+    imageExpandController: IPostProcessingController;
+    imageLoadController: IPostProcessingController;
 
     public constructor(
         getIdDelegate: IGetIdDelegate<Product>,
@@ -22,13 +25,17 @@ export class GameDetailsViewController implements IDetailsViewController {
         parentElement: Element,
         viewController: IViewController<Product>,
         productsController: IProductsCoreController<Product>,
-        imagesController: IImagesController) {
+        // imageUriController: IImageUriController,
+        imageExpandController: IPostProcessingController,
+        imageLoadController: IPostProcessingController) {
         this.getIdDelegate = getIdDelegate;
         this.templateId = templateId;
         this.parentElement = parentElement;
         this.viewController = viewController;
         this.productsController = productsController;
-        this.imagesController = imagesController;
+        // this.imageUriController = imageUriController;
+        this.imageExpandController = imageExpandController;
+        this.imageLoadController = imageLoadController;
     }
 
     public showDetails: IShowDetailsDelegate =
@@ -44,10 +51,10 @@ export class GameDetailsViewController implements IDetailsViewController {
         this.parentElement.innerHTML = gameDetailsView;
 
         // expand images
-        this.imagesController.expandCollection(this.parentElement);
+        this.imageExpandController.process(this.parentElement);
         // load images
         requestAnimationFrame(() => {
-            this.imagesController.load(this.parentElement);
+            this.imageLoadController.process(this.parentElement);
         });
     }
 }

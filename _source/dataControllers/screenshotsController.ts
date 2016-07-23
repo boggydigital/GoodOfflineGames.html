@@ -1,4 +1,4 @@
-import {IImagesController} from "../imagesController";
+import {IImageUriController} from "../imageUriController";
 
 export interface IGetScreenshotsById {
     (id: number): Array<string>
@@ -15,13 +15,13 @@ class ScreenshotEntry {
 
 export class ScreenshotsController implements IScreenshotsController {
 
-    imagesController: IImagesController;
+    imageUriController: IImageUriController;
     screenshots: Array<ScreenshotEntry>;
 
     public constructor(screenshots: Array<ScreenshotEntry>,
-        imagesController: IImagesController) {
+        imageUriController: IImageUriController) {
         this.screenshots = screenshots;
-        this.imagesController = imagesController;
+        this.imageUriController = imageUriController;
     }
 
     public getScreenshotsById: IGetScreenshotsById =
@@ -30,7 +30,7 @@ export class ScreenshotsController implements IScreenshotsController {
 
         this.screenshots.forEach(e => {
             if (e.Key === id) e.Value.forEach(s => {
-                result.push(this.imagesController.getScreenshotUri(s));
+                result.push(this.imageUriController.getScreenshotUri(s));
             })
         })
 

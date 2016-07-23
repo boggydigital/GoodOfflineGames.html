@@ -21,8 +21,10 @@ document.addEventListener("DOMContentLoaded", () => {
     let wishlistController = new CollectionController(wishlisted);
     let combinedProducts = productsController.getAll();
 
-    let imagesController = new ImagesController();
-    let screenshotsController = new ScreenshotsController(screenshots, imagesController);
+    let imageUriController = new ImageUriController();
+    let imageExpandController = new ImageExpandController();
+    let imageLoadController = new ImageLoadController();
+    let screenshotsController = new ScreenshotsController(screenshots, imageUriController);
 
     let tagsController = new TagsController(
         productsDataController,
@@ -39,7 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
         productsController,
         gameDetailsController,
         productsDataController,
-        imagesController,
+        imageUriController,
         screenshotsController);
 
     let templateController = new TemplateController();
@@ -80,7 +82,9 @@ document.addEventListener("DOMContentLoaded", () => {
         gameDetailsContainer,
         viewControllerGameDetails,
         productsController,
-        imagesController);
+        // imageUriController,
+        imageExpandController,
+        imageLoadController);
 
     let masterDetailViewController = new MasterDetailViewController(
         listViewController,

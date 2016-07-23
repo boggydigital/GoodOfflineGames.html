@@ -3,7 +3,7 @@ import {ProductData} from "../models/productData";
 import {GameDetails} from "../models/gameDetails";
 import {IGetViewModelDelegate, IViewModelProvider} from "./viewModelProvider";
 import {IProductsCoreController} from "../dataControllers/productsController";
-import {IImagesController} from "../imagesController";
+import {IImageUriController} from "../imageUriController";
 import {IScreenshotsController} from "../dataControllers/screenshotsController";
 
 export class GameDetailsViewModel {
@@ -31,19 +31,19 @@ export class GameDetailsViewModelProvider implements IViewModelProvider<GameDeta
     productsController: IProductsCoreController<Product>;
     productsDataController: IProductsCoreController<ProductData>;
     gameDetailsController: IProductsCoreController<GameDetails>;
-    imagesController: IImagesController;
+    imageUriController: IImageUriController;
     screenshotsController: IScreenshotsController;
 
     public constructor(
         productsController: IProductsCoreController<Product>,
         gameDetailsController: IProductsCoreController<GameDetails>,
         productsDataController: IProductsCoreController<ProductData>,
-        imagesController: IImagesController,
+        imageUriController: IImageUriController,
         screenshotsController: IScreenshotsController) {
         this.productsController = productsController;
         this.gameDetailsController = gameDetailsController;
         this.productsDataController = productsDataController;
-        this.imagesController = imagesController;
+        this.imageUriController = imageUriController;
         this.screenshotsController = screenshotsController;
     }
 
@@ -87,7 +87,7 @@ export class GameDetailsViewModelProvider implements IViewModelProvider<GameDeta
         gdVM.publisher = "N/A";
         gdVM.developer = "N/A";
 
-        var productImageUris = this.imagesController.getProductImageUris(product.image);
+        var productImageUris = this.imageUriController.getProductImageUris(product.image);
         gdVM.thumbnail = productImageUris.thumbnail;
         gdVM.thumbnailRetina = productImageUris.thumbnailRetina;
         gdVM.hero = productImageUris.hero;

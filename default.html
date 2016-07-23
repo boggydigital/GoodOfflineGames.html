@@ -96,9 +96,12 @@
                 {{changelog}}
             </div>
         </template>
-        </div>
+        <template id='focusableImage'>
+            <img class='hidden' data-src='{{uri}}' tabindex='4'>
+        </template>
+    </div>
 
-        <script>
+    <script>
         var products = undefined;
         var productsdata = undefined;
         var gamedetails = undefined;
@@ -109,39 +112,40 @@
         
         var exports = {};
     </script>
-        <!-- model -->
-        <script src="./products.js"></script>
-        <script src="./owned.js"></script>
-        <script src="./wishlisted.js"></script>
-        <script src="./productsdata.js"></script>
-        <script src="./gamedetails.js"></script>
-        <script src="./productfiles.js"></script>
-        <script src="./screenshots.js"></script>
-        <!-- controllers -->
-        <script src="./_app/release/templateController.js"></script>
-        <script src="./_app/release/bindController.js"></script>
-        <script src="./_app/release/eventCallbackController.js"></script>
-        <script src="./_app/release/searchController.js"></script>
-        <!-- dataControllers -->
-        <script src="./_app/release/dataControllers/collectionController.js"></script>
-        <script src="./_app/release/dataControllers/productsController.js"></script>
-        <script src="./_app/release/dataControllers/productsDataController.js"></script>
-        <script src="./_app/release/dataControllers/productFilesController.js"></script>
-        <script src="./_app/release/dataControllers/tagsController.js"></script>
-        <script src="./_app/release/dataControllers/screenshotsController.js"></script>
-        <!-- viewControllers -->
-        <script src="./_app/release/imagesController.js"></script>
-        <script src="./_app/release/viewControllers/viewController.js"></script>
-        <script src="./_app/release/viewControllers/listViewController.js"></script>
-        <script src="./_app/release/viewControllers/gameDetailsViewController.js"></script>
-        <script src="./_app/release/viewControllers/masterDetailViewController.js"></script>
-        <!-- viewModels -->
-        <script src="./_app/release/viewModels/searchViewModelProvider.js"></script>
-        <script src="./_app/release/viewModels/productViewModelProvider.js"></script>
-        <script src="./_app/release/viewModels/gameDetailsViewModelProvider.js"></script>
+    <!-- model -->
+    <script src="./products.js"></script>
+    <script src="./owned.js"></script>
+    <script src="./wishlisted.js"></script>
+    <script src="./productsdata.js"></script>
+    <script src="./gamedetails.js"></script>
+    <script src="./productfiles.js"></script>
+    <script src="./screenshots.js"></script>
+    <!-- controllers -->
+    <script src="./_app/release/templateController.js"></script>
+    <script src="./_app/release/bindController.js"></script>
+    <script src="./_app/release/eventCallbackController.js"></script>
+    <script src="./_app/release/searchController.js"></script>
+    <!-- dataControllers -->
+    <script src="./_app/release/dataControllers/collectionController.js"></script>
+    <script src="./_app/release/dataControllers/productsController.js"></script>
+    <script src="./_app/release/dataControllers/productsDataController.js"></script>
+    <script src="./_app/release/dataControllers/productFilesController.js"></script>
+    <script src="./_app/release/dataControllers/tagsController.js"></script>
+    <script src="./_app/release/dataControllers/screenshotsController.js"></script>
+    <!-- viewControllers -->
+    <script src="./_app/release/imageUriController.js"></script>
+    <script src="./_app/release/postProcessingController.js"></script>
+    <script src="./_app/release/viewControllers/viewController.js"></script>
+    <script src="./_app/release/viewControllers/listViewController.js"></script>
+    <script src="./_app/release/viewControllers/gameDetailsViewController.js"></script>
+    <script src="./_app/release/viewControllers/masterDetailViewController.js"></script>
+    <!-- viewModels -->
+    <script src="./_app/release/viewModels/searchViewModelProvider.js"></script>
+    <script src="./_app/release/viewModels/productViewModelProvider.js"></script>
+    <script src="./_app/release/viewModels/gameDetailsViewModelProvider.js"></script>
 
-        <!-- application entry point -->
-        <script src="./_app/application.js"></script>
+    <!-- application entry point -->
+    <script src="./_app/application.js"></script>
 </body>
 
 </html>
