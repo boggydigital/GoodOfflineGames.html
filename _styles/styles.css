@@ -212,6 +212,7 @@ h1#appTitle {
 #gameDetails .seriesSection,
 #gameDetails .requiredProductsSection,
 #gameDetails .dlcSection,
+#gameDetails .filesSection,
 #gameDetails .screenshotsSection,
 #gameDetails .changelogSection {
     display: none;
@@ -223,6 +224,7 @@ h1#appTitle {
 #gameDetails .series .seriesSection,
 #gameDetails .requiredProducts .requiredProductsSection,
 #gameDetails .dlc .dlcSection,
+#gameDetails .files .filesSection,
 #gameDetails .screenshots .screenshotsSection,
 #gameDetails .changelog .changelogSection {
     display: block;

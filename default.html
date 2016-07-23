@@ -33,7 +33,7 @@
         <template id="gameDetails">
             <div class='container {{visibility}}'>
                 [[productTitle]] [[productImage]] [[information]] [[links]] [[cdKey]] [[genres]] [[series]] [[requiredProducts]] [[dlc]]
-                [[screenshots]] [[changelog]]
+                [[files]] [[screenshots]] [[changelog]]
             </div>
         </template>
         <template id="productTitle">
@@ -90,7 +90,7 @@
                 <a href='https://www.gog.com/game/{{slug}}'>Product page</a>
                 <br>
                 <a href='https://www.gog.com/forum/{{slug}}'>Community page</a>
-            </div>    
+            </div>
         </template>
         <template id="screenshots">
             <div class='screenshotsSection'>
@@ -100,6 +100,12 @@
                         <template data-images='{{screenshots}}'></template>
                     </div>
                 </div>
+            </div>
+        </template>
+        <template id='files'>
+            <div class='filesSection'>
+                <h2>Files</h2>
+                <template data-files='{{files}}'></template>
             </div>
         </template>
         <template id='changelog'>

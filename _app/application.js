@@ -40,6 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
         productsController,
         gameDetailsController,
         productsDataController,
+        productFilesController,
         imageUriController,
         screenshotsController);
 

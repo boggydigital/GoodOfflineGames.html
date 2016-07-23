@@ -1,6 +1,7 @@
 import {Product} from "../models/product";
 import {ProductData} from "../models/productData";
 import {GameDetails} from "../models/gameDetails";
+import {ProductFile} from "../models/productFile";
 import {IGetViewModelByIdDelegate, IViewModelByIdProvider} from "./viewModelProvider";
 import {IProductsCoreController} from "../dataControllers/productsController";
 import {IImageUriController} from "../imageUriController";
@@ -22,7 +23,8 @@ export class GameDetailsViewModel {
     requiredProducts: string;
     worksOn: string;
     dlc: string;
-    screenshots: Array<string>;
+    screenshots: string;
+    files: string;
     changelog: string;
     visibility: string;
 }
@@ -32,6 +34,7 @@ export class GameDetailsViewModelProvider implements IViewModelByIdProvider<Game
     productsController: IProductsCoreController<Product>;
     productsDataController: IProductsCoreController<ProductData>;
     gameDetailsController: IProductsCoreController<GameDetails>;
+    productFilesController: IProductsCoreController<ProductFile>;
     imageUriController: IImageUriController;
     screenshotsController: IScreenshotsController;
 
@@ -39,11 +42,13 @@ export class GameDetailsViewModelProvider implements IViewModelByIdProvider<Game
         productsController: IProductsCoreController<Product>,
         gameDetailsController: IProductsCoreController<GameDetails>,
         productsDataController: IProductsCoreController<ProductData>,
+        productFilesController: IProductsCoreController<ProductFile>,
         imageUriController: IImageUriController,
         screenshotsController: IScreenshotsController) {
         this.productsController = productsController;
         this.gameDetailsController = gameDetailsController;
         this.productsDataController = productsDataController;
+        this.productFilesController = productFilesController;
         this.imageUriController = imageUriController;
         this.screenshotsController = screenshotsController;
     }
@@ -119,7 +124,19 @@ export class GameDetailsViewModelProvider implements IViewModelByIdProvider<Game
         }
 
         if (this.screenshotsController) {
-            gdVM.screenshots = this.screenshotsController.getScreenshotsById(id);
+            let screenshots = this.screenshotsController.getScreenshotsById(id);
+            if (screenshots &&
+                screenshots.length &&
+                screenshots.length > 0)
+                gdVM.screenshots = screenshots.join();
+        }
+
+        if (this.productFilesController) {
+            let files = this.productFilesController.getAllById(id);
+            if (files &&
+                files.length &&
+                files.length > 0)
+                gdVM.files = JSON.stringify(files);
         }
 
         ["Windows", "Mac", "Linux"].forEach(os => {
@@ -140,6 +157,7 @@ export class GameDetailsViewModelProvider implements IViewModelByIdProvider<Game
         if (gdVM.series) visibilityClasses.push("series");
         if (gdVM.cdKey) visibilityClasses.push("cdKey");
         if (gdVM.changelog) visibilityClasses.push("changelog");
+        if (gdVM.files) visibilityClasses.push("files");
         if (gdVM.screenshots !== null &&
             gdVM.screenshots.length > 0) visibilityClasses.push("screenshots");
 
