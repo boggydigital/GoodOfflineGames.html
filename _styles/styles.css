@@ -287,6 +287,6 @@ h1#appTitle {
 }
 
 #screenshotFullscreenContainer img {
-    width: 100%;
-    margin: auto 0;
+    /* this really needs to be width/height: 100% + object-fit: contain */
+    width: 100%
 }
