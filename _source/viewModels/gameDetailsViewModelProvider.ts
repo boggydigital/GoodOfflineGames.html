@@ -136,7 +136,7 @@ export class GameDetailsViewModelProvider implements IViewModelByIdProvider<Game
             if (files &&
                 files.length &&
                 files.length > 0)
-                gdVM.files = JSON.stringify(files);
+                gdVM.files = encodeURIComponent(JSON.stringify(files));
         }
 
         ["Windows", "Mac", "Linux"].forEach(os => {
@@ -158,8 +158,7 @@ export class GameDetailsViewModelProvider implements IViewModelByIdProvider<Game
         if (gdVM.cdKey) visibilityClasses.push("cdKey");
         if (gdVM.changelog) visibilityClasses.push("changelog");
         if (gdVM.files) visibilityClasses.push("files");
-        if (gdVM.screenshots !== null &&
-            gdVM.screenshots.length > 0) visibilityClasses.push("screenshots");
+        if (gdVM.screenshots) visibilityClasses.push("screenshots");
 
         gdVM.visibility = visibilityClasses.join(" ");
 

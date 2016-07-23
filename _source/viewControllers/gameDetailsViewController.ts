@@ -14,8 +14,9 @@ export class GameDetailsViewController implements IDetailsViewController {
     productsController: IProductsCoreController<Product>;
     viewController: IViewController;
     getIdDelegate: IGetIdDelegate;
-    imageExpandController: IPostProcessingController;
-    imageLoadController: IPostProcessingController;
+    filesExpandController: IPostProcessingController;
+    imagesExpandController: IPostProcessingController;
+    imagesLoadController: IPostProcessingController;
 
     public constructor(
         getIdDelegate: IGetIdDelegate,
@@ -23,15 +24,17 @@ export class GameDetailsViewController implements IDetailsViewController {
         parentElement: Element,
         viewController: IViewController,
         productsController: IProductsCoreController<Product>,
-        imageExpandController: IPostProcessingController,
-        imageLoadController: IPostProcessingController) {
+        filesExpandController: IPostProcessingController,
+        imagesExpandController: IPostProcessingController,
+        imagesLoadController: IPostProcessingController) {
         this.getIdDelegate = getIdDelegate;
         this.templateId = templateId;
         this.parentElement = parentElement;
         this.viewController = viewController;
         this.productsController = productsController;
-        this.imageExpandController = imageExpandController;
-        this.imageLoadController = imageLoadController;
+        this.filesExpandController = filesExpandController;
+        this.imagesExpandController = imagesExpandController;
+        this.imagesLoadController = imagesLoadController;
     }
 
     public showDetails: IShowDetailsDelegate =
@@ -46,11 +49,13 @@ export class GameDetailsViewController implements IDetailsViewController {
 
         this.parentElement.innerHTML = gameDetailsView;
 
+        // expand files
+        this.filesExpandController.process(this.parentElement);
         // expand images
-        this.imageExpandController.process(this.parentElement);
+        this.imagesExpandController.process(this.parentElement);
         // load images
         requestAnimationFrame(() => {
-            this.imageLoadController.process(this.parentElement);
+            this.imagesLoadController.process(this.parentElement);
         });
     }
 }

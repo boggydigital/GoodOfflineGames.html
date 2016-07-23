@@ -48,10 +48,11 @@ document.addEventListener("DOMContentLoaded", () => {
     let bindController = new BindController();
     let eventCallbackController = new EventCallbackController();
 
-    let imageExpandController = new ImageExpandController(
+    let imagesExpandController = new ImagesExpandController(
         templateController, 
         bindController);
-    let imageLoadController = new ImageLoadController();
+    let filesExpandController = new FilesExpandController();
+    let imagesLoadController = new ImagesLoadController();
 
     let searchViewModelProvider = new SearchViewModelProvider(
         productsController,
@@ -87,9 +88,9 @@ document.addEventListener("DOMContentLoaded", () => {
         gameDetailsContainer,
         viewControllerGameDetails,
         productsController,
-        // imageUriController,
-        imageExpandController,
-        imageLoadController);
+        filesExpandController,
+        imagesExpandController,
+        imagesLoadController);
 
     let masterDetailViewController = new MasterDetailViewController(
         listViewController,

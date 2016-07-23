@@ -1,3 +1,4 @@
+import {ProductFile} from "./models/productFile";
 import {ITemplateController} from "./templateController";
 import {IBindController} from "./bindController";
 
@@ -9,7 +10,7 @@ export interface IPostProcessingController {
     process: IProcessDelegate;
 }
 
-export class ImageLoadController implements IPostProcessingController {
+export class ImagesLoadController implements IPostProcessingController {
 
     public process: IProcessDelegate =
     (container: Element): void => {
@@ -38,7 +39,7 @@ class ImageUriViewModel {
     }
 }
 
-export class ImageExpandController {
+export class ImagesExpandController implements IPostProcessingController {
 
     templateController: ITemplateController;
     bindController: IBindController<ImageUriViewModel>;
@@ -68,5 +69,22 @@ export class ImageExpandController {
         let imageUriViewModel = new ImageUriViewModel(uri);
         let template = this.templateController.getTemplate("focusableImage");
         return this.bindController.bindTemplateToModel(template, imageUriViewModel);
+    }
+}
+
+export class FilesExpandController implements IPostProcessingController {
+
+    public process: IProcessDelegate =
+    (container: Element): void => {
+        let elementsToExpand = container.querySelectorAll("[data-files]");
+        for (let ii=0; ii< elementsToExpand.length; ii++) {
+            let filesContent = elementsToExpand[ii].getAttribute("data-files");
+            if (filesContent === "{{files}}") continue;
+            let files: Array<ProductFile> = JSON.parse(decodeURIComponent(filesContent)); 
+
+            files.forEach(f => {
+                console.log(f.file);
+            })
+        }
     }
 }
