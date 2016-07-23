@@ -1,7 +1,7 @@
 import {Product} from "../models/product";
 import {ProductData} from "../models/productData";
 import {GameDetails} from "../models/gameDetails";
-import {IGetViewModelDelegate, IViewModelProvider} from "./viewModelProvider";
+import {IGetViewModelByIdDelegate, IViewModelByIdProvider} from "./viewModelProvider";
 import {IProductsCoreController} from "../dataControllers/productsController";
 import {IImageUriController} from "../imageUriController";
 import {IScreenshotsController} from "../dataControllers/screenshotsController";
@@ -26,7 +26,7 @@ export class GameDetailsViewModel {
     visibility: string;
 }
 
-export class GameDetailsViewModelProvider implements IViewModelProvider<GameDetailsViewModel> {
+export class GameDetailsViewModelProvider implements IViewModelByIdProvider<GameDetailsViewModel> {
 
     productsController: IProductsCoreController<Product>;
     productsDataController: IProductsCoreController<ProductData>;
@@ -65,7 +65,7 @@ export class GameDetailsViewModelProvider implements IViewModelProvider<GameDeta
         return cdKeys;
     }
 
-    public getViewModel: IGetViewModelDelegate<GameDetailsViewModel> =
+    public getViewModelById: IGetViewModelByIdDelegate<GameDetailsViewModel> =
     (id: number): GameDetailsViewModel => {
 
         if (id == null) return null;

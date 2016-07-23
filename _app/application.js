@@ -22,8 +22,6 @@ document.addEventListener("DOMContentLoaded", () => {
     let combinedProducts = productsController.getAll();
 
     let imageUriController = new ImageUriController();
-    let imageExpandController = new ImageExpandController();
-    let imageLoadController = new ImageLoadController();
     let screenshotsController = new ScreenshotsController(screenshots, imageUriController);
 
     let tagsController = new TagsController(
@@ -47,6 +45,11 @@ document.addEventListener("DOMContentLoaded", () => {
     let templateController = new TemplateController();
     let bindController = new BindController();
     let eventCallbackController = new EventCallbackController();
+
+    let imageExpandController = new ImageExpandController(
+        templateController, 
+        bindController);
+    let imageLoadController = new ImageLoadController();
 
     let searchViewModelProvider = new SearchViewModelProvider(
         productsController,

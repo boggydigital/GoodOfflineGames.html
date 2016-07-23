@@ -28,7 +28,7 @@ export interface IListViewController {
 
 export class ListViewController<T> implements IListViewController {
 
-    viewController: IViewController<T>;
+    viewController: IViewController;
     eventCallbackController: IEventCallbackController;
 
     listContainerClass: string = "listContainer";
@@ -57,10 +57,10 @@ export class ListViewController<T> implements IListViewController {
 
     public constructor(
         collection: Array<T>,
-        getIdDelegate: IGetIdDelegate<T>,
+        getIdDelegate: IGetIdDelegate,
         templateId: string,
         parentElement: Element,
-        viewController: IViewController<T>,
+        viewController: IViewController,
         searchController: ISearchController<T>,
         eventCallbackController: IEventCallbackController) {
 
@@ -84,7 +84,7 @@ export class ListViewController<T> implements IListViewController {
         // 1. create the view of every element in the collection
         let viewCollection = new Array<string>();
         for (let ii = 0; ii < n; ii++)
-            viewCollection.push(viewController.create(
+            viewCollection.push(viewController.createById(
                 collection[ii], getIdDelegate, templateId));
 
         // 2. add view to the container
@@ -95,7 +95,7 @@ export class ListViewController<T> implements IListViewController {
         requestAnimationFrame(() => {
             viewCollection = new Array<string>();
             for (let ii = n; ii < collection.length; ii++)
-                viewCollection.push(viewController.create(
+                viewCollection.push(viewController.createById(
                     collection[ii],
                     getIdDelegate,
                     templateId));

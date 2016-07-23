@@ -2,14 +2,14 @@ import {ProductCore} from "../models/productCore";
 import {ProductData} from "../models/productData";
 import {IProductsCoreController} from "../dataControllers/productsController";
 import {ITagsController} from "../dataControllers/tagsController";
-import {IGetViewModelDelegate, IViewModelProvider} from "./viewModelProvider";
+import {IGetViewModelByIdDelegate, IViewModelByIdProvider} from "./viewModelProvider";
 
 export class SearchViewModel {
     id: number;
     searchTerms: Array<string>;
 }
 
-export class SearchViewModelProvider implements IViewModelProvider<SearchViewModel> {
+export class SearchViewModelProvider implements IViewModelByIdProvider<SearchViewModel> {
 
     productsController: IProductsCoreController<ProductCore>;
     tagsController: ITagsController;
@@ -23,7 +23,7 @@ export class SearchViewModelProvider implements IViewModelProvider<SearchViewMod
         this.productsDataController = productsDataController;
     }
 
-    public getViewModel = function (id: number): SearchViewModel {
+    public getViewModelById = function (id: number): SearchViewModel {
         if (id == null) return null;
 
         let searchTerms = [];

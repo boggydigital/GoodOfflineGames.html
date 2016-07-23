@@ -1,10 +1,10 @@
 import {SearchViewModel} from "./viewModels/searchViewModelProvider";
-import {IViewModelProvider} from "./viewModels/viewModelProvider";
+import {IViewModelByIdProvider} from "./viewModels/viewModelProvider";
 import {IEventCallbackController, IAddEventCallbackDelegate} from "./eventCallbackController";
 import {IGetIdDelegate} from "./viewControllers/viewController";
 
 export interface IIndexDelegate<T> {
-    (items: Array<T>, getIdDelegate: IGetIdDelegate<T>): void;
+    (items: Array<T>, getIdDelegate: IGetIdDelegate): void;
 }
 
 export interface IMatchDelegate {
@@ -19,7 +19,7 @@ export interface ISearchController<T> {
 
 export class SearchController<T> implements ISearchController<T> {
 
-    searchViewModelProvider: IViewModelProvider<SearchViewModel>;
+    searchViewModelProvider: IViewModelByIdProvider<SearchViewModel>;
     searchIndex: Array<SearchViewModel>;
     eventCallbackController: IEventCallbackController;
 
@@ -31,18 +31,18 @@ export class SearchController<T> implements ISearchController<T> {
     clearedEvent: string = "cleared";
 
     public constructor(
-        searchViewModelProvider: IViewModelProvider<SearchViewModel>,
+        searchViewModelProvider: IViewModelByIdProvider<SearchViewModel>,
         eventCallbackController: IEventCallbackController) {
         this.searchViewModelProvider = searchViewModelProvider;
         this.searchIndex = new Array<SearchViewModel>();
         this.eventCallbackController = eventCallbackController;
     }
 
-    public index = (items: Array<T>, getIdDelegate: IGetIdDelegate<T>): void => {
+    public index = (items: Array<T>, getIdDelegate: IGetIdDelegate): void => {
         this.eventCallbackController.fire(this.indexingStartEvent, new Date());
         for (let ii = 0; ii < items.length; ii++) {
             let id = getIdDelegate(items[ii]);
-            this.searchIndex.push(this.searchViewModelProvider.getViewModel(id));
+            this.searchIndex.push(this.searchViewModelProvider.getViewModelById(id));
         }
         this.eventCallbackController.fire(this.indexingEndEvent, new Date());
     };

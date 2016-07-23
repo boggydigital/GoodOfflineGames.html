@@ -2,7 +2,7 @@ import {ProductCore} from "../models/productCore";
 import {Product} from "../models/product";
 import {ProductData} from "../models/productData";
 import {GameDetails} from "../models/gameDetails";
-import {IGetViewModelDelegate, IViewModelProvider} from "./viewModelProvider";
+import {IGetViewModelByIdDelegate, IViewModelByIdProvider} from "./viewModelProvider";
 import {IProductsCoreController} from "../dataControllers/productsController";
 import {ICollectionController} from "../dataControllers/collectionController";
 import {IProductFilesController} from "../dataControllers/productFilesController";
@@ -15,7 +15,7 @@ export class ProductViewModel {
     title: string;
 }
 
-export class ProductViewModelProvider implements IViewModelProvider<ProductViewModel> {
+export class ProductViewModelProvider implements IViewModelByIdProvider<ProductViewModel> {
 
     productsController: IProductsCoreController<Product>;
     tagsController: ITagsController;
@@ -27,7 +27,7 @@ export class ProductViewModelProvider implements IViewModelProvider<ProductViewM
         this.tagsController = tagsController;
     }
 
-    public getViewModel: IGetViewModelDelegate<ProductViewModel> =
+    public getViewModelById: IGetViewModelByIdDelegate<ProductViewModel> =
     function (id: number): ProductViewModel {
 
         if (id == null) return null;

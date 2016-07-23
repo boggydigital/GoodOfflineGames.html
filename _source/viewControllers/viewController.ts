@@ -1,27 +1,31 @@
 import {ITemplateController} from "../templateController";
 import {IBindController} from "../bindController";
-import {IViewModelProvider} from "../viewModels/viewModelProvider";
+import {IViewModelByIdProvider} from "../viewModels/viewModelProvider";
 
-export interface IGetIdDelegate<T> {
-    (item: T): number;
+export interface IGetIdDelegate {
+    (item: any): number;
 }
 
-export interface ICreateDelegate<T> {
-    (model: T, getIdDelegate: IGetIdDelegate<T>, templateId: string): string;
+export interface ICreateByIdDelegate {
+    (model: any, getIdDelegate: IGetIdDelegate, templateId: string): string;
 }
 
-export interface IViewController<T> {
-    create: ICreateDelegate<T>;
+export interface ICreateDelegate {
+    (model: any, templateId: string): string;
 }
 
-export class ViewController<Type, ViewModel> implements IViewController<Type> {
+export interface IViewController {
+    createById: ICreateByIdDelegate;
+}
+
+export class ViewController<ViewModel> implements IViewController {
 
     templateController: ITemplateController;
     bindController: IBindController<ViewModel>;
-    viewModelProvider: IViewModelProvider<ViewModel>;
+    viewModelProvider: IViewModelByIdProvider<ViewModel>;
 
     public constructor(
-        viewModelProvider: IViewModelProvider<ViewModel>,
+        viewModelProvider: IViewModelByIdProvider<ViewModel>,
         templateController: ITemplateController,
         bindController: IBindController<ViewModel>) {
         this.viewModelProvider = viewModelProvider;
@@ -29,12 +33,12 @@ export class ViewController<Type, ViewModel> implements IViewController<Type> {
         this.bindController = bindController;
     }
 
-    public create: ICreateDelegate<Type> =
-    (model: Type, getIdDelegate: IGetIdDelegate<Type>, templateId: string): string => {
+    public createById: ICreateByIdDelegate =
+    (model: any, getIdDelegate: IGetIdDelegate, templateId: string): string => {
         let view = "";
         let template = this.templateController.getTemplate(templateId);
         let id = getIdDelegate(model);
-        let viewModel = this.viewModelProvider.getViewModel(id);
+        let viewModel = this.viewModelProvider.getViewModelById(id);
         if (template === "") view = "(cannot find template)";
         view = this.bindController.bindTemplateToModel(template, viewModel);
         return view;

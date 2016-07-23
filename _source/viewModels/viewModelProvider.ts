@@ -1,7 +1,7 @@
-export interface IGetViewModelDelegate<T> {
+export interface IGetViewModelByIdDelegate<T> {
     (id: number): T;
 }
 
-export interface IViewModelProvider<T> {
-    getViewModel: IGetViewModelDelegate<T>;
+export interface IViewModelByIdProvider<T> {
+    getViewModelById: IGetViewModelByIdDelegate<T>;
 }
