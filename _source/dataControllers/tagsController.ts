@@ -4,7 +4,7 @@ import {ProductData} from "../models/productData";
 import {GameDetails} from "../models/gameDetails";
 import {IProductsCoreController} from "../dataControllers/productsController";
 import {ICollectionController} from "../dataControllers/collectionController";
-import {IProductFilesController} from "../dataControllers/productFilesController";
+import {IProductFilesController} from "../dataControllers/productsController";
 
 export interface IGetTagsDelegate {
     (id: number): Array<string>;

@@ -5,7 +5,7 @@ import {GameDetails} from "../models/gameDetails";
 import {IGetViewModelByIdDelegate, IViewModelByIdProvider} from "./viewModelProvider";
 import {IProductsCoreController} from "../dataControllers/productsController";
 import {ICollectionController} from "../dataControllers/collectionController";
-import {IProductFilesController} from "../dataControllers/productFilesController";
+import {IProductFilesController} from "../dataControllers/productsController";
 import {ITagsController} from "../dataControllers/tagsController";
 
 export class ProductViewModel {
