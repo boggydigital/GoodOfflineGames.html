@@ -9,6 +9,7 @@ import {IScreenshotsController} from "../dataControllers/screenshotsController";
 export class GameDetailsViewModel {
     id: number;
     title: string;
+    slug: string;
     thumbnail: string;
     thumbnailRetina: string;
     hero: string;
@@ -84,6 +85,7 @@ export class GameDetailsViewModelProvider implements IViewModelByIdProvider<Game
 
         gdVM.id = id;
         gdVM.title = product.title;
+        gdVM.slug = product.slug;
         gdVM.publisher = "N/A";
         gdVM.developer = "N/A";
 
@@ -102,6 +104,8 @@ export class GameDetailsViewModelProvider implements IViewModelByIdProvider<Game
                 if (pd.series && pd.series.id > 0) gdVM.series = pd.series.name;
                 if (pd.requiredProducts) pd.requiredProducts.forEach(rp => { requiredProducts.push(rp.title) });
                 if (pd.dlcs) pd.dlcs.forEach(dlc => { dlcs.push(dlc.title) });
+            } else {
+                gdVM.slug = ""; // if there is no product data - links would be useless
             }
         }
 
@@ -131,6 +135,7 @@ export class GameDetailsViewModelProvider implements IViewModelByIdProvider<Game
 
         if (gdVM.genres) visibilityClasses.push("genres");
         if (gdVM.requiredProducts) visibilityClasses.push("requiredProducts");
+        if (gdVM.slug) visibilityClasses.push("links");
         if (gdVM.dlc) visibilityClasses.push("dlc");
         if (gdVM.series) visibilityClasses.push("series");
         if (gdVM.cdKey) visibilityClasses.push("cdKey");

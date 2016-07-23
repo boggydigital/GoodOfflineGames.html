@@ -20,7 +20,7 @@
     <nav id="products" tabindex="2" data-ui="list" data-list-item-template="product"></nav>
     <main id="gameDetails" tabindex="3"></main>
 
-    <div id='screenshotFullscreenContainer' class='hidden' onclick='this.classList.add("hidden")'>
+    <div id='screenshotFullscreenContainer' tabindex='5' class='hidden' onclick='this.classList.add("hidden")' onkeypress='this.classList.add("hidden")'>
     </div>
 
     <div id="templates" class="hidden">
@@ -32,8 +32,8 @@
         </template>
         <template id="gameDetails">
             <div class='container {{visibility}}'>
-                [[productTitle]] [[productImage]] [[information]] [[cdKey]] [[genres]] [[series]] [[requiredProducts]] [[dlc]] [[screenshots]]
-                [[changelog]]
+                [[productTitle]] [[productImage]] [[information]] [[links]] [[cdKey]] [[genres]] [[series]] [[requiredProducts]] [[dlc]]
+                [[screenshots]] [[changelog]]
             </div>
         </template>
         <template id="productTitle">
@@ -84,6 +84,14 @@
                 <p>{{dlc}}</p>
             </div>
         </template>
+        <template id='links'>
+            <div class='linksSection'>
+                <h3>Links</h3>
+                <a href='https://www.gog.com/game/{{slug}}'>Product page</a>
+                <br>
+                <a href='https://www.gog.com/forum/{{slug}}'>Community page</a>
+            </div>    
+        </template>
         <template id="screenshots">
             <div class='screenshotsSection'>
                 <h2>Screenshots</h2>
@@ -101,7 +109,7 @@
             </div>
         </template>
         <template id='focusableImage'>
-            <img class='hidden' tabindex='4' data-src='{{uri}}' onclick='screenshotsController.showFullscreen(this)'>
+            <img class='hidden' tabindex='4' data-src='{{uri}}' onclick='screenshotsController.showFullscreen(this)' onkeypress='screenshotsController.showFullscreen(this)'>
         </template>
     </div>
 

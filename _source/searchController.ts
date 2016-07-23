@@ -68,6 +68,7 @@ export class SearchController<T> implements ISearchController<T> {
             this.eventCallbackController.fire(this.clearedEvent, null);
             return;
         }
+        inputSearchString = inputSearchString.toLowerCase();
         this.eventCallbackController.fire(this.matchStartEvent, new Date());
         let inputSearchTerms = inputSearchString.split(" ");
 

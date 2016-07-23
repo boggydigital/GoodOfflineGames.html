@@ -47,6 +47,10 @@ h1, h2 {
     font-weight: normal;
 }
 
+a {
+    color: inherit;
+}
+
 /* App Title */
 
 h1#appTitle {
@@ -202,6 +206,7 @@ h1#appTitle {
     overflow: auto;
 }
 
+#gameDetails .linksSection,
 #gameDetails .cdKeySection,
 #gameDetails .genresSection,
 #gameDetails .seriesSection,
@@ -212,6 +217,7 @@ h1#appTitle {
     display: none;
 }
 
+#gameDetails .links .linksSection,
 #gameDetails .cdKey .cdKeySection,
 #gameDetails .genres .genresSection,
 #gameDetails .series .seriesSection,
