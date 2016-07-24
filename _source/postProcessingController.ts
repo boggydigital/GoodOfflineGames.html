@@ -147,3 +147,38 @@ export class FilesExpandController extends ExpandController<ProductFile> impleme
         return this.bindController.bindTemplateToModel(template, fileViewModel);
     }
 }
+
+export class TabsController implements IPostProcessingController {
+    public process: IProcessDelegate =
+    (container: Element): void => {
+        let tabsList = container.querySelector(".tabs");
+        if (!tabsList) return;
+        tabsList.addEventListener("click", (e) => {
+            let targetElement = e.target as Element;
+            if (!targetElement) return;
+            if (!targetElement.classList.contains("tab")) return;
+            // already selected - nothing more to do
+            if (targetElement.classList.contains("selected")) return;
+
+            // hide previously selected tab content
+            let csTab = tabsList.querySelector(".tab.selected");
+            if (csTab) csTab.classList.remove("selected");
+            let csTabContent = this.getContentByTag(csTab, container);
+            if (csTabContent) csTabContent.classList.add("hidden");
+            // display new tab content
+            targetElement.classList.add("selected");
+            let newTabContent = this.getContentByTag(targetElement, container);
+            if (newTabContent) newTabContent.classList.remove("hidden");
+        });
+    }
+
+    getContentByTag =
+    (tab: Element, container: Element): Element => {
+        let tabContents = container.querySelectorAll(".tabContent");
+        for (let ii=0;ii<tabContents.length; ii++) {
+            let forTab = tabContents[ii].getAttribute("for");
+            if (tab.classList.contains(forTab)) return tabContents[ii];
+        }
+        return null;
+    }
+}

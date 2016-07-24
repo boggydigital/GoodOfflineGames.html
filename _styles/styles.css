@@ -17,6 +17,7 @@
     --warning: rgb(255, 240, 0);
     --filesOdd: rgb(26,26,26);
     --filesHover: rgb(51,51,51);
+    --tabBackground: rgb(56,56,56);
     /* no need to port those to NoCSSCustomProperties */
     --scrollbarBackground: rgb(23,23,23);
     --scrollbarThumb: rgb(69,69,69);
@@ -24,8 +25,8 @@
     --scrollbarThumbActive: rgb(162,162,162);
     --scrollbarButtonUp: url("data:image/svg+xml,<svg viewBox='0 0 12 12' height='12' width='12' xmlns='http://www.w3.org/2000/svg'><path style='stroke: white' fill='none' d='M3,7.5 L6,5 L9,7.5' /></svg>");                                        
     --scrollbarButtonDown: url("data:image/svg+xml,<svg viewBox='0 0 12 12' height='12' width='12' xmlns='http://www.w3.org/2000/svg'><path style='stroke: white' fill='none' d='M3,5 L6,7.5 L9,5' /></svg>");                                        
-    --scrollbarButtonLeft: url("data:image/svg+xml,<svg viewBox='0 0 12 12' height='12' width='12' xmlns='http://www.w3.org/2000/svg'><path style='stroke: white' fill='none' d='M7.5,3 L5,6 L7.5,9' /></svg>");
-    --scrollbarButtonRight: url("data:image/svg+xml,<svg viewBox='0 0 12 12' height='12' width='12' xmlns='http://www.w3.org/2000/svg'><path style='stroke: white' fill='none' d='M5,3 L7.5,6 L5,9' /></svg>");
+    /*--scrollbarButtonLeft: url("data:image/svg+xml,<svg viewBox='0 0 12 12' height='12' width='12' xmlns='http://www.w3.org/2000/svg'><path style='stroke: white' fill='none' d='M7.5,3 L5,6 L7.5,9' /></svg>");*/
+    /*--scrollbarButtonRight: url("data:image/svg+xml,<svg viewBox='0 0 12 12' height='12' width='12' xmlns='http://www.w3.org/2000/svg'><path style='stroke: white' fill='none' d='M5,3 L7.5,6 L5,9' /></svg>");*/
     --scrollbarButtonActive: rgb(162,162,162);
 }
 
@@ -39,6 +40,7 @@
     --warning: rgb(197,5,0);
     --filesOdd: rgb(242,242,242);
     --filesHover: rgb(217,217,217);
+    --tabBackground: rgb(242,242,242);
     /* no need to port those to NoCSSCustomProperties */
     --scrollbarBackground: rgb(242,242,242);
     --scrollbarThumb: rgb(194,194,194);
@@ -46,8 +48,9 @@
     --scrollbarThumbActive: rgb(97,97,97);
     --scrollbarButtonUp: url("data:image/svg+xml,<svg viewBox='0 0 12 12' height='12' width='12' xmlns='http://www.w3.org/2000/svg'><path style='stroke: black' fill='none' d='M3,7.5 L6,5 L9,7.5' /></svg>");                                
     --scrollbarButtonDown: url("data:image/svg+xml,<svg viewBox='0 0 12 12' height='12' width='12' xmlns='http://www.w3.org/2000/svg'><path style='stroke: black' fill='none' d='M3,5 L6,7.5 L9,5' /></svg>");                                
-    --scrollbarButtonLeft: url("data:image/svg+xml,<svg viewBox='0 0 12 12' height='12' width='12' xmlns='http://www.w3.org/2000/svg'><path style='stroke: black' fill='none' d='M7.5,3 L5,6 L7.5,9' /></svg>");
-    --scrollbarButtonRight: url("data:image/svg+xml,<svg viewBox='0 0 12 12' height='12' width='12' xmlns='http://www.w3.org/2000/svg'><path style='stroke: black' fill='none' d='M5,3 L7.5,6 L5,9' /></svg>");
+    /*--scrollbarButtonLeft: url("data:image/svg+xml,<svg viewBox='0 0 12 12' height='12' width='12' xmlns='http://www.w3.org/2000/svg'><path style='stroke: black' fill='none' d='M7.5,3 L5,6 L7.5,9' /></svg>");*/
+    /*--scrollbarButtonRight: url("data:image/svg+xml,<svg viewBox='0 0 12 12' height='12' width='12' xmlns='http://www.w3.org/2000/svg'><path style='stroke: black' fill='none' d='M5,3 L7.5,6 L5,9' /></svg>");*/
+    --scrollbarButtonActive: rgb(97,97,97);    
 }
 
 
@@ -309,7 +312,10 @@ h1#appTitle {
 #gameDetails .dlcSection,
 #gameDetails .filesSection,
 #gameDetails .screenshotsSection,
-#gameDetails .changelogSection {
+#gameDetails .changelogSection,
+#gameDetails .tab.files,
+#gameDetails .tab.screenshots,
+#gameDetails .tab.changelog {
     display: none;
 }
 
@@ -321,8 +327,11 @@ h1#appTitle {
 #gameDetails .dlc .dlcSection,
 #gameDetails .files .filesSection,
 #gameDetails .screenshots .screenshotsSection,
-#gameDetails .changelog .changelogSection {
-    display: block;
+#gameDetails .changelog .changelogSection,
+#gameDetails .files .tab.files,
+#gameDetails .screenshots .tab.screenshots,
+#gameDetails .changelog .tab.changelog  {
+    display: initial;
 }
 
 #gameDetails h1 {
@@ -339,28 +348,7 @@ h1#appTitle {
     color: var(--background);
 }
 
-#gameDetails .screenshotsScroller {
-    width: 100%;
-    overflow-y: hidden;
-    scroll-snap-type: mandatory;  
-    padding-bottom: 1em;
-    margin-bottom: 1em;
-    height: 20em;
-}
-
-#gameDetails .screenshotsScroller .container {
-    white-space: nowrap;
-    height: 100%;
-}
-
-#gameDetails .screenshotsScroller img {
-    display: inline-block;
-    margin-right: 0.5em;
-    scroll-snap-align: center none;
-    vertical-align: top;
-    height: 100%;
-    width: auto;
-    max-width: 100%;
+#gameDetails .tabContent[for=screenshots] img {
     cursor: zoom-in;
 }
 
@@ -372,6 +360,27 @@ h1#appTitle {
 
 #gameDetails p {
     margin-top: 0;
+}
+
+/* GameDetails tabs*/
+
+#gameDetails .tabs {
+    margin-top: 1em;
+    margin-bottom: 1em;
+    user-select: none;
+}
+
+#gameDetails .tab {
+    padding: 0.75em;
+    margin: 0;
+    display: inline-block;
+    text-transform: uppercase;
+    cursor: pointer;
+    background: var(--tabBackground);
+}
+
+#gameDetails .tab.selected {
+    background: var(--accent);
 }
 
 /* Files */
@@ -424,7 +433,6 @@ h1#appTitle {
 #gameDetails .filesSection .file .operatingSystem {
     width: 5em;
 }
-
 
 /* Screenshot Fullscreen Container */
 

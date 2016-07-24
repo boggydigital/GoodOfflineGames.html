@@ -96,6 +96,20 @@
     color: black;
 }
 
+/* GameDetails tabs */
+
+.dark #gameDetails .tab {
+    background: rgb(56,56,56);
+} 
+
+.light #gameDetails .tab {
+    background: rgb(242,242,242);
+}
+
+#gameDetails .tab.selected {
+    background: rgb(0,120,215);
+}
+
 /* Files */
 
 .dark #gameDetails .filesSection .file {

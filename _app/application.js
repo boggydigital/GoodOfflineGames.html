@@ -50,6 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let languageController = new LanguageController();
 
+    let tabsController = new TabsController();
     let imagesExpandController = new ImagesExpandController(
         templateController,
         bindController);
@@ -93,6 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
         gameDetailsContainer,
         viewControllerGameDetails,
         productsController,
+        tabsController,
         filesExpandController,
         imagesExpandController,
         imagesLoadController);

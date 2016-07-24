@@ -32,21 +32,46 @@
         </template>
         <template id="gameDetails">
             <div class='container {{visibility}}'>
-                [[productTitle]] [[productImage]] [[information]] [[links]] [[cdKey]] [[genres]] [[series]] [[requiredProducts]] [[dlc]]
-                [[files]] [[screenshots]] [[changelog]]
+                [[productTitle]] [[productImage]] [[tabs]] [[tabInformationContent]] [[tabFilesContent]] [[tabScreenshotsContent]] [[tabChangelogContent]]
             </div>
         </template>
         <template id="productTitle">
             <h1>{{title}}</h1>
         </template>
         <template id="productImage">
-            <img class='hidden' 
-                data-srcset='{{hero}} 1x, {{heroRetina}} 2x' data-src='{{heroRetina}}'
-                onerror="this.classList.add('hidden')" alt='Product image'>
+            <img class='hidden' data-srcset='{{hero}} 1x, {{heroRetina}} 2x' data-src='{{heroRetina}}' onerror="this.classList.add('hidden')"
+                alt='Product image'>
+        </template>
+        <template id='tabs'>
+            <div class='tabs'>
+                <div class='tab information selected'>Information</div>
+                <div class='tab files'>Files</div>
+                <div class='tab screenshots'>Screenshots</div>
+                <div class='tab changelog'>Changelog</div>
+            </div>
+        </template>
+        <template id='tabInformationContent'>
+            <div for='information' class='tabContent'>
+                [[information]] [[links]] [[cdKey]] [[genres]] [[series]] [[requiredProducts]] [[dlc]]
+            </div>
+        </template>
+        <template id='tabFilesContent'>
+            <div for='files' class='tabContent hidden'>
+                [[files]]
+            </div>
+        </template>
+        <template id='tabScreenshotsContent'>
+            <div for='screenshots' class='tabContent hidden'>
+                [[screenshots]]
+            </div>
+        </template>
+        <template id='tabChangelogContent'>
+            <div for='changelog' class='tabContent hidden'>
+                [[changelog]]
+            </div>
         </template>
         <template id="information">
-            <div class="informationSection">
-                <h2>Information</h2>
+            <div class='informationSection'>
                 <h3>Developer</h3>
                 <p>{{developer}}</p>
                 <h3>Publisher</h3>
@@ -94,29 +119,21 @@
             </div>
         </template>
         <template id="screenshots">
-            <div class='screenshotsSection'>
-                <h2>Screenshots</h2>
-                <div class='screenshotsScroller'>
-                    <div class='container'>
-                        <template data-images='{{screenshots}}'></template>
-                    </div>
-                </div>
-            </div>
+            <template data-images='{{screenshots}}'></template>
         </template>
         <template id='files'>
             <div class='filesSection'>
-                <h2>Files</h2>
                 <template data-files='{{files}}'></template>
             </div>
         </template>
         <template id='changelog'>
             <div class='changelogSection'>
-                <h2>Changelog</h2>
                 {{changelog}}
             </div>
         </template>
         <template id='focusableImage'>
-            <img class='hidden' tabindex='4' data-src='{{uri}}' onclick='screenshotsController.showFullscreen(this)' onkeypress='screenshotsController.showFullscreen(this)' onerror="this.classList.add('hidden')">
+            <img class='hidden' tabindex='4' data-src='{{uri}}' onclick='screenshotsController.showFullscreen(this)' onkeypress='screenshotsController.showFullscreen(this)'
+                onerror="this.classList.add('hidden')">
         </template>
         <template id='fileLink'>
             <a class='file' href='./{{folder}}/{{file}}'>
@@ -159,7 +176,6 @@
     <!-- dataControllers -->
     <script src="./_app/release/dataControllers/collectionController.js"></script>
     <script src="./_app/release/dataControllers/productsController.js"></script>
-    <script src="./_app/release/dataControllers/productsDataController.js"></script>
     <script src="./_app/release/dataControllers/tagsController.js"></script>
     <script src="./_app/release/dataControllers/screenshotsController.js"></script>
     <!-- viewControllers -->
