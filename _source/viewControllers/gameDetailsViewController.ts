@@ -27,7 +27,7 @@ export class GameDetailsViewController implements IDetailsViewController {
         productsController: IProductsCoreController<Product>,
         tabsController: IPostProcessingController,
         filesExpandController: IPostProcessingController,
-        imagesExpandController: IPostProcessingController,
+        // imagesExpandController: IPostProcessingController,
         imagesLoadController: IPostProcessingController) {
         this.getIdDelegate = getIdDelegate;
         this.templateId = templateId;
@@ -36,7 +36,7 @@ export class GameDetailsViewController implements IDetailsViewController {
         this.productsController = productsController;
         this.tabsController = tabsController;
         this.filesExpandController = filesExpandController;
-        this.imagesExpandController = imagesExpandController;
+        // this.imagesExpandController = imagesExpandController;
         this.imagesLoadController = imagesLoadController;
     }
 
@@ -57,10 +57,10 @@ export class GameDetailsViewController implements IDetailsViewController {
         // expand files
         this.filesExpandController.process(this.parentElement);
         // expand images
-        this.imagesExpandController.process(this.parentElement);
+        // this.imagesExpandController.process(this.parentElement);
         // load images
-        requestAnimationFrame(() => {
-            this.imagesLoadController.process(this.parentElement);
-        });
+        // requestAnimationFrame(() => {
+        this.imagesLoadController.process(this.parentElement);
+        // });
     }
 }

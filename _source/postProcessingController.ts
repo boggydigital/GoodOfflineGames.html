@@ -54,7 +54,9 @@ abstract class ExpandController<T> implements IPostProcessingController {
             dataItems.forEach(i => {
                 html.push(this.getHTMLContent(i));
             });
-            expandableElements[ii].parentElement.innerHTML += html.join("");
+            let parentElement = expandableElements[ii].parentElement;
+            parentElement.removeChild(expandableElements[ii]);
+            parentElement.innerHTML += html.join("");
         }
     }
 
@@ -149,6 +151,17 @@ export class FilesExpandController extends ExpandController<ProductFile> impleme
 }
 
 export class TabsController implements IPostProcessingController {
+
+    imagesExpandController: IPostProcessingController;
+    imagesLoadController: IPostProcessingController;
+
+    public constructor(
+        imagesExpandController: IPostProcessingController,
+        imagesLoadController: IPostProcessingController) {
+        this.imagesExpandController = imagesExpandController;
+        this.imagesLoadController = imagesLoadController;
+    }
+
     public process: IProcessDelegate =
     (container: Element): void => {
         let tabsList = container.querySelector(".tabs");
@@ -168,14 +181,21 @@ export class TabsController implements IPostProcessingController {
             // display new tab content
             targetElement.classList.add("selected");
             let newTabContent = this.getContentByTag(targetElement, container);
-            if (newTabContent) newTabContent.classList.remove("hidden");
+            if (newTabContent) {
+                // if the tab is screenshots tab - expand images before display
+                if (newTabContent.getAttribute("for") === "screenshots") {
+                    this.imagesExpandController.process(newTabContent as HTMLElement);
+                    this.imagesLoadController.process(newTabContent as HTMLElement);
+                }
+                newTabContent.classList.remove("hidden");
+            }
         });
     }
 
     getContentByTag =
     (tab: Element, container: Element): Element => {
         let tabContents = container.querySelectorAll(".tabContent");
-        for (let ii=0;ii<tabContents.length; ii++) {
+        for (let ii = 0; ii < tabContents.length; ii++) {
             let forTab = tabContents[ii].getAttribute("for");
             if (tab.classList.contains(forTab)) return tabContents[ii];
         }

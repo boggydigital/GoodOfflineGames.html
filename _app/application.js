@@ -50,7 +50,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let languageController = new LanguageController();
 
-    let tabsController = new TabsController();
     let imagesExpandController = new ImagesExpandController(
         templateController,
         bindController);
@@ -59,6 +58,9 @@ document.addEventListener("DOMContentLoaded", () => {
         bindController,
         languageController);
     let imagesLoadController = new ImagesLoadController();
+    let tabsController = new TabsController(
+        imagesExpandController,
+        imagesLoadController);
 
     let searchViewModelProvider = new SearchViewModelProvider(
         productsController,
@@ -96,7 +98,7 @@ document.addEventListener("DOMContentLoaded", () => {
         productsController,
         tabsController,
         filesExpandController,
-        imagesExpandController,
+        // imagesExpandController,
         imagesLoadController);
 
     let masterDetailViewController = new MasterDetailViewController(
