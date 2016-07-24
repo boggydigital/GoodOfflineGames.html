@@ -255,7 +255,7 @@ h1#appTitle {
     display: block;
 }
 
-#products .keyboardSelected {
+#products .product:focus {
     outline: 2px solid;
     outline-offset: -2px;
     outline-color: var(--foreground)

@@ -43,7 +43,7 @@ export class ListViewController<T> implements IListViewController {
     this.searchResultsLimit +
     " items";
 
-    keyboardSelectedClass: string = "keyboardSelected";
+    // keyboardSelectedClass: string = "keyboardSelected";
     selectedClass: string = "selected";
     selectedChangedEvent = "selectedChanged";
     selectedClearedEvent = "selectedCleared";
@@ -125,14 +125,14 @@ export class ListViewController<T> implements IListViewController {
             if (e.keyCode === downKeyCode) value = e.shiftKey ? Number.MAX_VALUE : 1;
 
             if (value !== 0) {
-                this.moveKeyboardSelection(value);
+                this.moveFocus(value);
                 e.preventDefault();
                 e.stopPropagation();
             }
 
             if (e.keyCode === enterKeyCode) {
-                let keyboardSelected = this.activeView.querySelector("." + this.keyboardSelectedClass);
-                this.select(keyboardSelected);
+                let focused = this.activeView.querySelector(":focus");
+                this.select(focused);
             }
         });
 
@@ -192,15 +192,6 @@ export class ListViewController<T> implements IListViewController {
         for (let ii = 0; ii < selectedElements.length; ii++) {
             selectedElements[ii].classList.remove(this.selectedClass);
         }
-        this.clearKeyboardSelection();
-    }
-
-    public clearKeyboardSelection: IClearSelectionDelegate = function (): void {
-        var keyboardSelectedElements = this.parentElement.getElementsByClassName(this.keyboardSelectedClass);
-        if (keyboardSelectedElements === undefined) return;
-        for (let ii = 0; ii < keyboardSelectedElements.length; ii++) {
-            keyboardSelectedElements[ii].classList.remove(this.keyboardSelectedClass);
-        }
     }
 
     public selectByIndex: ISelectByIndexDelegate = function (index: number): void {
@@ -218,19 +209,18 @@ export class ListViewController<T> implements IListViewController {
         this.eventCallbackController.fire(this.selectedChangedEvent, id);
     }
 
-    public moveKeyboardSelection = function (value: number) {
-        let keyboardSelected =
-            this.activeView.querySelector("." + this.keyboardSelectedClass);
-        if (!keyboardSelected) keyboardSelected =
+    public moveFocus = function (value: number) {
+        let focusedElement = this.activeView.querySelector(":focus");
+        if (!focusedElement) focusedElement =
             this.activeView.querySelector("." + this.selectedClass);
         let nextKeyboardFocus = this.activeView.children[0];
-        if (keyboardSelected) {
+        if (focusedElement) {
             switch (value) {
-                case 1: if (keyboardSelected.nextElementSibling)
-                    nextKeyboardFocus = keyboardSelected.nextElementSibling;
+                case 1: if (focusedElement.nextElementSibling)
+                    nextKeyboardFocus = focusedElement.nextElementSibling;
                     break;
-                case -1: if (keyboardSelected.previousElementSibling)
-                    nextKeyboardFocus = keyboardSelected.previousElementSibling;
+                case -1: if (focusedElement.previousElementSibling)
+                    nextKeyboardFocus = focusedElement.previousElementSibling;
                     break;
                 case Number.MIN_VALUE:
                     nextKeyboardFocus = this.activeView.children[0];
@@ -240,11 +230,8 @@ export class ListViewController<T> implements IListViewController {
                     break;
             }
         }
-        if (nextKeyboardFocus) {
-            if (keyboardSelected) keyboardSelected.classList.remove(this.keyboardSelectedClass);
-            nextKeyboardFocus.classList.add(this.keyboardSelectedClass);
-            (nextKeyboardFocus as HTMLElement).scrollIntoView(false);
-        }
+        if (nextKeyboardFocus) nextKeyboardFocus.focus();
+        
     }
 
     public addEventCallback: IAddEventCallbackDelegate = function (event: string, callback: Function) {
