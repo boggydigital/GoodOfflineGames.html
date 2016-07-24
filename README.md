@@ -1,12 +1,12 @@
 # GoodOfflineGames.html
 
-HTML Frontend for (GoodOfflineGames.exe)[https://github.com/boggydigital/GoodOfflineGames.exe].
+HTML Frontend for [GoodOfflineGames.exe](https://github.com/boggydigital/GoodOfflineGames.exe).
 
 Designed to be fast, comprehensive and provide you access to all the information from your collection you might need offline. 
 
 # Installation
 
-Extract the latest release to a folder that contains products from (GoodOfflineGames.exe)[https://github.com/boggydigital/GoodOfflineGames.exe].
+Extract the latest release to a folder that contains products from [GoodOfflineGames.exe](https://github.com/boggydigital/GoodOfflineGames.exe).
 
 # Screenshots
 
