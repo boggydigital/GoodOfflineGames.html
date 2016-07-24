@@ -40,7 +40,36 @@ class ImageUriViewModel {
     }
 }
 
-export class ImagesExpandController implements IPostProcessingController {
+abstract class ExpandController<T> implements IPostProcessingController {
+
+    attributeSelector: string;
+
+    public process: IProcessDelegate =
+    (container: Element): void => {
+        let html = new Array<string>();
+        let expandableElements = container.querySelectorAll("[" + this.attributeSelector + "]");
+        for (let ii = 0; ii < expandableElements.length; ii++) {
+            let dataItems = this.expandElement(expandableElements[ii]);
+            if (dataItems === null) continue;
+            dataItems.forEach(i => {
+                html.push(this.getHTMLContent(i));
+            });
+            expandableElements[ii].parentElement.innerHTML += html.join("");
+        }
+    }
+
+    expandElement =
+    (element: Element): Array<T> => {
+        return null;
+    }
+
+    getHTMLContent =
+    (item: T): string => {
+        return "";
+    }
+}
+
+export class ImagesExpandController extends ExpandController<string> implements IPostProcessingController {
 
     templateController: ITemplateController;
     bindController: IBindController<ImageUriViewModel>;
@@ -48,24 +77,18 @@ export class ImagesExpandController implements IPostProcessingController {
     public constructor(
         templateController: ITemplateController,
         bindController: IBindController<ImageUriViewModel>) {
+        super();
+        this.attributeSelector = "data-images";
         this.templateController = templateController;
-        this.bindController = bindController
+        this.bindController = bindController;
     }
 
-    public process: IProcessDelegate =
-    (container: Element): void => {
-        let imagesHTML = new Array<string>();
-        let elementsToExpand = container.querySelectorAll("[data-images]");
-        for (let ii = 0; ii < elementsToExpand.length; ii++) {
-            let dataImages = elementsToExpand[ii].getAttribute("data-images").split(",");
-            dataImages.forEach(i => {
-                imagesHTML.push(this.getImageContent(i));
-            });
-            elementsToExpand[ii].parentElement.innerHTML += imagesHTML.join("");
-        }
+    expandElement =
+    (element: Element): Array<string> => {
+        return element.getAttribute(this.attributeSelector).split(",");;
     }
 
-    private getImageContent =
+    getHTMLContent =
     (uri: string): string => {
         let imageUriViewModel = new ImageUriViewModel(uri);
         let template = this.templateController.getTemplate("focusableImage");
@@ -82,7 +105,7 @@ class FileViewModel {
     size: string;
 }
 
-export class FilesExpandController implements IPostProcessingController {
+export class FilesExpandController extends ExpandController<ProductFile> implements IPostProcessingController {
 
     templateController: ITemplateController;
     bindController: IBindController<FileViewModel>;
@@ -92,27 +115,21 @@ export class FilesExpandController implements IPostProcessingController {
         templateController: ITemplateController,
         bindController: IBindController<FileViewModel>,
         languageController: ILanguageController) {
+        super();
+        this.attributeSelector = "data-files";
         this.templateController = templateController;
         this.bindController = bindController
         this.languageController = languageController;
     }
 
-    public process: IProcessDelegate =
-    (container: Element): void => {
-        let filesHTML = new Array<string>();
-        let elementsToExpand = container.querySelectorAll("[data-files]");
-        for (let ii = 0; ii < elementsToExpand.length; ii++) {
-            let dataFiles = elementsToExpand[ii].getAttribute("data-files");
-            if (dataFiles === "{{files}}") continue;
-            let files: Array<ProductFile> = JSON.parse(decodeURIComponent(dataFiles));
-            files.forEach(f => {
-                filesHTML.push(this.getFileContent(f));
-            })
-            elementsToExpand[ii].parentElement.innerHTML += filesHTML.join("");
-        }
+    expandElement =
+    (element: Element): Array<ProductFile> => {
+        let dataFiles = element.getAttribute("data-files");
+        if (dataFiles === "{{files}}") return null;
+        return JSON.parse(decodeURIComponent(dataFiles));
     }
 
-    private getFileContent =
+    getHTMLContent =
     (file: ProductFile): string => {
         let fileViewModel = new FileViewModel();
         fileViewModel.file = file.file;
