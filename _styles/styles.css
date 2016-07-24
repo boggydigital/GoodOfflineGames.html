@@ -25,6 +25,8 @@
     --scrollbarThumbActive: rgb(162,162,162);
     --scrollbarButtonUp: url("data:image/svg+xml,<svg viewBox='0 0 12 12' height='12' width='12' xmlns='http://www.w3.org/2000/svg'><path style='stroke: white' fill='none' d='M3,7.5 L6,5 L9,7.5' /></svg>");                                        
     --scrollbarButtonDown: url("data:image/svg+xml,<svg viewBox='0 0 12 12' height='12' width='12' xmlns='http://www.w3.org/2000/svg'><path style='stroke: white' fill='none' d='M3,5 L6,7.5 L9,5' /></svg>");                                        
+    --scrollbarButtonUpActive: url("data:image/svg+xml,<svg viewBox='0 0 12 12' height='12' width='12' xmlns='http://www.w3.org/2000/svg'><path style='stroke: black' fill='none' d='M3,7.5 L6,5 L9,7.5' /></svg>");                                        
+    --scrollbarButtonDownActive: url("data:image/svg+xml,<svg viewBox='0 0 12 12' height='12' width='12' xmlns='http://www.w3.org/2000/svg'><path style='stroke: black' fill='none' d='M3,5 L6,7.5 L9,5' /></svg>");                                        
     /*--scrollbarButtonLeft: url("data:image/svg+xml,<svg viewBox='0 0 12 12' height='12' width='12' xmlns='http://www.w3.org/2000/svg'><path style='stroke: white' fill='none' d='M7.5,3 L5,6 L7.5,9' /></svg>");*/
     /*--scrollbarButtonRight: url("data:image/svg+xml,<svg viewBox='0 0 12 12' height='12' width='12' xmlns='http://www.w3.org/2000/svg'><path style='stroke: white' fill='none' d='M5,3 L7.5,6 L5,9' /></svg>");*/
     --scrollbarButtonActive: rgb(162,162,162);
@@ -47,7 +49,9 @@
     --scrollbarThumbHover: rgb(145,145,145);
     --scrollbarThumbActive: rgb(97,97,97);
     --scrollbarButtonUp: url("data:image/svg+xml,<svg viewBox='0 0 12 12' height='12' width='12' xmlns='http://www.w3.org/2000/svg'><path style='stroke: black' fill='none' d='M3,7.5 L6,5 L9,7.5' /></svg>");                                
-    --scrollbarButtonDown: url("data:image/svg+xml,<svg viewBox='0 0 12 12' height='12' width='12' xmlns='http://www.w3.org/2000/svg'><path style='stroke: black' fill='none' d='M3,5 L6,7.5 L9,5' /></svg>");                                
+    --scrollbarButtonDown: url("data:image/svg+xml,<svg viewBox='0 0 12 12' height='12' width='12' xmlns='http://www.w3.org/2000/svg'><path style='stroke: black' fill='none' d='M3,5 L6,7.5 L9,5' /></svg>");
+    --scrollbarButtonUpActive: url("data:image/svg+xml,<svg viewBox='0 0 12 12' height='12' width='12' xmlns='http://www.w3.org/2000/svg'><path style='stroke: white' fill='none' d='M3,7.5 L6,5 L9,7.5' /></svg>");                                        
+    --scrollbarButtonDownActive: url("data:image/svg+xml,<svg viewBox='0 0 12 12' height='12' width='12' xmlns='http://www.w3.org/2000/svg'><path style='stroke: white' fill='none' d='M3,5 L6,7.5 L9,5' /></svg>");                                        
     /*--scrollbarButtonLeft: url("data:image/svg+xml,<svg viewBox='0 0 12 12' height='12' width='12' xmlns='http://www.w3.org/2000/svg'><path style='stroke: black' fill='none' d='M7.5,3 L5,6 L7.5,9' /></svg>");*/
     /*--scrollbarButtonRight: url("data:image/svg+xml,<svg viewBox='0 0 12 12' height='12' width='12' xmlns='http://www.w3.org/2000/svg'><path style='stroke: black' fill='none' d='M5,3 L7.5,6 L5,9' /></svg>");*/
     --scrollbarButtonActive: rgb(97,97,97);    
@@ -115,13 +119,21 @@ a {
     background-image: var(--scrollbarButtonDown);
 }
 
-::-webkit-scrollbar-button:horizontal:start {
-    background-image: var(--scrollbarButtonLeft);
+::-webkit-scrollbar-button:vertical:start:active {
+    background-image: var(--scrollbarButtonUpActive);
 }
 
-::-webkit-scrollbar-button:horizontal:end {
-    background-image: var(--scrollbarButtonRight);
+::-webkit-scrollbar-button:vertical:end:active {
+    background-image: var(--scrollbarButtonDownActive);
 }
+
+/*::-webkit-scrollbar-button:horizontal:start {
+    background-image: var(--scrollbarButtonLeft);
+}*/
+
+/*::-webkit-scrollbar-button:horizontal:end {
+    background-image: var(--scrollbarButtonRight);
+}*/
 
 ::-webkit-scrollbar-thumb {
     background: var(--scrollbarThumb);
