@@ -116,7 +116,7 @@
             </div>
         </template>
         <template id='focusableImage'>
-            <img class='hidden' tabindex='4' data-src='{{uri}}' onclick='screenshotsController.showFullscreen(this)' onkeypress='screenshotsController.showFullscreen(this)'>
+            <img class='hidden' tabindex='4' data-src='{{uri}}' onclick='screenshotsController.showFullscreen(this)' onkeypress='screenshotsController.showFullscreen(this)' onerror="this.classList.add('hidden')">
         </template>
         <template id='fileLink'>
             <a class='file' href='./{{folder}}/{{file}}'>

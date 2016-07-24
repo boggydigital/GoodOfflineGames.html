@@ -32,7 +32,7 @@ export class ScreenshotsController implements IScreenshotsController {
     public getScreenshotsById: IGetScreenshotsById =
     (id: number): Array<string> => {
         let result = new Array<string>();
-
+        if (!this.screenshots) return result;
         this.screenshots.forEach(e => {
             if (e.Key === id) e.Value.forEach(s => {
                 result.push(this.imageUriController.getScreenshotUri(s));

@@ -39,6 +39,7 @@ export abstract class ProductsCoreController<T> implements IProductsCoreControll
 
     public getById: IGetByIdDelegate<ProductCore> =
     (id: number): ProductCore => {
+        if (!this.model) return null;
         for (var ii = 0; ii < this.model.length; ii++) {
             if (this.model[ii].id === id) return this.model[ii];
         }
@@ -48,6 +49,7 @@ export abstract class ProductsCoreController<T> implements IProductsCoreControll
     public getAllById: IGetAllByIdDelegate<ProductCore> =
     (id: number): Array<ProductCore> => {
         let products = new Array<ProductCore>();
+        if (!this.model) return products;
         for (var ii = 0; ii < this.model.length; ii++) {
             if (this.model[ii].id === id) products.push(this.model[ii]);
         }
@@ -61,6 +63,7 @@ export abstract class ProductsCoreController<T> implements IProductsCoreControll
 
     public addProducts: IAddProductsDelegate<ProductCore> =
     (products: Array<ProductCore>): void => {
+        if (!products) return;
         for (var ii = 0; ii < products.length; ii++) {
             if (this.getById(products[ii].id) === undefined) this.model.push(products[ii]);
         }
