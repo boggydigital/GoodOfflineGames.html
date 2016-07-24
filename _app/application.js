@@ -48,12 +48,15 @@ document.addEventListener("DOMContentLoaded", () => {
     let bindController = new BindController();
     let eventCallbackController = new EventCallbackController();
 
+    let languageController = new LanguageController();
+
     let imagesExpandController = new ImagesExpandController(
         templateController,
         bindController);
     let filesExpandController = new FilesExpandController(
         templateController,
-        bindController);
+        bindController,
+        languageController);
     let imagesLoadController = new ImagesLoadController();
 
     let searchViewModelProvider = new SearchViewModelProvider(

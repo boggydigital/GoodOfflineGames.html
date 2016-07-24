@@ -40,8 +40,9 @@
             <h1>{{title}}</h1>
         </template>
         <template id="productImage">
-            <img class='hidden' sizes='(max-width: 196px) 196px, (min-width: 197px) and (max-width: 392px) 392px, (min-width: 393px) 800px' data-srcset='{{thumbnail}} 196w, {{thumbnailRetina}} 392w, {{hero}} 800w, {{heroRetina}} 1600w'
-                data-src='{{heroRetina}}' onerror="this.classList.add('hidden')" alt='Product image'>
+            <img class='hidden' sizes='(max-width: 196px) 196px, (min-width: 197px) and (max-width: 392px) 392px, (min-width: 393px) 800px'
+                data-srcset='{{thumbnail}} 196w, {{thumbnailRetina}} 392w, {{hero}} 800w, {{heroRetina}} 1600w' data-src='{{heroRetina}}'
+                onerror="this.classList.add('hidden')" alt='Product image'>
         </template>
         <template id="information">
             <div class="informationSection">
@@ -118,7 +119,12 @@
             <img class='hidden' tabindex='4' data-src='{{uri}}' onclick='screenshotsController.showFullscreen(this)' onkeypress='screenshotsController.showFullscreen(this)'>
         </template>
         <template id='fileLink'>
-            <a class='file' href='./{{folder}}/{{file}}'>{{name}}, {{operatingSystem}}, {{language}}, {{size}}</a>
+            <a class='file' href='./{{folder}}/{{file}}'>
+                <span class='name'>{{name}}</span>
+                <span class='operatingSystem'>{{operatingSystem}}</span>
+                <span class='language'>{{language}}</span>
+                <span class='size'>{{size}}</span>
+            </a>
         </template>
     </div>
 
@@ -147,6 +153,7 @@
     <!-- controllers -->
     <script src="./_app/release/templateController.js"></script>
     <script src="./_app/release/bindController.js"></script>
+    <script src="./_app/release/languageController.js"></script>
     <script src="./_app/release/eventCallbackController.js"></script>
     <script src="./_app/release/searchController.js"></script>
     <!-- dataControllers -->

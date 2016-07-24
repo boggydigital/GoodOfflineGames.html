@@ -376,10 +376,14 @@ h1#appTitle {
 
 /* Files */
 
+#gameDetails .filesSection {
+    margin-bottom: 1em;
+}
+
 #gameDetails .filesSection .file {
-    display: block;
-    padding: 0.75em;
-    padding-left: 1em;
+    display: flex;
+    justify-content: flex-end;
+    padding: 0.75em 0 0.75em 1em;
     text-decoration: none;
     cursor: pointer;
     color: var(--foreground) !important;
@@ -392,6 +396,29 @@ h1#appTitle {
 #gameDetails .filesSection .file:nth-child(odd) {
     background: var(--filesOdd);
 }
+
+#gameDetails .filesSection .file span {
+    display: inline-block;
+    padding-right: 1em;
+}
+
+#gameDetails .filesSection .file .name {
+    flex-grow: 1;
+}
+
+#gameDetails .filesSection .file .size {
+    width: 5em;
+    text-align: right;
+}
+
+#gameDetails .filesSection .file .language {
+    width: 5em; 
+}
+
+#gameDetails .filesSection .file .operatingSystem {
+    width: 5em;
+}
+
 
 /* Screenshot Fullscreen Container */
 

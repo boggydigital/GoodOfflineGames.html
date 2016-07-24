@@ -1,6 +1,7 @@
 import {ProductFile} from "./models/productFile";
 import {ITemplateController} from "./templateController";
 import {IBindController} from "./bindController";
+import {ILanguageController} from "./languageController";
 
 export interface IProcessDelegate {
     (container: HTMLElement): void;
@@ -72,16 +73,28 @@ export class ImagesExpandController implements IPostProcessingController {
     }
 }
 
+class FileViewModel {
+    folder: string;
+    file: string;
+    name: string;
+    operatingSystem: string;
+    language: string;
+    size: string;
+}
+
 export class FilesExpandController implements IPostProcessingController {
 
     templateController: ITemplateController;
-    bindController: IBindController<ProductFile>;
+    bindController: IBindController<FileViewModel>;
+    languageController: ILanguageController;
 
     public constructor(
         templateController: ITemplateController,
-        bindController: IBindController<ProductFile>) {
+        bindController: IBindController<FileViewModel>,
+        languageController: ILanguageController) {
         this.templateController = templateController;
         this.bindController = bindController
+        this.languageController = languageController;
     }
 
     public process: IProcessDelegate =
@@ -96,13 +109,24 @@ export class FilesExpandController implements IPostProcessingController {
                 filesHTML.push(this.getFileContent(f));
             })
             elementsToExpand[ii].parentElement.innerHTML += filesHTML.join("");
-
         }
     }
 
     private getFileContent =
     (file: ProductFile): string => {
+        let fileViewModel = new FileViewModel();
+        fileViewModel.file = file.file;
+        fileViewModel.folder = file.folder;
+        fileViewModel.operatingSystem = file.operatingSystem;
+        fileViewModel.size = file.size;
+
+        fileViewModel.name = (file.extra) ?
+            "EXTRA: " + file.name :
+            "INSTALLER: " + file.name;
+
+        fileViewModel.language = this.languageController.getLanguageNameByCode(file.language);
+
         let template = this.templateController.getTemplate("fileLink");
-        return this.bindController.bindTemplateToModel(template, file);
+        return this.bindController.bindTemplateToModel(template, fileViewModel);
     }
 }
