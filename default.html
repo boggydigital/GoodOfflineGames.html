@@ -40,8 +40,8 @@
             <h1>{{title}}</h1>
         </template>
         <template id="productImage">
-            <img class='hidden' sizes='(max-width: 196px) 196px, (min-width: 197px) and (max-width: 392px) 392px, (min-width: 393px) 800px'
-                data-srcset='{{thumbnail}} 196w, {{thumbnailRetina}} 392w, {{hero}} 800w, {{heroRetina}} 1600w' data-src='{{heroRetina}}'
+            <img class='hidden' 
+                data-srcset='{{hero}} 1x, {{heroRetina}} 2x' data-src='{{heroRetina}}'
                 onerror="this.classList.add('hidden')" alt='Product image'>
         </template>
         <template id="information">
