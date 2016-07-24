@@ -53,14 +53,14 @@ export class ImagesExpandController implements IPostProcessingController {
 
     public process: IProcessDelegate =
     (container: Element): void => {
-        let imagesContent = new Array<string>();
+        let imagesHTML = new Array<string>();
         let elementsToExpand = container.querySelectorAll("[data-images]");
         for (let ii = 0; ii < elementsToExpand.length; ii++) {
-            let images = elementsToExpand[ii].getAttribute("data-images").split(",");
-            images.forEach(i => {
-                imagesContent.push(this.getImageContent(i));
+            let dataImages = elementsToExpand[ii].getAttribute("data-images").split(",");
+            dataImages.forEach(i => {
+                imagesHTML.push(this.getImageContent(i));
             });
-            elementsToExpand[ii].parentElement.innerHTML += imagesContent.join("");
+            elementsToExpand[ii].parentElement.innerHTML += imagesHTML.join("");
         }
     }
 
@@ -74,17 +74,35 @@ export class ImagesExpandController implements IPostProcessingController {
 
 export class FilesExpandController implements IPostProcessingController {
 
+    templateController: ITemplateController;
+    bindController: IBindController<ProductFile>;
+
+    public constructor(
+        templateController: ITemplateController,
+        bindController: IBindController<ProductFile>) {
+        this.templateController = templateController;
+        this.bindController = bindController
+    }
+
     public process: IProcessDelegate =
     (container: Element): void => {
+        let filesHTML = new Array<string>();
         let elementsToExpand = container.querySelectorAll("[data-files]");
-        for (let ii=0; ii< elementsToExpand.length; ii++) {
-            let filesContent = elementsToExpand[ii].getAttribute("data-files");
-            if (filesContent === "{{files}}") continue;
-            let files: Array<ProductFile> = JSON.parse(decodeURIComponent(filesContent)); 
-
+        for (let ii = 0; ii < elementsToExpand.length; ii++) {
+            let dataFiles = elementsToExpand[ii].getAttribute("data-files");
+            if (dataFiles === "{{files}}") continue;
+            let files: Array<ProductFile> = JSON.parse(decodeURIComponent(dataFiles));
             files.forEach(f => {
-                console.log(f.file);
+                filesHTML.push(this.getFileContent(f));
             })
+            elementsToExpand[ii].parentElement.innerHTML += filesHTML.join("");
+
         }
+    }
+
+    private getFileContent =
+    (file: ProductFile): string => {
+        let template = this.templateController.getTemplate("fileLink");
+        return this.bindController.bindTemplateToModel(template, file);
     }
 }

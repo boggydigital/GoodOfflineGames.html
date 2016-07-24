@@ -4,26 +4,52 @@
     --accent: rgb(0,120,215);
     --inputBackground: white;
     --inputForeground: black;
-    --inputPlaceholder: rgb(153,153,153)
+    --inputPlaceholder: rgb(153,153,153);
 }
 
 :root .dark {
     --foreground: white;
     --background: black;
     --inputOutline: rgb(133,133,133);
+    --linkHover: rgb(153,153,153);
     --hover: rgb(25,25,25);
     --active: rgb(51,51,51);
     --warning: rgb(255, 240, 0);
+    --filesOdd: rgb(26,26,26);
+    --filesHover: rgb(51,51,51);
+    /* no need to port those to NoCSSCustomProperties */
+    --scrollbarBackground: rgb(23,23,23);
+    --scrollbarThumb: rgb(69,69,69);
+    --scrollbarThumbHover: rgb(116,116,116);
+    --scrollbarThumbActive: rgb(162,162,162);
+    --scrollbarButtonUp: url("data:image/svg+xml,<svg viewBox='0 0 12 12' height='12' width='12' xmlns='http://www.w3.org/2000/svg'><path style='stroke: white' fill='none' d='M3,7.5 L6,5 L9,7.5' /></svg>");                                        
+    --scrollbarButtonDown: url("data:image/svg+xml,<svg viewBox='0 0 12 12' height='12' width='12' xmlns='http://www.w3.org/2000/svg'><path style='stroke: white' fill='none' d='M3,5 L6,7.5 L9,5' /></svg>");                                        
+    --scrollbarButtonLeft: url("data:image/svg+xml,<svg viewBox='0 0 12 12' height='12' width='12' xmlns='http://www.w3.org/2000/svg'><path style='stroke: white' fill='none' d='M7.5,3 L5,6 L7.5,9' /></svg>");
+    --scrollbarButtonRight: url("data:image/svg+xml,<svg viewBox='0 0 12 12' height='12' width='12' xmlns='http://www.w3.org/2000/svg'><path style='stroke: white' fill='none' d='M5,3 L7.5,6 L5,9' /></svg>");
+    --scrollbarButtonActive: rgb(162,162,162);
 }
 
 :root .light {
     --foreground: black;
     --background: white;
-    --inputOutline: rgb(122,122,122);
+    --inputOutline: rgb(122,122,122);   
+    --linkHover: rgb(102,102,102);    
     --hover: rgb(230,230,230);
     --active: rgb(204,204,204);
     --warning: rgb(197,5,0);
+    --filesOdd: rgb(242,242,242);
+    --filesHover: rgb(217,217,217);
+    /* no need to port those to NoCSSCustomProperties */
+    --scrollbarBackground: rgb(242,242,242);
+    --scrollbarThumb: rgb(194,194,194);
+    --scrollbarThumbHover: rgb(145,145,145);
+    --scrollbarThumbActive: rgb(97,97,97);
+    --scrollbarButtonUp: url("data:image/svg+xml,<svg viewBox='0 0 12 12' height='12' width='12' xmlns='http://www.w3.org/2000/svg'><path style='stroke: black' fill='none' d='M3,7.5 L6,5 L9,7.5' /></svg>");                                
+    --scrollbarButtonDown: url("data:image/svg+xml,<svg viewBox='0 0 12 12' height='12' width='12' xmlns='http://www.w3.org/2000/svg'><path style='stroke: black' fill='none' d='M3,5 L6,7.5 L9,5' /></svg>");                                
+    --scrollbarButtonLeft: url("data:image/svg+xml,<svg viewBox='0 0 12 12' height='12' width='12' xmlns='http://www.w3.org/2000/svg'><path style='stroke: black' fill='none' d='M7.5,3 L5,6 L7.5,9' /></svg>");
+    --scrollbarButtonRight: url("data:image/svg+xml,<svg viewBox='0 0 12 12' height='12' width='12' xmlns='http://www.w3.org/2000/svg'><path style='stroke: black' fill='none' d='M5,3 L7.5,6 L5,9' /></svg>");
 }
+
 
 /* Common */
 
@@ -49,6 +75,61 @@ h1, h2 {
 
 a {
     color: inherit;
+    text-decoration: none;
+}
+
+/* WebKit scrollbars styles */
+
+::-webkit-scrollbar {
+    background: var(--scrollbarBackground);
+    color: var(--foreground);
+}
+
+::-webkit-scrollbar:vertical {
+    width: 0.75em;
+    min-height: 0.75em;
+}
+
+::-webkit-scrollbar:horizontal {
+    height: 0.75em;
+    min-width: 0.75em;
+}
+
+::-webkit-scrollbar-button {
+    width: 0.75em;
+    height: 0.75em;
+}
+
+::-webkit-scrollbar-button:active {
+    background: var(--scrollbarButtonActive);
+}
+
+::-webkit-scrollbar-button:vertical:start {
+    background-image: var(--scrollbarButtonUp);
+}
+
+::-webkit-scrollbar-button:vertical:end {
+    background-image: var(--scrollbarButtonDown);
+}
+
+::-webkit-scrollbar-button:horizontal:start {
+    background-image: var(--scrollbarButtonLeft);
+}
+
+::-webkit-scrollbar-button:horizontal:end {
+    background-image: var(--scrollbarButtonRight);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--scrollbarThumb);
+} 
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--scrollbarThumbHover);
+}
+
+::-webkit-scrollbar-thumb:active {
+    background: var(--scrollbarThumbActive);
 }
 
 /* App Title */
@@ -114,9 +195,12 @@ h1#appTitle {
     left: 0;
     top: calc(3.75em + 2em + 0.75em + 0.75em);
     bottom:0;
-    -ms-overflow-style: -ms-autohiding-scrollbar;
     overflow-x: hidden;
     cursor: default;
+}
+
+#products:focus {
+    outline: none;
 }
 
 #products ul {
@@ -134,8 +218,7 @@ h1#appTitle {
     padding-left: 1em;
     text-decoration: none;
     position: relative;
-    -ms-user-select: none;
-    -webkit-user-select: none;
+    user-select: none;
     transition: transform 167ms ease-in;
 }
 
@@ -206,6 +289,18 @@ h1#appTitle {
     overflow: auto;
 }
 
+#gameDetails:focus {
+    outline: none;
+}
+
+#gameDetails a {
+    color: var(--accent);
+}
+
+#gameDetails a:hover {
+    color: var(--linkHover);
+}
+
 #gameDetails .linksSection,
 #gameDetails .cdKeySection,
 #gameDetails .genresSection,
@@ -248,7 +343,6 @@ h1#appTitle {
     width: 100%;
     overflow-y: hidden;
     scroll-snap-type: mandatory;  
-    -ms-overflow-style: -ms-autohiding-scrollbar;
     padding-bottom: 1em;
     margin-bottom: 1em;
     height: 20em;
@@ -266,6 +360,7 @@ h1#appTitle {
     vertical-align: top;
     height: 100%;
     width: auto;
+    max-width: 100%;
     cursor: zoom-in;
 }
 
@@ -277,6 +372,25 @@ h1#appTitle {
 
 #gameDetails p {
     margin-top: 0;
+}
+
+/* Files */
+
+#gameDetails .filesSection .file {
+    display: block;
+    padding: 0.75em;
+    padding-left: 1em;
+    text-decoration: none;
+    cursor: pointer;
+    color: var(--foreground) !important;
+}
+
+#gameDetails .filesSection .file:hover {
+    background: var(--filesHover) !important;
+}
+
+#gameDetails .filesSection .file:nth-child(odd) {
+    background: var(--filesOdd);
 }
 
 /* Screenshot Fullscreen Container */

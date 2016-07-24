@@ -2,7 +2,7 @@
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    let getProductIdDelegate = (p) => { return p.id};
+    let getProductIdDelegate = (p) => { return p.id };
 
     /* DOM Elements */
 
@@ -49,9 +49,11 @@ document.addEventListener("DOMContentLoaded", () => {
     let eventCallbackController = new EventCallbackController();
 
     let imagesExpandController = new ImagesExpandController(
-        templateController, 
+        templateController,
         bindController);
-    let filesExpandController = new FilesExpandController();
+    let filesExpandController = new FilesExpandController(
+        templateController,
+        bindController);
     let imagesLoadController = new ImagesLoadController();
 
     let searchViewModelProvider = new SearchViewModelProvider(
