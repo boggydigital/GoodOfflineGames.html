@@ -107,6 +107,14 @@ a {
     height: 0.75em;
 }
 
+::-webkit-scrollbar-button:start:decrement {
+    display: block;
+}
+
+::-webkit-scrollbar-button:end:increment {
+    display: block;
+}
+
 ::-webkit-scrollbar-button:active {
     background: var(--scrollbarButtonActive);
 }
@@ -386,7 +394,7 @@ h1#appTitle {
     padding: 0.75em;
     margin: 0;
     display: inline-block;
-    text-transform: uppercase;
+    /*text-transform: uppercase;*/
     cursor: pointer;
     background: var(--tabBackground);
 }
