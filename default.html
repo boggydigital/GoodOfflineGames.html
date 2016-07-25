@@ -18,7 +18,7 @@
         <h1 id="appTitle"><span class='lnr lnr-rocket'></span> GoodOfflineGames.html</h1>
         <input type="search" role="searchbox" tabindex="1" placeholder="Find a product" />
     </div>
-    <nav id="products" tabindex="2" data-ui="list" data-list-item-template="product"></nav>
+    <nav id="products" tabindex="2"></nav>
     <main id="gameDetails" tabindex="3"></main>
 
     <div id='screenshotFullscreenContainer' tabindex='5' class='hidden' onclick='this.classList.add("hidden")' onkeypress='this.classList.add("hidden")'>
@@ -115,7 +115,6 @@
             <div class='linksSection'>
                 <h3>Links</h3>
                 <a href='https://www.gog.com/game/{{slug}}'>Product page</a>
-                <br>
                 <a href='https://www.gog.com/forum/{{slug}}'>Community page</a>
             </div>
         </template>
@@ -143,6 +142,9 @@
                 <span class='language'>{{language}}</span>
                 <span class='size'>{{size}}</span>
             </a>
+        </template>
+        <template id='listFilter'>
+            <span class='lnr lnr-funnel'></span> Filter: <select><option>All</option></select>
         </template>
     </div>
 
