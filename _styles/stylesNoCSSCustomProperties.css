@@ -39,7 +39,7 @@
 /* Products */
 
 #products .product.selected {
-    color: rgb(0,120,215);
+    background: rgb(0,120,215) !important;
 }
 
 .dark #products .keyboardSelected {

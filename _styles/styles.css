@@ -270,27 +270,15 @@ h1#appTitle {
 }
 
 #products .product:hover {
-    background: var(--hover)
+    background: var(--hover);
 }
 
 #products .product:active {
-    transform: scale(0.99);
     background: var(--active)
 }
 
 #products .product.selected {
-    color: var(--accent)
-}
-
-#products .product.selected::before {
-    display: block;
-    position: absolute;
-    width: 0.5em;
-    height: 50%;
-    top: 25%;
-    left:-0.175em;
-    background: currentColor;
-    content: " ";
+    background: var(--accent) !important;
 }
 
 #products .searchResultsLimited {
