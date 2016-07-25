@@ -166,7 +166,8 @@ a {
 
 h1#appTitle {
     padding-left: 1rem;
-    font-weight: lighter;
+    font-weight: 300;
+    font-style: italic;  
     -webkit-user-select: none;
     cursor: default;
 }
@@ -199,7 +200,7 @@ h1#appTitle {
 }
 
 #search input[type=search]::-webkit-input-placeholder {
-    color: var(--inputOutline)
+    color: var(--inputOutline);
 }
 
 #search input[type=search]:hover {
@@ -287,6 +288,7 @@ h1#appTitle {
 
 #products .product.selected {
     background: var(--accent) !important;
+    color: white;
 }
 
 #products .searchResultsLimited {
@@ -400,6 +402,7 @@ h1#appTitle {
 
 #gameDetails .tab.selected {
     background: var(--accent);
+    color: white;
 }
 
 /* Files */
