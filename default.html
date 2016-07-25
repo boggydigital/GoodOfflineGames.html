@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width" />
     <link rel="stylesheet" href="./_styles/stylesNoCSSCustomProperties.css" />
     <link rel="stylesheet" href="./_styles/styles.css" />
+    <link rel="stylesheet" href="./_styles/linearicons.css" />
 </head>
 
 <!-- switch default theme on the body: dark, light -->
@@ -14,7 +15,7 @@
 <body class="windows dark">
 
     <div id="search" role="search">
-        <h1 id="appTitle">GoodOfflineGames.html</h1>
+        <h1 id="appTitle"><span class='lnr lnr-rocket'></span> GoodOfflineGames.html</h1>
         <input type="search" role="searchbox" tabindex="1" placeholder="Find a product" />
     </div>
     <nav id="products" tabindex="2" data-ui="list" data-list-item-template="product"></nav>
@@ -27,7 +28,7 @@
         <template id="product">
             <li data-id='{{id}}' class='product {{class}}' title='{{title}}' tabindex="-1">
                 <div class='title'>{{title}}</div>
-                <div class='tags' title='{{tags}}'>{{tags}}</div>
+                <div class='tags' title='{{tags}}'><span class='lnr lnr-tag'></span> {{tags}}</div>
             </li>
         </template>
         <template id="gameDetails">
@@ -44,10 +45,10 @@
         </template>
         <template id='tabs'>
             <div class='tabs'>
-                <div class='tab information selected'>Information</div>
-                <div class='tab files'>Files</div>
-                <div class='tab screenshots'>Screenshots</div>
-                <div class='tab changelog'>Changelog</div>
+                <div class='tab information selected'><span class='lnr lnr-question-circle'></span> Information</div>
+                <div class='tab files'><span class='lnr lnr-file-empty'></span> Files</div>
+                <div class='tab screenshots'><span class='lnr lnr-picture'></span> Screenshots</div>
+                <div class='tab changelog'><span class='lnr lnr-history'></span> Changelog</div>
             </div>
         </template>
         <template id='tabInformationContent'>
