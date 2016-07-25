@@ -194,7 +194,6 @@ h1#appTitle {
     border: 0;
     background: inherit;
     color: inherit;
-    font-size: inherit;
     /* WebKit fix */
     -webkit-appearance: none;
 }
