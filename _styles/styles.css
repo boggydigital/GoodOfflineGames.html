@@ -354,8 +354,10 @@ h1#appTitle {
 }
 
 #gameDetails h1 {
-    margin-bottom: 1em;
+    /*margin-bottom: 1em;*/
 	margin-top: 0;
+    font-size: 2.5em;
+    font-weight: 600;
 }
 
 #gameDetails img {
@@ -402,6 +404,10 @@ h1#appTitle {
 #gameDetails .tab.selected {
     background: var(--accent);
     color: white;
+}
+
+#gameDetails .tabContent {
+    max-width: 800px;
 }
 
 /* Files */
