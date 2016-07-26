@@ -6,7 +6,7 @@ export class WorksOn {
     Windows: boolean;
 }
 
-export class Product extends ProductCore{
+export class Product extends ProductCore {
     image: string;
     slug: string;
     url: string;

@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let productsContainer = document.getElementById("products");
     let gameDetailsContainer = document.getElementById("gameDetails");
     let searchInput = document.querySelector("#search>input[type='search']");
+    let filterInput = document.querySelector("#filter select");
 
     /* Controller */
 
@@ -68,14 +69,20 @@ document.addEventListener("DOMContentLoaded", () => {
         tagsController,
         productsDataController);
 
-    let searchController = new SearchController(
-        searchViewModelProvider,
+    let filterViewModelProvider = new FilterViewModelProvider(
+        tagsController);
+
+    // let searchEventCallbackController = new EventCallbackController();
+    // let filterEventCallbackController = new EventCallbackController();
+
+    let filterController = new IndexMatchingController(
+        filterViewModelProvider,
         eventCallbackController);
 
-    let filterController = new FilterController(
-        templateController,
-        bindController,
-        eventCallbackController);
+    let searchController = new IndexMatchingController(
+        searchViewModelProvider,
+        eventCallbackController,
+        filterController);
 
     let viewControllerProducts = new ViewController(
         productViewModelProvider,
@@ -83,7 +90,7 @@ document.addEventListener("DOMContentLoaded", () => {
         bindController);
 
     let viewControllerGameDetails = new ViewController(
-        gameDetailsViewModelProvider,
+        gameDetailsViewModelProvider, 
         templateController,
         bindController);
 
@@ -113,11 +120,22 @@ document.addEventListener("DOMContentLoaded", () => {
         listViewController,
         gameDetailsViewController);
 
+    let filterViewController = new FilterViewController(
+        filterInput,
+        tagsController,
+        templateController,
+        bindController);
+
     // select the first item in the list
     listViewController.selectByIndex(0);
 
-    searchInput.addEventListener("input", (e) => {
+    searchInput.addEventListener("input", e => {
         searchController.match(searchInput.value);
     });
+
+    filterInput.addEventListener("change", e => {
+        filterController.filterAll(e.target.value);
+    });
+
 });
 

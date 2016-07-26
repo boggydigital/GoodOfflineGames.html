@@ -8,11 +8,12 @@
         "noImplicitReturns": true
     },
     "files": [
-        "viewModels/searchViewModelProvider.ts",
+        // "viewModels/searchViewModelProvider.ts",
         "viewControllers/listViewController.ts",
         "viewControllers/gameDetailsViewController.ts",
         "viewControllers/masterDetailViewController.ts",
-        "viewModels/gameDetailsViewModelProvider.ts",
-        "viewModels/productViewModelProvider.ts"
+        "viewControllers/filterViewController.ts"
+        // "viewModels/gameDetailsViewModelProvider.ts",
+        // "viewModels/productViewModelProvider.ts"
     ]
 }

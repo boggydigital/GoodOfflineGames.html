@@ -20,8 +20,7 @@
     </div>
     <div id="filter">
         <span class='lnr lnr-funnel'></span>
-        <span class='title'>Filter</span>
-        <span class='disabled hidden warning'>is disabled while searching</span>
+        <span class='title'>Filter:</span>
         <select>
             <option>All</option>
         </select>
@@ -37,7 +36,7 @@
 
     <div id="templates" class="hidden">
         <template id="product">
-            <li data-id='{{id}}' class='product {{class}}' title='{{title}}' tabindex="-1">
+            <li id='{{id}}' class='product {{class}}' title='{{title}}' tabindex="-1">
                 <div class='title'>{{title}}</div>
                 <div class='tags' title='{{tags}}'><span class='lnr lnr-tag'></span> {{tags}}</div>
             </li>
@@ -195,7 +194,7 @@
     <script src="./_app/release/bindController.js"></script>
     <script src="./_app/release/languageController.js"></script>
     <script src="./_app/release/eventCallbackController.js"></script>
-    <script src="./_app/release/searchController.js"></script>
+    <script src="./_app/release/indexMatchingController.js"></script>
     <script src="./_app/release/filterController.js"></script>
     <!-- dataControllers -->
     <script src="./_app/release/dataControllers/collectionController.js"></script>
@@ -209,8 +208,9 @@
     <script src="./_app/release/viewControllers/listViewController.js"></script>
     <script src="./_app/release/viewControllers/gameDetailsViewController.js"></script>
     <script src="./_app/release/viewControllers/masterDetailViewController.js"></script>
+    <script src="./_app/release/viewControllers/filterViewController.js"></script>
     <!-- viewModels -->
-    <script src="./_app/release/viewModels/searchViewModelProvider.js"></script>
+    <script src="./_app/release/viewModels/indexViewModelProvider.js"></script>
     <script src="./_app/release/viewModels/productViewModelProvider.js"></script>
     <script src="./_app/release/viewModels/gameDetailsViewModelProvider.js"></script>
     <!-- application entry point -->

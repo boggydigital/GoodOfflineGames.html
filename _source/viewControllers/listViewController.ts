@@ -1,8 +1,6 @@
 import {IEventCallbackController, IAddEventCallbackDelegate} from "../eventCallbackController";
-import {IViewController} from "./viewController";
-import {ISearchController} from "../searchController";
-import {IFilterController} from "../filterController";
-import {IGetIdDelegate} from "./viewController";
+import {IViewController, IGetIdDelegate} from "./viewController";
+import {IIndexMatchingController} from "../indexMatchingController";
 
 export interface IClearSelectionDelegate {
     (): void;
@@ -32,7 +30,7 @@ export class ListViewController<T> implements IListViewController {
     viewController: IViewController;
     eventCallbackController: IEventCallbackController;
 
-    filterController: IFilterController;
+    // filterController: IFilterController;
 
     listContainerClass: string = "listContainer";
     searchResultsContainerClass: string = "searchResultsContainer";
@@ -64,8 +62,8 @@ export class ListViewController<T> implements IListViewController {
         templateId: string,
         parentElement: Element,
         viewController: IViewController,
-        searchController: ISearchController<T>,
-        filterController: IFilterController,
+        searchController: IIndexMatchingController<T>,
+        filterController: IIndexMatchingController<T>,
         eventCallbackController: IEventCallbackController) {
 
         this.parentElement = parentElement;
@@ -150,7 +148,6 @@ export class ListViewController<T> implements IListViewController {
             searchController.addEventCallback("matchStart", () => {
                 that.clearSelection();
                 that.listContainer.classList.add("hidden");
-                that.filterController.hide();
                 that.searchResultsContainer.innerHTML = "";
                 that.searchResultsCount = 0;
                 that.activeView = that.searchResultsContainer;
@@ -175,7 +172,7 @@ export class ListViewController<T> implements IListViewController {
 
                 if (++that.searchResultsCount > that.searchResultsLimit) return;
 
-                var matchingElement = that.listContainer.querySelector("[data-id='" + id + "']");
+                var matchingElement = document.getElementById(id);
                 if (matchingElement) {
                     // that.searchResultsCount++;
                     let matchedClone = matchingElement.cloneNode(true);
@@ -187,47 +184,37 @@ export class ListViewController<T> implements IListViewController {
 
             searchController.addEventCallback("cleared", () => {
                 that.listContainer.classList.remove("hidden");
-                that.filterController.show();
                 that.searchResultsContainer.classList.add("hidden");
                 that.activeView = that.listContainer;
             });
         }
 
         if (filterController) {
-            this.filterController = filterController;
 
-            // set filter options
-            // filterController.setFilters(["OWNED", "WISHLISTED", "DATA_OK", "COMPLETED", "BACKLOG"]);
-            let options = new Array<string>();
-            let filterOptions = this.listContainer.querySelectorAll(".tags");
-            for (let ii=0; ii<filterOptions.length; ii++) {
-                let tagsTextContent = filterOptions[ii].textContent;
-                if (tagsTextContent.indexOf("{{tags}}") > -1) continue;
-                let splitTags = tagsTextContent.split(".");
-                splitTags.forEach(t => {
-                    if (options.indexOf(t) === -1) options.push(t);
+            // 5. build filter index and add matching events
+            requestAnimationFrame(() => {
+                filterController.index(collection, getIdDelegate);
+            });
+
+            let clearFiltered = () => {
+                let filteredListItems = this.listContainer.querySelectorAll(".hidden");
+                for (let ii = 0; ii < filteredListItems.length; ii++)
+                    filteredListItems[ii].classList.remove("hidden");
+            };
+
+            filterController.addEventCallback("filterAllStart", () => {
+                clearFiltered();
+            });
+
+            filterController.addEventCallback("filterAllEnd", filtered => {
+                filtered.forEach(id => {
+                    let filteredListItem = document.getElementById(id);
+                    if (filteredListItem) filteredListItem.classList.add('hidden');
                 })
-            }
+            });
 
-            filterController.setFilters(options);
-
-            filterController.addEventCallback("selectionChanged", filterOption => {
-
-                let previouslyFiltered = this.listContainer.querySelectorAll(".filtered");
-                for (let ii = 0; ii < previouslyFiltered.length; ii++) {
-                    (previouslyFiltered[ii] as Element).classList.remove("filtered");
-                }
-
-                if (filterOption === "All") return;
-
-                filterOption = filterOption.toLowerCase();
-
-                let element = this.listContainer.firstElementChild;
-                while (element) {
-                    let tags = element.querySelector(".tags").textContent.toLowerCase();
-                    if (tags.indexOf(filterOption) === -1) element.classList.add("filtered");
-                    element = element.nextElementSibling;
-                }
+            filterController.addEventCallback("filterCleared", () => {
+                clearFiltered();
             });
         }
 
@@ -252,45 +239,25 @@ export class ListViewController<T> implements IListViewController {
         if (element === undefined || element === null) return;
         element.classList.add(this.selectedClass);
 
-        var id = parseInt(element.getAttribute("data-id"));
+        var id = parseInt(element.id);
 
         this.eventCallbackController.fire(this.selectedChangedEvent, id);
     }
 
     public moveFocus = function (value: number) {
         let focusedElement = this.activeView.querySelector(":focus");
-        if (!focusedElement) focusedElement =
-            this.activeView.querySelector("." + this.selectedClass);
+        if (!focusedElement) focusedElement = this.activeView.querySelector("." + this.selectedClass);
         let nextKeyboardFocus = this.activeView.children[0];
-        if (focusedElement) {
-            switch (value) {
-                case 1:
-                    nextKeyboardFocus = this.getNextNotFilteredElementSibling(focusedElement);//focusedElement.nextElementSibling;
-                    break;
-                case -1:
-                    nextKeyboardFocus = this.getPreviousNotFilteredElementSibling(focusedElement);//focusedElement.previousElementSibling;
-                    break;
-            }
-        }
+        nextKeyboardFocus = this.getVisibleElementSibling(focusedElement, value);
         if (nextKeyboardFocus) nextKeyboardFocus.focus();
     }
 
-    getNextNotFilteredElementSibling =
-    (element: Element): Element => {
+    getVisibleElementSibling =
+    (element: Element, direction: number): Element => {
+        if (!element) return null;
         do {
-            if (element.nextElementSibling) element = element.nextElementSibling;
-            else break;
-            if (!element.classList.contains('filtered')) break;
-        } while (element)
-        return element;
-    }
-
-    getPreviousNotFilteredElementSibling =
-    (element: Element): Element => {
-        do {
-            if (element.previousElementSibling) element = element.previousElementSibling;
-            else break;
-            if (!element.classList.contains('filtered')) break;
+            element = direction > 0 ? element.nextElementSibling : element.previousElementSibling;
+            if (element && !element.classList.contains('hidden')) break;
         } while (element)
         return element;
     }
