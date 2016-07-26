@@ -68,8 +68,13 @@ document.addEventListener("DOMContentLoaded", () => {
         tagsController,
         productsDataController);
 
-    let productsSearchController = new SearchController(
+    let searchController = new SearchController(
         searchViewModelProvider,
+        eventCallbackController);
+
+    let filterController = new FilterController(
+        templateController,
+        bindController,
         eventCallbackController);
 
     let viewControllerProducts = new ViewController(
@@ -88,7 +93,8 @@ document.addEventListener("DOMContentLoaded", () => {
         "product", //templateId
         productsContainer, // container
         viewControllerProducts, // ...
-        productsSearchController, // searchController
+        searchController, 
+        filterController,
         eventCallbackController); // ...
 
     let gameDetailsViewController = new GameDetailsViewController(
@@ -111,7 +117,7 @@ document.addEventListener("DOMContentLoaded", () => {
     listViewController.selectByIndex(0);
 
     searchInput.addEventListener("input", (e) => {
-        productsSearchController.match(searchInput.value);
+        searchController.match(searchInput.value);
     });
 });
 

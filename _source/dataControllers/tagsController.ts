@@ -10,8 +10,13 @@ export interface IGetTagsDelegate {
     (id: number): Array<string>;
 }
 
+// export interface IGetAllTagsDelegate {
+//     (): Array<string>;
+// }
+
 export interface ITagsController {
     getTags: IGetTagsDelegate;
+    // getAllTags: IGetAllTagsDelegate;
 }
 
 export class TagsController implements ITagsController {
@@ -35,8 +40,22 @@ export class TagsController implements ITagsController {
         this.wishlistController = wishlistController;
     }
 
+    // public getAllTags: IGetAllTagsDelegate =
+    // (): Array<string> => {
+    //     let tags = new Array<string>();
+    //     if (!this.gameDetailsController) return tags;
+
+    //     this.gameDetailsController.getAll().forEach(gd => {
+    //         gd.tags.forEach(tag => {
+    //             if (tags.indexOf(tag.name) === -1) tags.push(tag.name);
+    //         })
+    //     });
+
+    //     return tags;
+    // }
+
     public getTags: IGetTagsDelegate =
-    function (id: number): Array<string> {
+    (id: number): Array<string> => {
 
         let tags: Array<string> = new Array<string>();
 

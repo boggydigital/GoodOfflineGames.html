@@ -8,6 +8,20 @@
     color: black;
 }
 
+/* Filter */
+
+#filter select {
+    color: rgb(0,120,215);
+}
+
+.dark #filter select:hover {
+    color: rgb(153,153,153);
+}
+
+.light #filter select:hover {
+    color: rgb(102,102,102);    
+}
+
 /* Search */
 
 .dark #search input[type=search] {
@@ -66,11 +80,11 @@
     background: rgb(204,204,204);
 }
 
-.dark #products .searchResultsLimited {
+.dark .warning {
     color: rgb(255, 240, 0);
 }
 
-.light #products .searchResultsLimited {
+.light .warning {
     color: rgb(197,5,0);
 }
 

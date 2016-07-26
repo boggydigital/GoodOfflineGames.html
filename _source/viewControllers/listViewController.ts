@@ -1,6 +1,7 @@
 import {IEventCallbackController, IAddEventCallbackDelegate} from "../eventCallbackController";
 import {IViewController} from "./viewController";
 import {ISearchController} from "../searchController";
+import {IFilterController} from "../filterController";
 import {IGetIdDelegate} from "./viewController";
 
 export interface IClearSelectionDelegate {
@@ -31,12 +32,14 @@ export class ListViewController<T> implements IListViewController {
     viewController: IViewController;
     eventCallbackController: IEventCallbackController;
 
+    filterController: IFilterController;
+
     listContainerClass: string = "listContainer";
     searchResultsContainerClass: string = "searchResultsContainer";
 
     searchResultsLimit = 25;
     searchResultsCount = 0;
-    searchResultsLimitedClass: string = "searchResultsLimited";
+    searchResultsLimitedClass: string = "warning";
 
     searchResultsLimitedMessage: string =
     "Search results are limited to " +
@@ -62,6 +65,7 @@ export class ListViewController<T> implements IListViewController {
         parentElement: Element,
         viewController: IViewController,
         searchController: ISearchController<T>,
+        filterController: IFilterController,
         eventCallbackController: IEventCallbackController) {
 
         this.parentElement = parentElement;
@@ -121,8 +125,8 @@ export class ListViewController<T> implements IListViewController {
 
             let value = 0;
 
-            if (e.keyCode === upKeyCode) value = e.shiftKey ? Number.MIN_VALUE : -1;
-            if (e.keyCode === downKeyCode) value = e.shiftKey ? Number.MAX_VALUE : 1;
+            if (e.keyCode === upKeyCode) value = -1;
+            if (e.keyCode === downKeyCode) value = 1;
 
             if (value !== 0) {
                 this.moveFocus(value);
@@ -146,6 +150,7 @@ export class ListViewController<T> implements IListViewController {
             searchController.addEventCallback("matchStart", () => {
                 that.clearSelection();
                 that.listContainer.classList.add("hidden");
+                that.filterController.hide();
                 that.searchResultsContainer.innerHTML = "";
                 that.searchResultsCount = 0;
                 that.activeView = that.searchResultsContainer;
@@ -167,19 +172,62 @@ export class ListViewController<T> implements IListViewController {
             });
 
             searchController.addEventCallback("matched", (id) => {
+
                 if (++that.searchResultsCount > that.searchResultsLimit) return;
 
                 var matchingElement = that.listContainer.querySelector("[data-id='" + id + "']");
                 if (matchingElement) {
+                    // that.searchResultsCount++;
                     let matchedClone = matchingElement.cloneNode(true);
+                    (matchedClone as Element).classList.remove("filtered");
                     that.searchResultsContainer.appendChild(matchedClone);
-                }
+                };
+
             });
 
             searchController.addEventCallback("cleared", () => {
                 that.listContainer.classList.remove("hidden");
+                that.filterController.show();
                 that.searchResultsContainer.classList.add("hidden");
                 that.activeView = that.listContainer;
+            });
+        }
+
+        if (filterController) {
+            this.filterController = filterController;
+
+            // set filter options
+            // filterController.setFilters(["OWNED", "WISHLISTED", "DATA_OK", "COMPLETED", "BACKLOG"]);
+            let options = new Array<string>();
+            let filterOptions = this.listContainer.querySelectorAll(".tags");
+            for (let ii=0; ii<filterOptions.length; ii++) {
+                let tagsTextContent = filterOptions[ii].textContent;
+                if (tagsTextContent.indexOf("{{tags}}") > -1) continue;
+                let splitTags = tagsTextContent.split(".");
+                splitTags.forEach(t => {
+                    if (options.indexOf(t) === -1) options.push(t);
+                })
+            }
+
+            filterController.setFilters(options);
+
+            filterController.addEventCallback("selectionChanged", filterOption => {
+
+                let previouslyFiltered = this.listContainer.querySelectorAll(".filtered");
+                for (let ii = 0; ii < previouslyFiltered.length; ii++) {
+                    (previouslyFiltered[ii] as Element).classList.remove("filtered");
+                }
+
+                if (filterOption === "All") return;
+
+                filterOption = filterOption.toLowerCase();
+
+                let element = this.listContainer.firstElementChild;
+                while (element) {
+                    let tags = element.querySelector(".tags").textContent.toLowerCase();
+                    if (tags.indexOf(filterOption) === -1) element.classList.add("filtered");
+                    element = element.nextElementSibling;
+                }
             });
         }
 
@@ -216,22 +264,35 @@ export class ListViewController<T> implements IListViewController {
         let nextKeyboardFocus = this.activeView.children[0];
         if (focusedElement) {
             switch (value) {
-                case 1: if (focusedElement.nextElementSibling)
-                    nextKeyboardFocus = focusedElement.nextElementSibling;
+                case 1:
+                    nextKeyboardFocus = this.getNextNotFilteredElementSibling(focusedElement);//focusedElement.nextElementSibling;
                     break;
-                case -1: if (focusedElement.previousElementSibling)
-                    nextKeyboardFocus = focusedElement.previousElementSibling;
-                    break;
-                case Number.MIN_VALUE:
-                    nextKeyboardFocus = this.activeView.children[0];
-                    break;
-                case Number.MAX_VALUE:
-                    nextKeyboardFocus = this.activeView.children[this.activeView.children.length - 1];
+                case -1:
+                    nextKeyboardFocus = this.getPreviousNotFilteredElementSibling(focusedElement);//focusedElement.previousElementSibling;
                     break;
             }
         }
         if (nextKeyboardFocus) nextKeyboardFocus.focus();
-        
+    }
+
+    getNextNotFilteredElementSibling =
+    (element: Element): Element => {
+        do {
+            if (element.nextElementSibling) element = element.nextElementSibling;
+            else break;
+            if (!element.classList.contains('filtered')) break;
+        } while (element)
+        return element;
+    }
+
+    getPreviousNotFilteredElementSibling =
+    (element: Element): Element => {
+        do {
+            if (element.previousElementSibling) element = element.previousElementSibling;
+            else break;
+            if (!element.classList.contains('filtered')) break;
+        } while (element)
+        return element;
     }
 
     public addEventCallback: IAddEventCallbackDelegate = function (event: string, callback: Function) {

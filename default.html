@@ -14,9 +14,17 @@
 
 <body class="windows dark">
 
+    <h1 id="appTitle"><span class='lnr lnr-rocket'></span> GoodOfflineGames.html</h1>
     <div id="search" role="search">
-        <h1 id="appTitle"><span class='lnr lnr-rocket'></span> GoodOfflineGames.html</h1>
         <input type="search" role="searchbox" tabindex="1" placeholder="Find a product" />
+    </div>
+    <div id="filter">
+        <span class='lnr lnr-funnel'></span>
+        <span class='title'>Filter</span>
+        <span class='disabled hidden warning'>is disabled while searching</span>
+        <select>
+            <option>All</option>
+        </select>
     </div>
     <nav id="products" tabindex="2"></nav>
     <main id="gameDetails" tabindex="3"></main>
@@ -155,8 +163,8 @@
                 <span class='size'>{{size}}</span>
             </li>
         </template>
-        <template id='listFilter'>
-            <span class='lnr lnr-funnel'></span> Filter: <select><option>All</option></select>
+        <template id='filterOption'>
+            <option>{{name}}</option>
         </template>
     </div>
 
@@ -188,6 +196,7 @@
     <script src="./_app/release/languageController.js"></script>
     <script src="./_app/release/eventCallbackController.js"></script>
     <script src="./_app/release/searchController.js"></script>
+    <script src="./_app/release/filterController.js"></script>
     <!-- dataControllers -->
     <script src="./_app/release/dataControllers/collectionController.js"></script>
     <script src="./_app/release/dataControllers/productsController.js"></script>
