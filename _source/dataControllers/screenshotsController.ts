@@ -27,6 +27,19 @@ export class ScreenshotsController implements IScreenshotsController {
         imageUriController: IImageUriController) {
         this.screenshots = screenshots;
         this.imageUriController = imageUriController;
+
+        // initialize next / previous when we show fullscreen images
+        let sfContainer = document.getElementById("screenshotFullscreenContainer");
+        let previousNextButtons = sfContainer.querySelectorAll(".lnr");
+        for (let ii=0; ii<previousNextButtons.length; ii++) {
+            previousNextButtons[ii].addEventListener("click", (e) => {
+                this.showNextPreviousFullscreenImage(
+                    sfContainer,
+                    (e.target as Element).classList.contains("lnr-arrow-left-circle") ? 
+                    /* previous */ -1 : /* next */ 1);
+                e.stopPropagation();
+            });
+        }
     }
 
     public getScreenshotsById: IGetScreenshotsById =
@@ -44,10 +57,29 @@ export class ScreenshotsController implements IScreenshotsController {
 
     public showFullscreen: IShowFullscreenDelegate =
     (element: HTMLImageElement): void => {
-        // alert(element);
+        if (!element || !element.parentElement) return;
+        let images = element.parentElement.querySelectorAll('img');
+        let imageSources = new Array<string>();
+        for (let ii = 0; ii < images.length; ii++) {
+            imageSources.push((images[ii] as HTMLImageElement).src);
+        }
         let sfContainer = document.getElementById("screenshotFullscreenContainer");
-        sfContainer.innerHTML = "";
-        sfContainer.appendChild(element.cloneNode());
+        let fullscreenImage = sfContainer.querySelector("img");
+        (fullscreenImage as HTMLImageElement).src = element.src;
+        sfContainer.setAttribute('data-images', imageSources.join());
         sfContainer.classList.remove("hidden");
+    }
+
+    showNextPreviousFullscreenImage = 
+    (sfContainer: Element, direction: number): void => {
+        let fullscreenImage = sfContainer.querySelector("img") as HTMLImageElement;
+        let imageSources = sfContainer.getAttribute("data-images").split(",");
+        let currentIndex = imageSources.indexOf(fullscreenImage.src);
+
+        let nextIndex = currentIndex + direction;
+        if (nextIndex < 0) nextIndex = imageSources.length - 1;
+        if (nextIndex > imageSources.length - 1) nextIndex = 0;
+
+        fullscreenImage.src = imageSources[nextIndex];
     }
 }

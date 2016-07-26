@@ -408,7 +408,8 @@ h1#appTitle {
     flex-shrink: 1;
     white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis;      
+    text-overflow: ellipsis;
+    font-weight: 600;      
 }
 
 #gameDetails ul.list li span:last-child {
@@ -444,6 +445,28 @@ h1#appTitle {
     overflow-y: auto;
     cursor: zoom-out;
     background: inherit
+}
+
+#screenshotFullscreenContainer .lnr {
+    position: absolute;
+    top: calc(50% - 2em);
+    cursor: default;
+    padding: 1em;
+    font-size: 3em;
+    background: inherit;
+    opacity: 0;
+}
+
+#screenshotFullscreenContainer .lnr:hover {
+    opacity: 1;
+}
+
+#screenshotFullscreenContainer .lnr-arrow-left-circle {
+    left: 0;
+}
+
+#screenshotFullscreenContainer .lnr-arrow-right-circle {
+    right: 0;
 }
 
 #screenshotFullscreenContainer img {
