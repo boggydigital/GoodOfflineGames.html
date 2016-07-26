@@ -15,8 +15,8 @@
     --hover: rgb(25,25,25);
     --active: rgb(51,51,51);
     --warning: rgb(255, 240, 0);
-    --filesOdd: rgb(26,26,26);
-    --filesHover: rgb(51,51,51);
+    --listOddBackground: rgb(26,26,26);
+    --listHover: rgb(51,51,51);
     --tabBackground: rgb(56,56,56);
     /* no need to port those to NoCSSCustomProperties */
     --scrollbarBackground: rgb(23,23,23);
@@ -40,8 +40,8 @@
     --hover: rgb(230,230,230);
     --active: rgb(204,204,204);
     --warning: rgb(197,5,0);
-    --filesOdd: rgb(242,242,242);
-    --filesHover: rgb(217,217,217);
+    --listOddBackground: rgb(242,242,242);
+    --listHover: rgb(217,217,217);
     --tabBackground: rgb(242,242,242);
     /* no need to port those to NoCSSCustomProperties */
     --scrollbarBackground: rgb(242,242,242);
@@ -194,6 +194,7 @@ h1#appTitle {
     border: 0;
     background: inherit;
     color: inherit;
+    font-size: 0.8em;
     /* WebKit fix */
     -webkit-appearance: none;
 }
@@ -315,48 +316,15 @@ h1#appTitle {
 
 #gameDetails a {
     color: var(--accent);
-    margin-top: 0.25em;
-    display: block;
 }
 
 #gameDetails a:hover {
     color: var(--linkHover);
 }
 
-#gameDetails .linksSection,
-#gameDetails .cdKeySection,
-#gameDetails .genresSection,
-#gameDetails .seriesSection,
-#gameDetails .requiredProductsSection,
-#gameDetails .dlcSection,
-#gameDetails .filesSection,
-#gameDetails .screenshotsSection,
-#gameDetails .changelogSection,
-#gameDetails .tab.files,
-#gameDetails .tab.screenshots,
-#gameDetails .tab.changelog {
-    display: none;
-}
-
-#gameDetails .links .linksSection,
-#gameDetails .cdKey .cdKeySection,
-#gameDetails .genres .genresSection,
-#gameDetails .series .seriesSection,
-#gameDetails .requiredProducts .requiredProductsSection,
-#gameDetails .dlc .dlcSection,
-#gameDetails .files .filesSection,
-#gameDetails .screenshots .screenshotsSection,
-#gameDetails .changelog .changelogSection,
-#gameDetails .files .tab.files,
-#gameDetails .screenshots .tab.screenshots,
-#gameDetails .changelog .tab.changelog  {
-    display: initial;
-}
-
 #gameDetails h1 {
-    /*margin-bottom: 1em;*/
-	margin-top: 0;
-    font-size: 2.5em;
+	/*margin-top: 0;*/
+    font-size: 2em;
     font-weight: 600;
 }
 
@@ -369,39 +337,47 @@ h1#appTitle {
     color: var(--background);
 }
 
-#gameDetails .tabContent[for=screenshots] img {
+/* GameDetails screenshots */
+
+#gameDetails #screenshotsContent {
+     text-align: center;
+}
+
+#gameDetails #screenshotsContent img {
     cursor: zoom-in;
+    width: calc(100%/3 - 2em);
+    margin: 0.25em;
+    margin-left: 0;
+    transform-origin: center center;
 }
 
-#gameDetails h3 {
-    font-weight: normal;
-    font-size: 1.25em;
-    margin-bottom: 0;
-}
-
-#gameDetails p {
-    margin-top: 0.25em;
-    line-height: 1.5;
+#gameDetails #screenshotsContent img:hover {
+    transform: scale(1.5);
+    outline: 2px solid currentColor;
 }
 
 /* GameDetails tabs*/
 
-#gameDetails .tabs {
+#gameDetails [role='tablist'] {
+    margin: 0;
+    padding: 0;
     margin-top: 1em;
     margin-bottom: 1em;
     -webkit-user-select: none;
     display: flex;
 }
 
-#gameDetails .tab {
-    padding: 0.75em;
-    margin: 0;
-    /*text-transform: uppercase;*/
+#gameDetails [role='tab'] {
     cursor: pointer;
     background: var(--tabBackground);
+    display: flex;
+    width: 3em;
+    height: 3em;
+    align-items: center;
+    justify-content: center;
 }
 
-#gameDetails .tab.selected {
+#gameDetails [role='tab'][aria-selected='true'] {
     background: var(--accent);
     color: white;
 }
@@ -410,54 +386,48 @@ h1#appTitle {
     max-width: 800px;
 }
 
-/* Files */
+/* GameDetails lists */
 
-#gameDetails .filesSection {
-    margin-bottom: 1em;
+#gameDetails ul.list {
+    list-style: none;
+    margin: 0;
+    margin-bottom: 1em;    
+    padding: 0;    
 }
 
-#gameDetails .filesSection .file {
+#gameDetails ul.list li {
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    padding: 0.75em 0 0.75em 1em;
+    padding: 0.75em 1em 0.75em 1em;
     text-decoration: none;
-    cursor: pointer;
-    color: var(--foreground) !important;
 }
 
-#gameDetails .filesSection .file:hover {
-    background: var(--filesHover) !important;
-}
-
-#gameDetails .filesSection .file:nth-child(odd) {
-    background: var(--filesOdd);
-}
-
-#gameDetails .filesSection .file span {
-    display: inline-block;
-    padding-right: 1em;
-    flex-shrink: 0;
-}
-
-#gameDetails .filesSection .file .name {
+#gameDetails ul.list li span:first-child {
     flex-grow: 1;
     flex-shrink: 1;
     white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis;    
+    text-overflow: ellipsis;      
 }
 
-#gameDetails .filesSection .file .size {
-    width: 5em;
+#gameDetails ul.list li span:last-child {
+    max-width: 50%;
     text-align: right;
 }
 
-#gameDetails .filesSection .file .language {
-    width: 5em; 
+#gameDetails ul.list li:nth-child(odd) {
+    background: var(--listOddBackground);
 }
 
-#gameDetails .filesSection .file .operatingSystem {
+#gameDetails ul.list li span {
+    display: inline-block;
+    flex-shrink: 0;
+}
+
+#gameDetails ul.list li .size,
+#gameDetails ul.list li .language,
+#gameDetails ul.list li .operatingSystem {
     width: 5em;
 }
 

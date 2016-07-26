@@ -164,26 +164,34 @@ export class TabsController implements IPostProcessingController {
 
     public process: IProcessDelegate =
     (container: Element): void => {
-        let tabsList = container.querySelector(".tabs");
+        let tabsList = container.querySelector('[role=tablist]');
         if (!tabsList) return;
         tabsList.addEventListener("click", (e) => {
             let targetElement = e.target as Element;
             if (!targetElement) return;
-            if (!targetElement.classList.contains("tab")) return;
+            if (targetElement.getAttribute('role') !== 'tab') {
+                // with the font icons users can now click on icon that is not 'tab'
+                while (targetElement && targetElement.parentElement) {
+                    targetElement = targetElement.parentElement;
+                    if (targetElement.getAttribute('role') === 'tab') break;
+                }
+                // we've walked parent chain and there is no tab
+                if (targetElement.getAttribute('role') !== 'tab') return;
+            };
             // already selected - nothing more to do
-            if (targetElement.classList.contains("selected")) return;
+            if (targetElement.getAttribute('aria-selected') === 'true') return;
 
             // hide previously selected tab content
-            let csTab = tabsList.querySelector(".tab.selected");
-            if (csTab) csTab.classList.remove("selected");
-            let csTabContent = this.getContentByTag(csTab, container);
-            if (csTabContent) csTabContent.classList.add("hidden");
+            let csTab = tabsList.querySelector("[role=tab][aria-selected=true]");
+            if (csTab) csTab.setAttribute('aria-selected', 'false');
+            let csTabContent = document.getElementById(csTab.getAttribute('data-content'));
+            if (csTabContent) csTabContent.classList.add('hidden');
             // display new tab content
-            targetElement.classList.add("selected");
-            let newTabContent = this.getContentByTag(targetElement, container);
+            targetElement.setAttribute('aria-selected', 'true');
+            let newTabContent = document.getElementById(targetElement.getAttribute('data-content'));
             if (newTabContent) {
                 // if the tab is screenshots tab - expand images before display
-                if (newTabContent.getAttribute("for") === "screenshots") {
+                if (newTabContent.id === "screenshotsContent") {
                     this.imagesExpandController.process(newTabContent as HTMLElement);
                     this.imagesLoadController.process(newTabContent as HTMLElement);
                 }
@@ -192,13 +200,27 @@ export class TabsController implements IPostProcessingController {
         });
     }
 
-    getContentByTag =
-    (tab: Element, container: Element): Element => {
-        let tabContents = container.querySelectorAll(".tabContent");
-        for (let ii = 0; ii < tabContents.length; ii++) {
-            let forTab = tabContents[ii].getAttribute("for");
-            if (tab.classList.contains(forTab)) return tabContents[ii];
+    // getContentByTag =
+    // (tab: Element, container: Element): Element => {
+    //     let tabContents = container.querySelectorAll(".tabContent");
+    //     for (let ii = 0; ii < tabContents.length; ii++) {
+    //         let forTab = tabContents[ii].getAttribute("for");
+    //         if (tab.classList.contains(forTab)) return tabContents[ii];
+    //     }
+    //     return null;
+    // }
+}
+
+export class VisibilityController implements IPostProcessingController {
+    public process: IProcessDelegate =
+    (container: Element): void => {
+        let dataVisible = container.querySelector('[data-visible]');
+        if (!dataVisible) return;
+        let visible = dataVisible.getAttribute('data-visible').split(" ");
+        let dataVisibility = container.querySelectorAll('[data-visibility]');
+        for (let ii=0; ii<dataVisibility.length;ii++) {
+            let visibility = dataVisibility[ii].getAttribute('data-visibility');
+            if (visible.indexOf(visibility) === -1) dataVisibility[ii].remove();
         }
-        return null;
     }
 }

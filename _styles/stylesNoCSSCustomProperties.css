@@ -98,40 +98,24 @@
 
 /* GameDetails tabs */
 
-.dark #gameDetails .tab {
+.dark #gameDetails [role='tab'] {
     background: rgb(56,56,56);
 } 
 
-.light #gameDetails .tab {
+.light #gameDetails [role='tab'] {
     background: rgb(242,242,242);
 }
 
-#gameDetails .tab.selected {
+#gameDetails [role='tab'][aria-selected='true'] {
     background: rgb(0,120,215);
 }
 
-/* Files */
+/* GameDetails lists */
 
-.dark #gameDetails .filesSection .file {
-    color: white !important;
-}
-
-.light #gameDetails .filesSection .file {
-    color: black !important;
-}
-
-.dark #gameDetails .filesSection .file:hover {
-    background: rgb(51,51,51) !important;
-}
-
-.light #gameDetails .filesSection .file:hover {
-    background: rgb(217,217,217) !important;
-}
-
-.dark #gameDetails .filesSection .file:nth-child(odd) {
+.dark #gameDetails ul.list li:nth-child(odd) {
     background: rgb(26,26,26);
 }
 
-.light #gameDetails .filesSection .file:nth-child(odd) {
+.light #gameDetails ul.list li:nth-child(odd) {
     background: rgb(242,242,242);
 }

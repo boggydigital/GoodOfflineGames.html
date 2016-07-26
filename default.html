@@ -32,8 +32,8 @@
             </li>
         </template>
         <template id="gameDetails">
-            <div class='container {{visibility}}'>
-                [[productTitle]] [[productImage]] [[tabs]] [[tabInformationContent]] [[tabFilesContent]] [[tabScreenshotsContent]] [[tabChangelogContent]]
+            <div class='container' data-visible='{{visibility}}'>
+                [[productImage]] [[productTitle]] [[tabs]] [[tabInformationContent]] [[tabFilesContent]] [[tabScreenshotsContent]] [[tabChangelogContent]]
             </div>
         </template>
         <template id="productTitle">
@@ -44,90 +44,99 @@
                 alt='Product image'>
         </template>
         <template id='tabs'>
-            <div class='tabs'>
-                <div class='tab information selected'><span class='lnr lnr-question-circle'></span> Information</div>
-                <div class='tab files'><span class='lnr lnr-file-empty'></span> Files</div>
-                <div class='tab screenshots'><span class='lnr lnr-picture'></span> Screenshots</div>
-                <div class='tab changelog'><span class='lnr lnr-history'></span> Changelog</div>
-            </div>
+            <ul role='tablist' aria-label='Information, Files, Screenshots and Changelog'>
+                <li tabindex=-1 role='tab' aria-selected='true' title='Information' data-content='informationContent'><span class='lnr lnr-question-circle'></span></li>
+                <li tabindex=-1 role='tab' data-visibility='files' title='Files' data-content='filesContent'><span class='lnr lnr-file-empty'></span></li>
+                <li tabindex=-1 role='tab' data-visibility='screenshots' title='Screenshots' data-content='screenshotsContent'><span class='lnr lnr-picture'></span></li>
+                <li tabindex=-1 role='tab' data-visibility='changelog' title='Changelog' data-content='changelogContent'><span class='lnr lnr-history'></span></li>
+            </ul>
         </template>
         <template id='tabInformationContent'>
-            <div for='information' class='tabContent'>
-                [[information]] [[links]] [[cdKey]] [[genres]] [[series]] [[requiredProducts]] [[dlc]]
+            <div id='informationContent' class='tabContent'>
+                [[information]]
             </div>
         </template>
         <template id='tabFilesContent'>
-            <div for='files' class='tabContent hidden'>
+            <div id='filesContent' class='tabContent hidden' data-visibility='files'>
                 [[files]]
             </div>
         </template>
         <template id='tabScreenshotsContent'>
-            <div for='screenshots' class='tabContent hidden'>
+            <div id='screenshotsContent' class='tabContent hidden' data-visibility='screenshots'>
                 [[screenshots]]
             </div>
         </template>
         <template id='tabChangelogContent'>
-            <div for='changelog' class='tabContent hidden'>
+            <div id='changelogContent' class='tabContent hidden' data-visibility='changelog'>
                 [[changelog]]
             </div>
         </template>
         <template id="information">
-            <div class='informationSection'>
-                <h3>Developer</h3>
-                <p>{{developer}}</p>
-                <h3>Publisher</h3>
-                <p>{{publisher}}</p>
-                <h3>Works on</h3>
-                <p>{{worksOn}}</p>
-            </div>
-        </template>
-        <template id="cdKey">
-            <div class="cdKeySection">
-                <h3>CD Key (select to reveal)</h3>
-                <p>{{cdKey}}</p>
-            </div>
-        </template>
-        <template id="genres">
-            <div class='genresSection'>
-                <h3 class='title'>Genres</h3>
-                <p>{{genres}}</p>
-            </div>
-        </template>
-        <template id="series">
-            <div class='seriesSection'>
-                <h3>Series</h3>
-                <p>{{series}}</p>
-            </div>
-        </template>
-        <template id="requiredProducts">
-            <div class='requiredProductsSection'>
-                <h3>Required products</h3>
-                <p>{{requiredProducts}}</p>
-            </div>
-        </template>
-        <template id="dlc">
-            <div class='dlcSection'>
-                <h3>Downloadable content</h3>
-                <p>{{dlc}}</p>
-            </div>
+            <ul class="list">
+                <li>
+                    <span>Developer</span>
+                    <span>{{developer}}</span>
+                </li>
+                <li>
+                    <span>Publisher</span>
+                    <span>{{publisher}}</span>
+                </li>
+                <li>
+                    <span>Works on</span>
+                    <span>{{worksOn}}</span>
+                </li>
+                [[links]] [[cdKey]] [[genres]] [[series]] [[requiredProducts]] [[dlc]]
+            </ul>
         </template>
         <template id='links'>
-            <div class='linksSection'>
-                <h3>Links</h3>
-                <a href='https://www.gog.com/game/{{slug}}'>Product page</a>
-                <a href='https://www.gog.com/forum/{{slug}}'>Community page</a>
-            </div>
+            <li data-visibility='links'>
+                <span>Links</span>
+                <span>
+                    <a href='https://www.gog.com/game/{{slug}}'>Product</a>
+                    <a href='https://www.gog.com/forum/{{slug}}'>Forum</a>
+                </span>
+            </li>
+        </template>
+        <template id="cdKey">
+            <li data-visibility="cdKey">
+                <span>CD Key (select to reveal)</span>
+                <span>{{cdKey}}</span>
+            </li>
+        </template>
+        <template id="genres">
+            <li data-visibility='genres'>
+                <span>Genres</span>
+                <span>{{genres}}</span>
+            </li>
+        </template>
+        <template id="series">
+            <li data-visibility='series'>
+                <span>Series</span>
+                <span>{{series}}</span>
+            </li>
+        </template>
+        <template id="requiredProducts">
+            <li data-visibility='requiredProducts'>
+                <span>Required products</span>
+                <span>{{requiredProducts}}</span>
+            </li>
+        </template>
+        <template id="dlc">
+            <li data-visibility='dlc'>
+                <span>Downloadable content</span>
+                <span>{{dlc}}</span>
+            </li>
         </template>
         <template id="screenshots">
             <template data-images='{{screenshots}}'></template>
         </template>
         <template id='files'>
-            <div class='filesSection'>
+            <ul class="list" data-visibility='files'>
                 <template data-files='{{files}}'></template>
-            </div>
+            </ul>
         </template>
         <template id='changelog'>
-            <div class='changelogSection'>
+            <div data-visibility='changelog'>
                 {{changelog}}
             </div>
         </template>
@@ -136,12 +145,12 @@
                 onerror="this.classList.add('hidden')">
         </template>
         <template id='fileLink'>
-            <a class='file' href='./{{folder}}/{{file}}'>
-                <span class='name' title='{{name}}'>{{name}}</span>
+            <li>
+                <span class='name' title='{{name}}'><a href='./{{folder}}/{{file}}'>{{name}}</a></span>
                 <span class='operatingSystem'>{{operatingSystem}}</span>
                 <span class='language'>{{language}}</span>
                 <span class='size'>{{size}}</span>
-            </a>
+            </li>
         </template>
         <template id='listFilter'>
             <span class='lnr lnr-funnel'></span> Filter: <select><option>All</option></select>

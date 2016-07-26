@@ -61,6 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let tabsController = new TabsController(
         imagesExpandController,
         imagesLoadController);
+    let visibilityController = new VisibilityController();
 
     let searchViewModelProvider = new SearchViewModelProvider(
         productsController,
@@ -99,7 +100,8 @@ document.addEventListener("DOMContentLoaded", () => {
         tabsController,
         filesExpandController,
         // imagesExpandController,
-        imagesLoadController);
+        imagesLoadController,
+        visibilityController);
 
     let masterDetailViewController = new MasterDetailViewController(
         listViewController,
