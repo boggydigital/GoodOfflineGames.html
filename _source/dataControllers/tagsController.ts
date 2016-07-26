@@ -56,7 +56,9 @@ export class TagsController implements ITagsController {
             this.validationSuccessTag];
         if (!this.gameDetailsController) return tags;
 
-        this.gameDetailsController.getAll().forEach(gd => {
+        let gameDetails = this.gameDetailsController.getAll();
+        if (!gameDetails) return tags;
+        gameDetails.forEach(gd => {
             gd.tags.forEach(tag => {
                 if (tags.indexOf(tag.name) === -1) tags.push(tag.name);
             })
