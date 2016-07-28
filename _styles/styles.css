@@ -504,3 +504,11 @@ h1#appTitle {
     /* width/height: 100% + object-fit: contain */
     width: 100%
 }
+
+@supports  (object-fit: contain) {
+    #screenshotFullscreenContainer img {
+        /* width/height: 100% + object-fit: contain */
+        height: 100%;
+        object-fit: contain;
+    }
+}
