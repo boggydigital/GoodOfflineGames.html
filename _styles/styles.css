@@ -162,33 +162,45 @@ a {
     background: var(--scrollbarThumbActive);
 }
 
+/* Header */
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    margin: 0.5rem 0 1rem 0;
+}
+
+header > * {
+    margin: 0 0 0.5rem 0.75rem;
+}
+
 /* App Title */
 
 h1#appTitle {
-    padding-left: 0.5rem;
+    margin-top: 0.5rem;
     font-weight: 300;
     font-style: italic;  
     -webkit-user-select: none;
+    user-select: none;
     cursor: default;
 }
 
 /* Search */
 
 #search {
-    position: fixed;
-    left: 0;
-    top: 3.25em;
-    height: calc(4em+0.75em+0.75em);
     width: 20em;
     background-color: inherit;
     overflow: visible;
 }
 
 #search input[type=search] {
-    margin: 0.75rem;
-    padding-left: 0.4375rem;
+    padding-left: 0.5rem;
     width: calc(100% - 0.75rem - 0.125rem);
-    height: calc(2rem - 2*0.125rem);
+    height: 1.75rem;
     outline: 0.125rem solid;
     outline-color: var(--inputOutline);
     border: 0;
@@ -217,6 +229,10 @@ h1#appTitle {
     color: var(--inputPlaceholder)
 }
 
+#search input[type=search]:focus:hover {
+    outline-color: var(--accent);
+}
+
 /* Filter */
 
 .filtered {
@@ -224,16 +240,8 @@ h1#appTitle {
 }
 
 #filter {
-    position: fixed;
-    top: 6.5rem;
-    padding-left: 0.25rem;
+    height: 1.25rem;
     cursor: default;
-    /*font-size: 0.75em;*/
-}
-
-#filter .title {
-    /*padding-left: 0.5em;
-    padding-right: 0.5em;*/
 }
 
 #filter select {
@@ -257,7 +265,7 @@ h1#appTitle {
     width: 20em;
     position: fixed;
     left: 0;
-    top: calc(3.25em + 2em + 0.75em + 0.75em + 2em);
+    top: calc((2rem + 2*0.5rem) + (1.75rem + 0.5rem) + (1.25rem + 0.5rem) + 0.5rem + 1rem);
     bottom:0;
     overflow-x: hidden;
     cursor: default;
@@ -285,24 +293,6 @@ h1#appTitle {
     transition: transform 167ms ease-in;
 }
 
-#products .product .title {
-    white-space: nowrap;
-    width: 100%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: block;
-}
-
-#products .product .tags {
-    text-transform: uppercase;
-    font-size: 0.7em;
-    display: none;
-}
-
-#products .product.hasTags .tags {
-    display: block;
-}
-
 #products .product:focus {
     outline: 2px solid;
     outline-offset: -2px;
@@ -320,6 +310,24 @@ h1#appTitle {
 #products .product.selected {
     background: var(--accent) !important;
     color: white;
+}
+
+#products .product .title {
+    white-space: nowrap;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+}
+
+#products .product .tags {
+    display: none;
+}
+
+#products .product.hasTags .tags {
+    text-transform: uppercase;
+    font-size: 0.7em;    
+    display: block;
 }
 
 .warning {
@@ -380,6 +388,7 @@ h1#appTitle {
     margin: 0.25em;
     margin-left: 0;
     transform-origin: center center;
+    vertical-align: top
 }
 
 #gameDetails #screenshotsContent img:hover {

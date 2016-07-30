@@ -50,6 +50,10 @@
     color: rgb(153,153,153)
 }
 
+#search input[type=search]:focus:hover {
+    outline-color: rgb(0,120,215);
+}
+
 /* Products */
 
 #products .product.selected {
@@ -62,6 +66,14 @@
 
 .light #products .keyboardSelected {
     outline-color: black;
+}
+
+.dark #products .product:focus {
+    outline-color: white
+}
+
+.light #products .product:focus {
+    outline-color: black
 }
 
 .dark #products .product:hover {
