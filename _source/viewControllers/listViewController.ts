@@ -1,6 +1,8 @@
 import {IEventCallbackController, IAddEventCallbackDelegate} from "../eventCallbackController";
 import {IViewController, IGetIdDelegate} from "./viewController";
 import {IIndexMatchingController} from "../indexMatchingController";
+import {ITemplateController} from "../templateController";
+import {IBindController} from "../bindController";
 
 export interface IClearSelectionDelegate {
     (): void;
@@ -25,6 +27,10 @@ export interface IListViewController {
     addEventCallback: IAddEventCallbackDelegate;
 }
 
+class SearchResultsRemainingViewModel {
+    searchResultsRemaining: number;
+}
+
 export class ListViewController<T> implements IListViewController {
 
     viewController: IViewController;
@@ -37,12 +43,6 @@ export class ListViewController<T> implements IListViewController {
 
     searchResultsLimit = 25;
     searchResultsCount = 0;
-    searchResultsLimitedClass: string = "warning";
-
-    searchResultsLimitedMessage: string =
-    "Search results are limited to " +
-    this.searchResultsLimit +
-    " items";
 
     // keyboardSelectedClass: string = "keyboardSelected";
     selectedClass: string = "selected";
@@ -54,6 +54,9 @@ export class ListViewController<T> implements IListViewController {
     listContainer: Element;
     searchResultsContainer: Element;
 
+    templateController: ITemplateController;
+    bindController: IBindController<SearchResultsRemainingViewModel>;
+
     activeView: Element;
 
     public constructor(
@@ -64,11 +67,16 @@ export class ListViewController<T> implements IListViewController {
         viewController: IViewController,
         searchController: IIndexMatchingController<T>,
         filterController: IIndexMatchingController<T>,
+        templateController: ITemplateController,
+        bindController: IBindController<SearchResultsLimitedViewModel>,
         eventCallbackController: IEventCallbackController) {
 
         this.parentElement = parentElement;
         this.viewController = viewController;
         this.eventCallbackController = eventCallbackController;
+
+        this.templateController = templateController;
+        this.bindController = bindController;
 
         // 0. create child container objects for list and searchResultsContainer
         this.listContainer = document.createElement("ul");
@@ -153,18 +161,19 @@ export class ListViewController<T> implements IListViewController {
                 that.activeView = that.searchResultsContainer;
             });
 
-            searchController.addEventCallback("matchEnd", () => {
+            searchController.addEventCallback("matchEnd", matched => {
                 that.searchResultsContainer.classList.remove("hidden");
 
                 // add notice that we display only searchLimit results
 
                 if (that.searchResultsCount > that.searchResultsLimit) {
 
-                    let searchResultsLimitedElement = document.createElement("div");
-                    searchResultsLimitedElement.className = that.searchResultsLimitedClass;
-                    searchResultsLimitedElement.textContent = that.searchResultsLimitedMessage;
+                    let template = templateController.getTemplate("searchResultsRemaining"); 
+                    let srrVM = new SearchResultsRemainingViewModel();
+                    srrVM.searchResultsRemaining = matched - this.searchResultsLimit;
+                    let html = bindController.bindTemplateToModel(template, srrVM);
 
-                    that.searchResultsContainer.appendChild(searchResultsLimitedElement);
+                    that.searchResultsContainer.innerHTML += html;
                 }
             });
 

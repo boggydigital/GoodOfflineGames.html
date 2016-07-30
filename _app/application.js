@@ -102,6 +102,8 @@ document.addEventListener("DOMContentLoaded", () => {
         viewControllerProducts, // ...
         searchController, 
         filterController,
+        templateController,
+        bindController,
         eventCallbackController); // ...
 
     let gameDetailsViewController = new GameDetailsViewController(

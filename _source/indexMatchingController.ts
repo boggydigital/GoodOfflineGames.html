@@ -26,7 +26,6 @@ interface IMatchTermsDelegate {
 export interface IIndexMatchingController<T> {
     index: IIndexDelegate<T>;
     match: IMatchDelegate;
-    // filter: IFilterDelegate;
     filterAll: IFilterDelegate;
     addEventCallback: IAddEventCallbackDelegate;
 }
@@ -62,10 +61,6 @@ export class IndexMatchingController<T> implements IIndexMatchingController<T> {
         this.indexStore = new Array<IndexViewModel>();
 
         if (filterController) {
-            // filterController.addEventCallback(this.filterAllStartEvent, () => {
-            //     this.filteredItems = new Array<number>();
-            // })
-
             filterController.addEventCallback(this.filterClearEvent, () => {
                 this.filteredItems = new Array<number>();
             })
@@ -112,8 +107,9 @@ export class IndexMatchingController<T> implements IIndexMatchingController<T> {
             return;
         }
         inputString = inputString.toLowerCase();
-        this.eventCallbackController.fire(this.matchStartEvent, new Date());
+        this.eventCallbackController.fire(this.matchStartEvent, null);
         let inputSearchTerms = inputString.split(" ");
+        let matchedCount = 0;
 
         for (let ii = 0; ii < this.indexStore.length; ii++)
         {
@@ -122,10 +118,13 @@ export class IndexMatchingController<T> implements IIndexMatchingController<T> {
                 this.filteredItems.indexOf(this.indexStore[ii].id) > -1) continue;
 
             if (this.matchTerms(inputSearchTerms, this.indexStore[ii].terms))
+            {
                 this.eventCallbackController.fire(this.matchedEvent, this.indexStore[ii].id);
+                matchedCount++;
+            }
         }
 
-        this.eventCallbackController.fire(this.matchEndEvent, new Date());
+        this.eventCallbackController.fire(this.matchEndEvent, matchedCount);
     }
 
     public filterAll: IFilterDelegate =
