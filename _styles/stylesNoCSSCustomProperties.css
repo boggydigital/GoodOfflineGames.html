@@ -24,6 +24,10 @@
 
 /* Search */
 
+#search {
+    width: 20em;
+}
+
 .dark #search input[type=search] {
     outline-color: rgb(133,133,133);
 }
@@ -55,6 +59,14 @@
 }
 
 /* Products */
+
+#products {
+    width: 20em;
+}
+
+#products .product {
+    width: calc(20em-1.25em);
+}
 
 #products .product.selected {
     background: rgb(0,120,215) !important;
@@ -101,6 +113,10 @@
 }
 
 /* GameDetails */
+
+#gameDetails {
+    left: 20em;
+}
 
 #gameDetails a {
     color: rgb(0,120,215);

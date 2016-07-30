@@ -20,16 +20,16 @@
         </div>
         <div id="filter">
             <span class='title'>Filter:</span>
-            <select>
+            <select tabindex="2">
                 <option>All</option>
             </select>
         </div>
     </header>
 
-    <nav id="products" tabindex="2"></nav>
-    <main id="gameDetails" tabindex="3"></main>
+    <nav id="products" tabindex="3"></nav>
+    <main id="gameDetails" tabindex="4"></main>
 
-    <div id='screenshotFullscreenContainer' tabindex='5' class='hidden' onclick='this.classList.add("hidden")' onkeypress='this.classList.add("hidden")'>
+    <div id='screenshotFullscreenContainer' class='hidden' onclick='this.classList.add("hidden")'>
         <div class='lnr lnr-arrow-left-circle'></div>
         <img src="#" />
         <div class='lnr lnr-arrow-right-circle'></div>
@@ -152,7 +152,7 @@
             </div>
         </template>
         <template id='focusableImage'>
-            <img class='hidden' tabindex='4' data-src='{{uri}}' onclick='screenshotsController.showFullscreen(this)' onkeypress='screenshotsController.showFullscreen(this)'
+            <img class='hidden' tabindex='5' data-src='{{uri}}' onclick='screenshotsController.showFullscreen(this)' onkeypress='screenshotsController.showFullscreen(this)'
                 onerror="this.classList.add('hidden')">
         </template>
         <template id='fileLink'>

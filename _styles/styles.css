@@ -5,6 +5,7 @@
     --inputBackground: white;
     --inputForeground: black;
     --inputPlaceholder: rgb(153,153,153);
+    --leftColumnWidth: 20em;
 }
 
 :root .dark {
@@ -23,10 +24,10 @@
     --scrollbarThumb: rgb(69,69,69);
     --scrollbarThumbHover: rgb(116,116,116);
     --scrollbarThumbActive: rgb(162,162,162);
-    --scrollbarButtonUp: url("data:image/svg+xml,<svg viewBox='0 0 12 12' height='12' width='12' xmlns='http://www.w3.org/2000/svg'><path style='stroke: white' fill='none' d='M3,7.5 L6,5 L9,7.5' /></svg>");                                        
-    --scrollbarButtonDown: url("data:image/svg+xml,<svg viewBox='0 0 12 12' height='12' width='12' xmlns='http://www.w3.org/2000/svg'><path style='stroke: white' fill='none' d='M3,5 L6,7.5 L9,5' /></svg>");                                        
-    --scrollbarButtonUpActive: url("data:image/svg+xml,<svg viewBox='0 0 12 12' height='12' width='12' xmlns='http://www.w3.org/2000/svg'><path style='stroke: black' fill='none' d='M3,7.5 L6,5 L9,7.5' /></svg>");                                        
-    --scrollbarButtonDownActive: url("data:image/svg+xml,<svg viewBox='0 0 12 12' height='12' width='12' xmlns='http://www.w3.org/2000/svg'><path style='stroke: black' fill='none' d='M3,5 L6,7.5 L9,5' /></svg>");                                        
+    --scrollbarButtonUp: url("data:image/svg+xml,<svg viewBox='0 0 24 24' height='12' width='12' xmlns='http://www.w3.org/2000/svg'><path style='stroke: white' fill='none' d='M6,16 L12,10 L18,16' /></svg>");                                        
+    --scrollbarButtonDown: url("data:image/svg+xml,<svg viewBox='0 0 24 24' height='12' width='12' xmlns='http://www.w3.org/2000/svg'><path style='stroke: white' fill='none' d='M6,10 L12,16 L18,10' /></svg>");                                        
+    --scrollbarButtonUpActive: url("data:image/svg+xml,<svg viewBox='0 0 24 24' height='12' width='12' xmlns='http://www.w3.org/2000/svg'><path style='stroke: black' fill='none' d='M6,16 L12,10 L18,16' /></svg>");                                        
+    --scrollbarButtonDownActive: url("data:image/svg+xml,<svg viewBox='0 0 24 24' height='12' width='12' xmlns='http://www.w3.org/2000/svg'><path style='stroke: black' fill='none' d='M6,10 L12,16 L18,10' /></svg>");                                        
     /*--scrollbarButtonLeft: url("data:image/svg+xml,<svg viewBox='0 0 12 12' height='12' width='12' xmlns='http://www.w3.org/2000/svg'><path style='stroke: white' fill='none' d='M7.5,3 L5,6 L7.5,9' /></svg>");*/
     /*--scrollbarButtonRight: url("data:image/svg+xml,<svg viewBox='0 0 12 12' height='12' width='12' xmlns='http://www.w3.org/2000/svg'><path style='stroke: white' fill='none' d='M5,3 L7.5,6 L5,9' /></svg>");*/
     --scrollbarButtonActive: rgb(162,162,162);
@@ -48,10 +49,10 @@
     --scrollbarThumb: rgb(194,194,194);
     --scrollbarThumbHover: rgb(145,145,145);
     --scrollbarThumbActive: rgb(97,97,97);
-    --scrollbarButtonUp: url("data:image/svg+xml,<svg viewBox='0 0 12 12' height='12' width='12' xmlns='http://www.w3.org/2000/svg'><path style='stroke: black' fill='none' d='M3,7.5 L6,5 L9,7.5' /></svg>");                                
-    --scrollbarButtonDown: url("data:image/svg+xml,<svg viewBox='0 0 12 12' height='12' width='12' xmlns='http://www.w3.org/2000/svg'><path style='stroke: black' fill='none' d='M3,5 L6,7.5 L9,5' /></svg>");
-    --scrollbarButtonUpActive: url("data:image/svg+xml,<svg viewBox='0 0 12 12' height='12' width='12' xmlns='http://www.w3.org/2000/svg'><path style='stroke: white' fill='none' d='M3,7.5 L6,5 L9,7.5' /></svg>");                                        
-    --scrollbarButtonDownActive: url("data:image/svg+xml,<svg viewBox='0 0 12 12' height='12' width='12' xmlns='http://www.w3.org/2000/svg'><path style='stroke: white' fill='none' d='M3,5 L6,7.5 L9,5' /></svg>");                                        
+    --scrollbarButtonUp: url("data:image/svg+xml,<svg viewBox='0 0 24 24' height='12' width='12' xmlns='http://www.w3.org/2000/svg'><path style='stroke: black' fill='none' d='M6,16 L12,10 L18,16' /></svg>");                                        
+    --scrollbarButtonDown: url("data:image/svg+xml,<svg viewBox='0 0 24 24' height='12' width='12' xmlns='http://www.w3.org/2000/svg'><path style='stroke: black' fill='none' d='M6,10 L12,16 L18,10' /></svg>");                                        
+    --scrollbarButtonUpActive: url("data:image/svg+xml,<svg viewBox='0 0 24 24' height='12' width='12' xmlns='http://www.w3.org/2000/svg'><path style='stroke: white' fill='none' d='M6,16 L12,10 L18,16' /></svg>");                                        
+    --scrollbarButtonDownActive: url("data:image/svg+xml,<svg viewBox='0 0 24 24' height='12' width='12' xmlns='http://www.w3.org/2000/svg'><path style='stroke: white' fill='none' d='M6,10 L12,16 L18,10' /></svg>");                                        
     /*--scrollbarButtonLeft: url("data:image/svg+xml,<svg viewBox='0 0 12 12' height='12' width='12' xmlns='http://www.w3.org/2000/svg'><path style='stroke: black' fill='none' d='M7.5,3 L5,6 L7.5,9' /></svg>");*/
     /*--scrollbarButtonRight: url("data:image/svg+xml,<svg viewBox='0 0 12 12' height='12' width='12' xmlns='http://www.w3.org/2000/svg'><path style='stroke: black' fill='none' d='M5,3 L7.5,6 L5,9' /></svg>");*/
     --scrollbarButtonActive: rgb(97,97,97);    
@@ -181,7 +182,7 @@ header > * {
 /* Search */
 
 #search {
-    width: 20em;
+    width: var(--leftColumnWidth);
     background-color: inherit;
     overflow: visible;
 }
@@ -230,17 +231,22 @@ header > * {
 
 #filter {
     margin-top: 0.5rem;
-    height: 1.25rem;
+    height: 1.5rem;
     cursor: default;
 }
 
 #filter select {
     font-size: inherit;
+    padding: 0.25rem;
     -webkit-appearance: none;
     border: 0;
     background: inherit;
     color: var(--accent);
     cursor: pointer;
+}
+
+#filter select:focus {
+    outline: 0.125rem solid currentColor;
 }
 
 #filter select:hover {
@@ -252,10 +258,10 @@ header > * {
 #products {
     background: inherit;
     color: inherit;
-    width: 20em;
+    width: var(--leftColumnWidth);
     position: fixed;
     left: 0;
-    top: calc((1.75rem) + (1.25rem + 0.5rem) + 2*1rem);
+    top: calc((1.75rem) + (1.5rem + 0.5rem) + 2*1rem);
     bottom:0;
     overflow-x: hidden;
     cursor: default;
@@ -272,7 +278,7 @@ header > * {
 
 #products .product {
     background: inherit;
-    width: calc(20em-1.25em);
+    width: calc(var(--leftColumnWidth)-1.25em);
     overflow: visible;
     display: block;
     font-size: 1em;
@@ -331,7 +337,7 @@ header > * {
 #gameDetails {
     background: inherit;
     position: fixed;
-    left: 20rem;
+    left: var(--leftColumnWidth);
     top: 0;
     right: 0;
     bottom: 0;
