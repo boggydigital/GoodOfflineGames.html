@@ -171,22 +171,11 @@ header {
     display: flex;
     flex-direction: column;
     align-content: center;
-    margin: 0.5rem 0 1rem 0;
+    margin: 1rem 0 1rem 0;
 }
 
 header > * {
-    margin: 0 0 0.5rem 0.75rem;
-}
-
-/* App Title */
-
-h1#appTitle {
-    margin-top: 0.5rem;
-    font-weight: 300;
-    font-style: italic;  
-    -webkit-user-select: none;
-    user-select: none;
-    cursor: default;
+    margin-left: 0.75rem;
 }
 
 /* Search */
@@ -240,6 +229,7 @@ h1#appTitle {
 }
 
 #filter {
+    margin-top: 0.5rem;
     height: 1.25rem;
     cursor: default;
 }
@@ -265,7 +255,7 @@ h1#appTitle {
     width: 20em;
     position: fixed;
     left: 0;
-    top: calc((2rem + 2*0.5rem) + (1.75rem + 0.5rem) + (1.25rem + 0.5rem) + 0.5rem + 1rem);
+    top: calc((1.75rem) + (1.25rem + 0.5rem) + 2*1rem);
     bottom:0;
     overflow-x: hidden;
     cursor: default;
