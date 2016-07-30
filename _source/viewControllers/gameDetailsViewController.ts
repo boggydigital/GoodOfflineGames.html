@@ -60,11 +60,8 @@ export class GameDetailsViewController implements IDetailsViewController {
         // expand files
         this.filesExpandController.process(this.parentElement);
         // expand images
-        // this.imagesExpandController.process(this.parentElement);
-        // load images
-        // requestAnimationFrame(() => {
         this.imagesLoadController.process(this.parentElement);
-        // });
+        // remove view elements we don't need
         this.visibilityController.process(this.parentElement);
     }
 }
