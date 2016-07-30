@@ -202,7 +202,6 @@ header > * {
 }
 
 #search input[type=search]::-webkit-input-placeholder {
-    text-align: center;
     color: var(--inputOutline);
 }
 
@@ -217,7 +216,6 @@ header > * {
 }
 
 #search input[type=search]:focus::-webkit-input-placeholder {
-    text-align: left;
     color: var(--inputPlaceholder)
 }
 
