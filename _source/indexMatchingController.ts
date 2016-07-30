@@ -131,7 +131,7 @@ export class IndexMatchingController<T> implements IIndexMatchingController<T> {
     public filterAll: IFilterDelegate =
     (inputString: string): void => {
 
-        if (inputString === "All") {
+        if (inputString === "") {
             this.eventCallbackController.fire(this.filterClearEvent, null);
             return;
         }

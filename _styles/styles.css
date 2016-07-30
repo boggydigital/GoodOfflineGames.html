@@ -202,6 +202,7 @@ header > * {
 }
 
 #search input[type=search]::-webkit-input-placeholder {
+    text-align: center;
     color: var(--inputOutline);
 }
 
@@ -216,6 +217,7 @@ header > * {
 }
 
 #search input[type=search]:focus::-webkit-input-placeholder {
+    text-align: left;
     color: var(--inputPlaceholder)
 }
 
@@ -230,14 +232,15 @@ header > * {
 }
 
 #filter {
-    margin-top: 0.5rem;
-    height: 1.5rem;
+    font-size: 0.8em;
+    margin-top: 0.75rem;
     cursor: default;
 }
 
 #filter select {
     font-size: inherit;
     padding: 0.25rem;
+    height: 1.5rem;
     -webkit-appearance: none;
     border: 0;
     background: inherit;

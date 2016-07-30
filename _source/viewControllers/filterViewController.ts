@@ -31,7 +31,7 @@ export class FilterViewController {
             html.push(bindController.bindTemplateToModel(template, foVM));
         });
 
-        filterControl.innerHTML += html;
+        filterControl.innerHTML += html.join("");
 
     }
 }

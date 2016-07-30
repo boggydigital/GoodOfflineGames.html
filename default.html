@@ -16,12 +16,12 @@
 
     <header>
         <div id="search" role="search">
-            <input type="search" role="searchbox" tabindex="1" placeholder="Find a product" />
+            <input type="search" role="searchbox" tabindex="1" placeholder="Search for product" />
         </div>
         <div id="filter">
-            <span class='title'>Filter:</span>
+            <span class='title'>Show</span>
             <select tabindex="2">
-                <option>All</option>
+                <option value="">All products</option>
             </select>
         </div>
     </header>
@@ -164,7 +164,7 @@
             </li>
         </template>
         <template id='filterOption'>
-            <option>{{name}}</option>
+            <option value='{{name}}'>{{name}}</option>
         </template>
     </div>
 
