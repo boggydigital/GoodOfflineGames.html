@@ -68,7 +68,7 @@ export class ListViewController<T> implements IListViewController {
         searchController: IIndexMatchingController<T>,
         filterController: IIndexMatchingController<T>,
         templateController: ITemplateController,
-        bindController: IBindController<SearchResultsLimitedViewModel>,
+        bindController: IBindController<SearchResultsRemainingViewModel>,
         eventCallbackController: IEventCallbackController) {
 
         this.parentElement = parentElement;
@@ -79,15 +79,15 @@ export class ListViewController<T> implements IListViewController {
         this.bindController = bindController;
 
         // 0. create child container objects for list and searchResultsContainer
-        this.listContainer = document.createElement("ul");
-        this.listContainer.classList.add(this.listContainerClass);
+        let innerHTML = new Array<string>();
 
-        this.searchResultsContainer = document.createElement("ul");
-        this.searchResultsContainer.classList.add(this.searchResultsContainerClass);
-        this.searchResultsContainer.classList.add("hidden");
+        innerHTML.push(this.templateController.getTemplate(this.listContainerClass));
+        innerHTML.push(this.templateController.getTemplate(this.searchResultsContainerClass));
 
-        this.parentElement.appendChild(this.listContainer);
-        this.parentElement.appendChild(this.searchResultsContainer);
+        this.parentElement.innerHTML += innerHTML.join("");
+
+        this.listContainer = this.parentElement.getElementsByClassName(this.listContainerClass)[0];
+        this.searchResultsContainer = this.parentElement.getElementsByClassName(this.searchResultsContainerClass)[0];
 
         let n = Math.min(25, collection.length);
 
