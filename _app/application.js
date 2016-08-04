@@ -137,6 +137,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     filterInput.addEventListener("change", e => {
         filterController.filterAll(e.target.value);
+        if (searchInput.value !== "")
+            searchController.match(searchInput.value);
     });
 
 });
