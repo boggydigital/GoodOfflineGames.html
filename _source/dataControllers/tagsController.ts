@@ -22,7 +22,7 @@ export interface ITagsController {
 export class TagsController implements ITagsController {
 
     productsDataController: IProductsCoreController<ProductData>;
-    ownedController: IProductsCoreController<Product>;
+    accountProductsController: IProductsCoreController<Product>;
     gameDetailsController: IProductsCoreController<GameDetails>;
     wishlistController: ICollectionController<number>;
     productFilesController: IProductFilesController;
@@ -35,12 +35,12 @@ export class TagsController implements ITagsController {
 
     public constructor(
         productsDataController: IProductsCoreController<ProductData>,
-        ownedController: IProductsCoreController<Product>,
+        accountProductsController: IProductsCoreController<Product>,
         gameDetailsController: IProductsCoreController<GameDetails>,
         productFilesController: IProductFilesController,
         wishlistController: ICollectionController<number>) {
         this.productsDataController = productsDataController;
-        this.ownedController = ownedController;
+        this.accountProductsController = accountProductsController;
         this.gameDetailsController = gameDetailsController;
         this.productFilesController = productFilesController;
         this.wishlistController = wishlistController;
@@ -81,8 +81,8 @@ export class TagsController implements ITagsController {
             }
         }
 
-        if (this.ownedController &&
-            this.ownedController.getById(id)) {
+        if (this.accountProductsController &&
+            this.accountProductsController.getById(id)) {
             tags.push(this.ownedTag);
         }
 

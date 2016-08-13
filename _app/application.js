@@ -15,11 +15,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let productsController = new ProductsController(products);
     let productsDataController = new ProductsDataController(productsdata);
-    let ownedController = new ProductsController(owned);
+    let accountProductsController = new ProductsController(accountproducts);
     let gameDetailsController = new GameDetailsController(gamedetails);
     let productFilesController = new ProductFilesController(productfiles);
-    productsController.addProducts(ownedController.getAll());
-    let wishlistController = new CollectionController(wishlisted);
+    productsController.addProducts(accountProductsController.getAll());
+    let wishlistController = new CollectionController(wishlistedproducts);
     let combinedProducts = productsController.getAll();
 
     let imageUriController = new ImageUriController();
@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let tagsController = new TagsController(
         productsDataController,
-        ownedController,
+        accountProductsController,
         gameDetailsController,
         productFilesController,
         wishlistController);
