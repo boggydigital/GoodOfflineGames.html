@@ -323,7 +323,7 @@ header > * {
 
 #products .product.hasTags .tags {
     text-transform: uppercase;
-    font-size: 0.7em;    
+    font-size: 0.6em;    
     display: block;
 }
 

@@ -15,11 +15,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let productsController = new ProductsController(products);
     let productsDataController = new ProductsDataController(productsdata);
-    let accountProductsController = new ProductsController(accountproducts);
+    let accountProductsController = new ProductsController(accountProducts);
     let gameDetailsController = new GameDetailsController(gamedetails);
     let productFilesController = new ProductFilesController(productfiles);
     productsController.addProducts(accountProductsController.getAll());
-    let wishlistController = new CollectionController(wishlistedproducts);
+    let wishlistController = new CollectionController(wishlisted);
     let combinedProducts = productsController.getAll();
 
     let imageUriController = new ImageUriController();

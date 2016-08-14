@@ -39,7 +39,7 @@
         <template id="product">
             <li id='{{id}}' class='product {{class}}' title='{{title}}' tabindex="-1">
                 <div class='title'>{{title}}</div>
-                <div class='tags' title='{{tags}}'><span class='lnr lnr-tag'></span> {{tags}}</div>
+                <div class='tags' title='{{tags}}'>{{tags}}</div>
             </li>
         </template>
         <template id="gameDetails">
@@ -181,12 +181,13 @@
 
     <script>
         var products = undefined;
-        var productsdata = undefined;
-        var gamedetails = undefined;
-        var accountproducts = undefined;
-        var wishlistedproducts = undefined;
+        var accountProducts = undefined;
+        var wishlisted = undefined;
+
         var screenshots = undefined;
         var productfiles = undefined;
+        var productsdata = undefined;
+        var gamedetails = undefined;
 
         // this is declared in global scope to make focusableImage onclick work
         var screenshotsController = undefined;
@@ -195,8 +196,8 @@
     </script>
     <!-- model -->
     <script src="./products.js"></script>
-    <script src="./accountproducts.js"></script>
-    <script src="./wishlistedproducts.js"></script>
+    <script src="./accountProducts.js"></script>
+    <script src="./wishlisted.js"></script>
     <!--<script src="./productsdata.js"></script>
     <script src="./gamedetails.js"></script>
     <script src="./productfiles.js"></script>
