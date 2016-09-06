@@ -51,7 +51,7 @@
             <h1>{{title}}</h1>
         </template>
         <template id="productImage">
-            <img class='hidden' data-srcset='{{hero}} 1x, {{heroRetina}} 2x' data-src='{{heroRetina}}' onerror="this.classList.add('hidden')"
+            <img class='hidden' data-src='{{image}}' onerror="this.classList.add('hidden')"
                 alt='Product image'>
         </template>
         <template id='tabs'>
@@ -183,10 +183,10 @@
         var products = undefined;
         var accountProducts = undefined;
         var wishlisted = undefined;
+        var gameProductData = undefined;
 
         var screenshots = undefined;
         var productfiles = undefined;
-        var productsdata = undefined;
         var gamedetails = undefined;
 
         // this is declared in global scope to make focusableImage onclick work
@@ -195,11 +195,11 @@
         var exports = {};
     </script>
     <!-- model -->
-    <script src="./products.js"></script>
-    <script src="./accountProducts.js"></script>
-    <script src="./wishlisted.js"></script>
-    <!--<script src="./productsdata.js"></script>
-    <script src="./gamedetails.js"></script>
+    <script async src="./products.js"></script>
+    <script async src="./accountProducts.js"></script>
+    <script async src="./wishlisted.js"></script>
+    <!--<script async src="./gameProductData.js"></script>-->
+    <!--<script src="./gamedetails.js"></script>
     <script src="./productfiles.js"></script>
     <script src="./screenshots.js"></script>-->
     <!-- controllers -->

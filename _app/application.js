@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
     /* Controller */
 
     let productsController = new ProductsController(products);
-    let productsDataController = new ProductsDataController(productsdata);
+    let productsDataController = new ProductsDataController(gameProductData);
     let accountProductsController = new ProductsController(accountProducts);
     let gameDetailsController = new GameDetailsController(gamedetails);
     let productFilesController = new ProductFilesController(productfiles);

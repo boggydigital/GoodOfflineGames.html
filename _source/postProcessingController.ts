@@ -17,17 +17,18 @@ export class ImagesLoadController implements IPostProcessingController {
     (container: Element): void => {
         var images = container.querySelectorAll("img");
         for (let ii = 0; ii < images.length; ii++) {
-            let dataSrcset = images[ii].getAttribute("data-srcset");
+            // let dataSrcset = images[ii].getAttribute("data-srcset");
             let dataSrc = images[ii].getAttribute("data-src");
-            if (dataSrcset) {
-                images[ii].setAttribute("srcset", dataSrcset);
-                images[ii].removeAttribute("data-srcset");
-            }
+            // if (dataSrcset) {
+            //     images[ii].setAttribute("srcset", dataSrcset);
+            //     images[ii].removeAttribute("data-srcset");
+            // }
             if (dataSrc) {
                 images[ii].setAttribute("src", dataSrc);
                 images[ii].removeAttribute("data-src");
             }
-            if (dataSrc || dataSrcset) images[ii].classList.remove("hidden");
+            // if (dataSrc || dataSrcset) images[ii].classList.remove("hidden");
+            if (dataSrc) images[ii].classList.remove("hidden");
         }
     }
 }

@@ -1,5 +1,5 @@
-export interface IGetProductImageUrisDelegate {
-    (uri: string): ImageUris;
+export interface IGetProductImageUriDelegate {
+    (uri: string): string;
 }
 
 export interface IGetScreenshotUri {
@@ -7,7 +7,7 @@ export interface IGetScreenshotUri {
 }
 
 export interface IImageUriController {
-    getProductImageUris: IGetProductImageUrisDelegate;
+    getProductImageUri: IGetProductImageUriDelegate;
     getScreenshotUri: IGetScreenshotUri;
 }
 
@@ -25,17 +25,11 @@ export class ImageUriController implements IImageUriController {
         return imageParts[imageParts.length - 1];
     }
 
-    public getProductImageUris: IGetProductImageUrisDelegate =
-    (uri: string): ImageUris => {
+    public getProductImageUri: IGetProductImageUriDelegate =
+    (uri: string): string => {
         let lastPart = this.getImageLastPart(uri);
 
-        let imageUris = new ImageUris();
-        imageUris.thumbnail = "_images/" + lastPart + "_196.jpg";
-        imageUris.thumbnailRetina = "_images/" + lastPart + "_392.jpg";
-        imageUris.hero = "_images/" + lastPart + "_800.jpg";
-        imageUris.heroRetina = "_images/" + lastPart + ".jpg";
-
-        return imageUris;
+        return "_images/" + lastPart + ".png";
     }
 
     public getScreenshotUri: IGetScreenshotUri =

@@ -41,6 +41,7 @@ export abstract class ProductsCoreController<T> implements IProductsCoreControll
     (id: number): ProductCore => {
         if (!this.model) return null;
         for (var ii = 0; ii < this.model.length; ii++) {
+            if (!this.model[ii]) continue;
             if (this.model[ii].id === id) return this.model[ii];
         }
         return undefined;

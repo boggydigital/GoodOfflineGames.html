@@ -11,10 +11,7 @@ export class GameDetailsViewModel {
     id: number;
     title: string;
     slug: string;
-    thumbnail: string;
-    thumbnailRetina: string;
-    hero: string;
-    heroRetina: string;
+    image: string;
     publisher: string;
     developer: string;
     cdKey: string;
@@ -94,11 +91,7 @@ export class GameDetailsViewModelProvider implements IViewModelByIdProvider<Game
         gdVM.publisher = "N/A";
         gdVM.developer = "N/A";
 
-        var productImageUris = this.imageUriController.getProductImageUris(product.image);
-        gdVM.thumbnail = productImageUris.thumbnail;
-        gdVM.thumbnailRetina = productImageUris.thumbnailRetina;
-        gdVM.hero = productImageUris.hero;
-        gdVM.heroRetina = productImageUris.heroRetina;
+        gdVM.image = this.imageUriController.getProductImageUri(product.image);
 
         if (this.productsDataController) {
             let pd = this.productsDataController.getById(id);
