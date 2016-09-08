@@ -14,8 +14,8 @@ export interface IScreenshotsController {
 }
 
 class ScreenshotEntry {
-    Key: number;
-    Value: Array<string>
+    id: number;
+    uris: Array<string>
 }
 
 export class ScreenshotsController implements IScreenshotsController {
@@ -47,7 +47,7 @@ export class ScreenshotsController implements IScreenshotsController {
         let result = new Array<string>();
         if (!this.screenshots) return result;
         this.screenshots.forEach(e => {
-            if (e.Key === id) e.Value.forEach(s => {
+            if (e.id === id) e.uris.forEach(s => {
                 result.push(this.imageUriController.getScreenshotUri(s));
             })
         })
