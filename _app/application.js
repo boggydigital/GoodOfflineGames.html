@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let productsController = new ProductsController(products);
     let productsDataController = new ProductsDataController(gameProductData);
     let accountProductsController = new ProductsController(accountProducts);
-    let gameDetailsController = new GameDetailsController(gamedetails);
+    let gameDetailsController = new GameDetailsController(gameDetails);
     let productFilesController = new ProductFilesController(productfiles);
     productsController.addProducts(accountProductsController.getAll());
     let wishlistController = new CollectionController(wishlisted);
